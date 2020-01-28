@@ -1,16 +1,16 @@
 <template>
-  <div>
+  <div class="editor-container">
     <div class="editor" contenteditable="true"
         v-on:keydown="onKeyDown"
         v-on:keyup="onKeyUp">
       This is some content.
     </div>
-    <Dropdown visible="false" />
+    <Dropdown v-bind:visible="showDropdown" v-bind:position="caretPosition" />
   </div>
 </template>
 
 <script>
-import { getCaretPosition } from '@/lib/position';
+import { getCaretPosition, Position } from '@/lib/position';
 import Dropdown from '@/components/Dropdown.vue';
 
 export default {
@@ -21,18 +21,30 @@ export default {
   props: {
     content: String,
   },
+  data() {
+    return {
+      caretPosition: new Position(0, 0),
+      showDropdown: false,
+    };
+  },
   methods: {
     onKeyDown() {
-      // const position = getCaretPosition(window.getSelection());
+      const boundingRect = this.$el.getBoundingClientRect();
+      const c = getCaretPosition(window.getSelection());
+
+      this.caretPosition = new Position(c.x, c.y - boundingRect.top);
     },
     onKeyUp() {
-      // const position = getCaretPosition(window.getSelection());
     },
   },
 };
 </script>
 
 <style scoped>
+.editor-container {
+  position: relative;
+}
+
 .editor {
   min-height: 3em;
   border: 1px solid lightgrey;

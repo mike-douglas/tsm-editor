@@ -1,6 +1,8 @@
 <template>
-  <div class="dropdown" v-bind:style="{ left: position.x, top: position.y }">
+  <div class="dropdown" v-bind:style="positionCSS">
     <ul>
+      <li>{{ position.x }}</li>
+      <li>{{ position.y }} </li>
       <li>Option 1</li>
       <li>Option 2</li>
       <li>Option 3</li>
@@ -10,6 +12,8 @@
 </template>
 
 <script>
+import { Position } from '@/lib/position';
+
 export default {
   name: 'Dropdown',
   props: {
@@ -19,7 +23,19 @@ export default {
     },
     position: {
       type: Object,
-      default: null,
+      default() {
+        return new Position(0, 0);
+      },
+    },
+  },
+  computed: {
+    positionCSS() {
+      return {
+        position: 'absolute',
+        left: `${this.position.x}px`,
+        top: `${this.position.y}px`,
+        visibility: this.visible ? 'visible' : 'hidden',
+      };
     },
   },
 };
@@ -27,7 +43,7 @@ export default {
 
 <style scoped>
 .dropdown {
-  position: relative;
+  position: absolute;
   background-color: #ccc;
   min-width: 20em;
   min-height: 4em;
