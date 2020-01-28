@@ -1,13 +1,30 @@
 <template>
   <div class="dropdown" v-bind:style="positionCSS">
     <ul>
-      <li>{{ position.x }}</li>
-      <li>{{ position.y }} </li>
-      <li>Option 1</li>
-      <li>Option 2</li>
-      <li>Option 3</li>
-      <li>Option 4</li>
+      <li v-for="(item, index) in symbols"
+          v-bind:key="item.name"
+          v-on:click="didChooseOption(item)"
+          v-bind:class="index == selectedIndex ? 'selected' : ''">
+        <span class="name">{{ item.name }}</span>
+        <span class="definition">{{ item.definition }}</span>
+      </li>
+      <li v-for="(item, index) in functions"
+          v-bind:key="item.name"
+          v-on:click="didChooseOption(item)"
+          v-bind:class="index == (selectedIndex + symbols.length) ? 'selected': ''">
+        <span class="name">{{ item.name }}</span>
+        (
+          <span class="argument"
+          v-for="(arg, i) in item.args"
+          v-bind:key="arg">
+            {{ arg }}
+            <span v-if="i == functions.length - 1">,</span>
+          </span>
+        )
+        <span class="definition">{{ item.definition }}</span>
+      </li>
     </ul>
+    <span class="position">{{ position.x }}, {{ position.y }}</span>
   </div>
 </template>
 
@@ -26,6 +43,27 @@ export default {
       default() {
         return new Position(0, 0);
       },
+    },
+    functions: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+    symbols: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+    onSelect: Function,
+    selectedIndex: Number,
+  },
+  methods: {
+    didChooseOption(item) {
+      if (this.onSelect) {
+        this.onSelect(item);
+      }
     },
   },
   computed: {
@@ -49,4 +87,9 @@ export default {
   min-height: 4em;
   padding: 1em;
 }
+
+li.selected {
+  font-weight: bold;
+}
+
 </style>
