@@ -47,7 +47,7 @@ export const functions = [
 ];
 
 export function findMatches(search) {
-  const regex = new RegExp(search, 'i');
+  const regex = new RegExp(search.replace('(', '\\(').replace(')', '\\)'), 'i');
 
   return {
     functions: functions.filter(f => regex.test(f.name)),

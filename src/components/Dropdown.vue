@@ -4,15 +4,15 @@
       <li v-for="(item, index) in symbols"
           v-bind:key="item.name"
           v-on:click="didChooseOption(item)"
-          v-bind:class="index == selectedIndex ? 'selected' : ''">
-        <span class="name">{{ item.name }}</span>
+          v-bind:class="index === selectedIndex ? 'selected' : ''">
+        <span class="name">{{ index }}: {{ item.name }}</span>
         <span class="definition">{{ item.definition }}</span>
       </li>
       <li v-for="(item, index) in functions"
           v-bind:key="item.name"
           v-on:click="didChooseOption(item)"
-          v-bind:class="index == (selectedIndex + symbols.length) ? 'selected': ''">
-        <span class="name">{{ item.name }}</span>
+          v-bind:class="(index + symbols.length) === selectedIndex ? 'selected': ''">
+        <span class="name">{{ index + symbols.length }} {{ item.name }}</span>
         (
           <span class="argument"
           v-for="(arg, i) in item.args"
@@ -24,7 +24,8 @@
         <span class="definition">{{ item.definition }}</span>
       </li>
     </ul>
-    <span class="position">{{ position.x }}, {{ position.y }}</span>
+    <div>Selected Option: {{ selectedIndex }}</div>
+    <div class="position">Position: {{ position.x }}, {{ position.y }}</div>
   </div>
 </template>
 

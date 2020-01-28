@@ -40,6 +40,7 @@ export default {
       symbols: [],
       functions: [],
       selectedIndex: 0,
+      dropdownEnabled: false,
     };
   },
   computed: {
@@ -49,47 +50,66 @@ export default {
   },
   methods: {
     onKeyDown(event) {
+      if (!this.dropdownEnabled) {
+        return true;
+      }
+
       const boundingRect = this.$el.getBoundingClientRect();
       const c = getCaretPosition(window.getSelection());
 
       this.caretPosition = new Position(c.x, c.y - boundingRect.top);
 
-      const KEY_UP = 38;
-      const KEY_DOWN = 40;
-      const KEY_ESCAPE = 27;
+      if (this.showDropdown) {
+        const KEY_UP = 38;
+        const KEY_DOWN = 40;
+        const KEY_ESCAPE = 27;
+        const KEY_ENTER = 13;
 
-      switch (event.keyCode) {
-        case KEY_UP:
-          this.selectedIndex = Math.max(0, this.selectedIndex - 1);
-          break;
+        switch (event.keyCode) {
+          case KEY_UP:
+            this.selectedIndex -= 1;
+            break;
 
-        case KEY_DOWN:
-          this.selectedIndex = Math.min(
-            this.functions.length + this.symbols.length - 1,
-            this.selectedIndex + 1,
-          );
-          break;
+          case KEY_DOWN:
+            this.selectedIndex += 1;
+            break;
 
-        case KEY_ESCAPE:
-          this.selectedIndex = 0;
-          this.functions = [];
-          this.symbols = [];
-          break;
+          case KEY_ESCAPE:
+            this.selectedIndex = 0;
+            this.functions = [];
+            this.symbols = [];
+            break;
 
-        default:
-          break;
-      }
+          case KEY_ENTER:
+            this.onSelect(this.symbols.concat(this.functions)[this.selectedIndex]);
+            break;
 
-      if (event.keyCode === KEY_UP || event.keyCode === KEY_DOWN) {
-        event.preventDefault();
-        event.stopPropagation();
+          default:
+            break;
+        }
 
-        return false;
+        this.selectedIndex = Math.min(
+          this.functions.length + this.symbols.length - 1,
+          Math.max(0, this.selectedIndex),
+        );
+
+        if (event.keyCode === KEY_UP
+            || event.keyCode === KEY_DOWN
+            || event.keyCode === KEY_ENTER) {
+          event.preventDefault();
+          event.stopPropagation();
+
+          return false;
+        }
       }
 
       return true;
     },
     onKeyUp(event) {
+      if (!this.dropdownEnabled) {
+        return true;
+      }
+
       const currentValue = event.target.innerText;
 
       // Todo: Stop if ESCAPE, UP, DOWN, etc.
@@ -104,14 +124,26 @@ export default {
           this.functions = results.functions;
         }
       }
+
+      return true;
     },
     onBlur() {
+      if (!this.dropdownEnabled) {
+        return;
+      }
+
       this.symbols = [];
       this.functions = [];
+      this.selectedIndex = 0;
     },
     onSelect(item) {
+      if (!this.dropdownEnabled) {
+        return;
+      }
+
       this.symbols = [];
       this.functions = [];
+      this.selectedIndex = 0;
       this.content += item.name;
     },
   },
