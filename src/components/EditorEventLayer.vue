@@ -221,4 +221,20 @@ export default {
 .ide >>> .symbol {
   color: green;
 }
+
+.ide >>> .function {
+  color: purple;
+}
+
+.ide >>> .parens {
+  color: orange;
+}
+
+.ide >>> .maths {
+  color: blue;
+}
+
+.ide >>> .currency {
+  color: orange;
+}
 </style>
