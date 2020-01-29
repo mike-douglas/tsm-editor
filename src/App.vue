@@ -1,7 +1,7 @@
 <template>
   <div id="app" :style="styles">
     <section id="editor" class="panel">
-      <h1>Formula Editor</h1>
+      <h1>Formula Editor <Icon /></h1>
       <p>
         Use the boxes below to write a TSM price formula.
       </p>
@@ -18,12 +18,14 @@ import styles from '@/lib/styles';
 
 import Editor from './components/Editor.vue';
 import CommandReference from './components/CommandReference.vue';
+import Icon from '@/components/Icon.vue';
 
 export default {
   name: 'app',
   components: {
     Editor,
     CommandReference,
+    Icon,
   },
   data() {
     return {
