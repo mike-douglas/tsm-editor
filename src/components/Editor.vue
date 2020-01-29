@@ -1,6 +1,6 @@
 <template>
   <div class="editor-container">
-    <div class="editor" contenteditable="true"
+    <div class="editor" ref="editor" contenteditable="true"
         v-on:keydown="onKeyDown"
         v-on:keyup="onKeyUp"
         v-on:blur="onBlur"
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { getCaretPosition, Position } from '@/lib/position';
+import { getCaretPosition, setCaretPosition, Position } from '@/lib/position';
 import { tokenizeByWord } from '@/lib/tokenizer';
 import { findMatches } from '@/lib/definitions';
 
@@ -29,7 +29,7 @@ export default {
     Dropdown,
   },
   props: {
-    content: {
+    initialContent: {
       default: 'Hello',
       type: String,
     },
@@ -40,7 +40,8 @@ export default {
       symbols: [],
       functions: [],
       selectedIndex: 0,
-      dropdownEnabled: false,
+      dropdownEnabled: true,
+      content: this.initialContent,
     };
   },
   computed: {
@@ -88,6 +89,7 @@ export default {
             break;
         }
 
+        // Bound the selection by 0 - [# functions + # symbols] in the list
         this.selectedIndex = Math.min(
           this.functions.length + this.symbols.length - 1,
           Math.max(0, this.selectedIndex),
@@ -128,13 +130,6 @@ export default {
       return true;
     },
     onBlur() {
-      if (!this.dropdownEnabled) {
-        return;
-      }
-
-      this.symbols = [];
-      this.functions = [];
-      this.selectedIndex = 0;
     },
     onSelect(item) {
       if (!this.dropdownEnabled) {
@@ -144,7 +139,18 @@ export default {
       this.symbols = [];
       this.functions = [];
       this.selectedIndex = 0;
-      this.content += item.name;
+      this.content += ` ${item.name}`;
+
+      this.$nextTick(() => {
+        const { childNodes } = this.$refs.editor;
+        const lastLineNode = childNodes[childNodes.length - 1];
+
+        setCaretPosition(
+          window.getSelection(),
+          lastLineNode,
+          lastLineNode.textContent.length,
+        );
+      });
     },
   },
 };

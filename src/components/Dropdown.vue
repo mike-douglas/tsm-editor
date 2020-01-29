@@ -2,14 +2,14 @@
   <div class="dropdown" v-bind:style="positionCSS">
     <ul>
       <li v-for="(item, index) in symbols"
-          v-bind:key="item.name"
+          v-bind:key="'symbol' + index"
           v-on:click="didChooseOption(item)"
           v-bind:class="index === selectedIndex ? 'selected' : ''">
         <span class="name">{{ index }}: {{ item.name }}</span>
         <span class="definition">{{ item.definition }}</span>
       </li>
       <li v-for="(item, index) in functions"
-          v-bind:key="item.name"
+          v-bind:key="'function' + index"
           v-on:click="didChooseOption(item)"
           v-bind:class="(index + symbols.length) === selectedIndex ? 'selected': ''">
         <span class="name">{{ index + symbols.length }} {{ item.name }}</span>

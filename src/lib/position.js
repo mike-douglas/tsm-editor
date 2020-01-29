@@ -51,3 +51,20 @@ export function getCaretPosition(selection) {
 
   return new Position(rect.x, rect.y + rect.height);
 }
+
+/**
+ * Sets the current selection range to the line, position within the editor.
+ *
+ * @param {selection} selection The current selection range
+ * @param {DOMNode} lineNode The DOMNode representing the line in the editable block
+ * @param {int} position The position of the character
+ */
+export function setCaretPosition(selection, lineNode, position) {
+  const range = document.createRange();
+
+  range.setStart(lineNode, position);
+  range.collapse(true);
+
+  selection.removeAllRanges();
+  selection.addRange(range);
+}

@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <Editor />
+    <CommandReference />
   </div>
 </template>
 
 <script>
 import Editor from './components/Editor.vue';
+import CommandReference from './components/CommandReference.vue';
 
 export default {
   name: 'app',
   components: {
     Editor,
+    CommandReference,
   },
 };
 </script>
