@@ -242,4 +242,8 @@ export default {
 .ide >>> .currency {
   color: orange;
 }
+
+.ide >>> .item {
+  color: red;
+}
 </style>

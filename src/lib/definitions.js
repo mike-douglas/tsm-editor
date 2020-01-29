@@ -47,7 +47,13 @@ export const functions = [
 ];
 
 export function findMatches(search) {
-  const regex = new RegExp(search.replace('(', '\\(').replace(')', '\\)'), 'i');
+  const regex = new RegExp(
+    search.replace('(', '\\(')
+      .replace(')', '\\)')
+      .replace('[', '\\[')
+      .replace(']', '\\]'),
+    'i',
+  );
 
   return {
     functions: functions.filter(f => regex.test(f.name)),
