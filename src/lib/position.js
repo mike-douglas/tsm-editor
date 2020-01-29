@@ -68,3 +68,7 @@ export function setCaretPosition(selection, lineNode, position) {
   selection.removeAllRanges();
   selection.addRange(range);
 }
+
+export function replaceTextInRange(text, replacement, range) {
+  return text.substring(0, range.startOffset) + replacement + text.substring(range.endOffset);
+}

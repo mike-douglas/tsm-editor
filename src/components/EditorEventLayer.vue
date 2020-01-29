@@ -22,7 +22,9 @@
 </template>
 
 <script>
-import { setCaretPosition, getCaretPosition, Position } from '@/lib/position';
+import {
+  setCaretPosition, getCaretPosition, replaceTextInRange, Position,
+} from '@/lib/position';
 import { tokenizeByWord } from '@/lib/tokenizer';
 import { findMatches } from '@/lib/definitions';
 import keys, { isControlKey } from '@/lib/keys';
@@ -50,6 +52,7 @@ export default {
       dropdownSelectedIndex: 0,
       dropdownFunctionResults: [],
       dropdownSymbolResults: [],
+      dropdownSearchTerm: '',
     };
   },
   computed: {
@@ -97,10 +100,12 @@ export default {
 
       const currentValue = event.target.innerText;
 
+      // TODO: Get word at current position instead of end of string
+
       if (currentValue && currentValue.length > 2) {
         const words = tokenizeByWord(currentValue);
 
-        if (words.length > 0 && words[words.length - 1].length > 2) {
+        if (words.length > 0 && words[words.length - 1].length > 3) {
           this.performWordLookup(this.getCurrentCaretPosition(), words[words.length - 1]);
         }
       }
@@ -121,6 +126,7 @@ export default {
       this.dropdownPosition = new Position(position.x, position.y - bounds.top);
       this.dropdownFunctionResults = functions;
       this.dropdownSymbolResults = symbols;
+      this.dropdownSearchTerm = text;
     },
     onNavigationKeyPress(keyCode) {
       let selectedIndex = this.dropdownSelectedIndex;
@@ -140,6 +146,7 @@ export default {
           break;
 
         case keys.KEY_ENTER:
+        case keys.KEY_TAB:
           this.onSelect(this.dropdownCombinedResults[selectedIndex]);
           break;
 
@@ -153,22 +160,27 @@ export default {
       );
     },
     onSelect(item) {
-      this.content = `${this.$refs.editor.innerText} ${item.name}`;
-      this.rawContent = this.content;
-      this.$refs.editor.innerText = this.content;
+      if (window.getSelection().rangeCount > 0) {
+        const range = window.getSelection().getRangeAt(0);
+        range.setStart(range.startContainer, range.startOffset - this.dropdownSearchTerm.length);
+        this.content = replaceTextInRange(this.$refs.editor.innerText, item.name, range);
 
-      this.$nextTick(() => {
-        const { childNodes } = this.$refs.editor;
-        const lastLineNode = childNodes[childNodes.length - 1];
+        this.rawContent = this.content;
+        this.$refs.editor.innerText = this.content;
 
-        setCaretPosition(
-          window.getSelection(),
-          lastLineNode,
-          lastLineNode.textContent.length,
-        );
+        this.$nextTick(() => {
+          const { childNodes } = this.$refs.editor;
+          const lastLineNode = childNodes[childNodes.length - 1];
 
-        this.hideDropdown();
-      });
+          setCaretPosition(
+            window.getSelection(),
+            lastLineNode,
+            lastLineNode.textContent.length,
+          );
+
+          this.hideDropdown();
+        });
+      }
     },
   },
 };
