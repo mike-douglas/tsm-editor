@@ -54,7 +54,7 @@ export function findMatches(search) {
       .replace(')', '\\)')
       .replace('[', '\\[')
       .replace(']', '\\]'),
-    'i',
+    'ig',
   );
 
   return {

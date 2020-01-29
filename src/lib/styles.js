@@ -4,7 +4,7 @@ const fonts = {
 };
 
 const sizes = {
-  '--size-normal': '1.3em',
+  '--size-normal': '1.25em',
   '--size-large': '1.8em',
   '--size-medium': '1.6em',
   '--size-small': '0.9em',
@@ -13,6 +13,7 @@ const sizes = {
 
   '--padding': '0.5em',
   '--padding-large': '1.0em',
+  '--padding-extralarge': '1.5em',
   '--padding-normal': '0.5em',
   '--padding-small': '0.25em',
 };

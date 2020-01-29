@@ -44,6 +44,6 @@ export default {
 
 .definition {
   font-size: var(--size-small);
-  margin: var(--padding-small) 0 var(--padding-large) 0;
+  margin: var(--padding-small) 0 var(--padding-extralarge) 0;
 }
 </style>

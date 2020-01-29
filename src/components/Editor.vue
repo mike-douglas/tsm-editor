@@ -15,7 +15,7 @@ export default {
   },
   data() {
     return {
-      content: 'Sample Content',
+      content: 'DBMarket + max(convert(DBMinBuyout, item:79251), 200g30s10c)',
     };
   },
 };

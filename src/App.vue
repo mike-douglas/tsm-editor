@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :style="styles" class="flex-panel-row">
+  <div id="app" :style="styles">
     <section id="editor" class="panel">
       <h1>Formula Editor</h1>
       <p>
@@ -41,10 +41,16 @@ body {
 #app {
   margin: 0;
   padding: 0;
+  width: 100%;
   font-family: var(--page-font);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--text-normal);
+}
+
+h1, h2, h3 {
+  margin: 0 0 var(--padding-normal) 0;
+  padding: 0;
 }
 
 h1 {
@@ -55,6 +61,11 @@ h2 {
   font-size: var(--size-medium);
 }
 
+h3 {
+  font-size: var(--size-normal);
+  color: var(--text-faded);
+}
+
 .panel {
   padding: var(--padding);
 }
@@ -63,12 +74,8 @@ h2 {
   color: rgb(115, 209, 248);
 }
 
-.function {
+.function, .parens {
   color: rgb(0, 191, 161);
-}
-
-.parens {
-  color: orange;
 }
 
 .maths {
@@ -93,18 +100,7 @@ h2 {
 </style>
 
 <style scoped>
-#editor {
-  flex-grow: 1;
-}
-
 #reference {
-  flex-grow: 0;
-  flex-shrink: 0;
-  flex-basis: 15em;
-}
-
-.flex-panel-row {
-  display: flex;
-  flex-direction: row;
+  margin-top: var(--padding-large);
 }
 </style>

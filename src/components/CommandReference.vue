@@ -1,22 +1,26 @@
 <template>
   <div class="reference">
-    <section>
-      <h2>Functions</h2>
-      <FunctionReference
-        v-for="(func, index) in functions"
-        v-bind:key="'function' + index"
-        v-bind:item="func" />
+    <section class="functions">
+      <h3>Functions</h3>
+      <section class="sub-panel">
+        <FunctionReference class="function-row"
+          v-for="(func, index) in functions"
+          v-bind:key="'function' + index"
+          v-bind:item="func" />
+      </section>
     </section>
-    <section>
-      <h2>Symbols</h2>
-      <SymbolReference
-        v-for="(symbol, index) in specialFeatures"
-        v-bind:key="'feat' + index"
-        v-bind:item="symbol" />
-      <SymbolReference
-        v-for="(symbol, index) in symbols"
-        v-bind:key="'symbol' + index"
-        v-bind:item="symbol" />
+    <section class="symbols">
+      <h3>Symbols</h3>
+      <section class="sub-panel">
+        <SymbolReference class="symbol-row"
+          v-for="(symbol, index) in specialFeatures"
+          v-bind:key="'feat' + index"
+          v-bind:item="symbol" />
+        <SymbolReference class="symbol-row"
+          v-for="(symbol, index) in symbols"
+          v-bind:key="'symbol' + index"
+          v-bind:item="symbol" />
+      </section>
     </section>
   </div>
 </template>
@@ -44,4 +48,29 @@ export default {
 </script>
 
 <style scoped>
+.functions {
+  flex-grow: 1;
+  flex-basis: 30%;
+}
+
+.symbols {
+  flex-grow: 1;
+  flex-basis: 70%;
+}
+
+.sub-panel {
+  flex-direction: row;
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.function-row {
+  flex-basis: 50%;
+}
+
+.symbol-row {
+  flex-basis: 25%;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
 </style>

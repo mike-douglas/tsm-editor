@@ -17,7 +17,7 @@ export default function stylizeString(string) {
   });
 
   ['(', ')'].forEach((v) => {
-    replacedString = replacedString.replace(v, span(['parents'], v));
+    replacedString = replacedString.replace(v, span(['parens'], v));
   });
 
   symbols.forEach((symbol) => {
