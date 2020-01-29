@@ -10,6 +10,9 @@
     <section id="reference" class="panel">
       <CommandReference />
     </section>
+    <footer>
+      Made with ❤️ by trenchy
+    </footer>
   </div>
 </template>
 
@@ -106,5 +109,12 @@ h3 {
 <style scoped>
 #reference {
   margin-top: var(--padding-large);
+  max-width: 60em;
+}
+
+footer {
+  font-size: var(--size-small);
+  color: rgba(255, 255, 255, 0.2);
+  text-align: center;
 }
 </style>
