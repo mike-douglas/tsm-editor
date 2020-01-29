@@ -16,27 +16,24 @@ class TSMKeyword {
 export const symbols = [
   new TSMKeyword('DBGlobalHistorical', 'Global Historical Price'),
   new TSMKeyword('DBGlobalMarketAvg', 'Global Market Value Average'),
+  new TSMKeyword('DBGlobalMinBuyoutAvg', 'Global Minimum Buyout Average'),
+  new TSMKeyword('DBGlobalSaleAvg', 'Global Sale Average'),
+  new TSMKeyword('DBHistorical', 'Historical Price'),
+  new TSMKeyword('DBMarket', 'Market Value'),
+  new TSMKeyword('DBMinBuyout', 'Minimum Buyout'),
+  new TSMKeyword('DBRegionHistorical', 'Region Historical Price'),
+  new TSMKeyword('DBRegionMarketAvg', 'Region Market Value Average'),
+  new TSMKeyword('DBRegionMinBuyoutAvg', 'Region Minimum Buyout Average'),
+  new TSMKeyword('DBRegionSaleAvg', 'Region Sale Average'),
   new TSMKeyword('Crafting', 'Crafting Cost'),
-  new TSMKeyword('avgBuy', 'Avg Buy Price'),
-  new TSMKeyword('avgSell', 'Avg Sell Price'),
-  new TSMKeyword('Crafting', 'Crafting Cost'),
-  new TSMKeyword('DBGlobalHistorical', 'AuctionDB - Global Historical Price'),
-  new TSMKeyword('DBGlobalMarketAvg', 'AuctionDB - Global Market Value Average'),
-  new TSMKeyword('DBGlobalMinBuyoutAvg', 'AuctionDB - Global Minimum Buyout Average'),
-  new TSMKeyword('DBGlobalSaleAvg', 'AuctionDB - Global Sale Average'),
-  new TSMKeyword('DBHistorical', 'AuctionDB - Historical Price'),
-  new TSMKeyword('DBMarket', 'AuctionDB - Market Value'),
-  new TSMKeyword('DBMinBuyout', 'AuctionDB - Minimum Buyout'),
-  new TSMKeyword('DBRegionHistorical', 'AuctionDB - Region Historical Price'),
-  new TSMKeyword('DBRegionMarketAvg', 'AuctionDB - Region Market Value Average'),
-  new TSMKeyword('DBRegionMinBuyoutAvg', 'AuctionDB - Region Minimum Buyout Average'),
-  new TSMKeyword('DBRegionSaleAvg', 'AuctionDB - Region Sale Average'),
   new TSMKeyword('Destroy', 'Destroy Value'),
+  new TSMKeyword('VendorBuy', 'Buy from Vendor'),
+  new TSMKeyword('VendorSell', 'Sell to Vendor'),
+  new TSMKeyword('avgBuy', 'Average Buy Price'),
+  new TSMKeyword('avgSell', 'Average Sell Price'),
   new TSMKeyword('matPrice', 'Crafting Material Cost'),
   new TSMKeyword('maxBuy', 'Max Buy Price'),
   new TSMKeyword('maxSell', 'Max Sell Price'),
-  new TSMKeyword('VendorBuy', 'Buy from Vendor'),
-  new TSMKeyword('VendorSell', 'Sell to Vendor'),
 ];
 
 export const functions = [
@@ -44,6 +41,11 @@ export const functions = [
   new TSMFunction('max', ['a', 'b'], 'Returns the numerical maximum between a and b'),
   new TSMFunction('first', ['n..'], 'Returns the first valid price in the list'),
   new TSMFunction('check', ['n', 'b', 'c'], 'If the first parameter is greater than 0, return the second parameter. Otherwise, return the third parameter.'),
+];
+
+export const specialFeatures = [
+  new TSMKeyword('[Item Name]', 'Reference an item by name.'),
+  new TSMKeyword('item:ID', 'Reference an item by ID.'),
 ];
 
 export function findMatches(search) {

@@ -1,5 +1,5 @@
 <template>
-  <section class="editor-space" v-bind:style="{ height: containerHeight + 'px' }">
+  <section class="editor-space" v-bind:style="{ ...styles, height: containerHeight + 'px' }">
     <div class="editor-renderer">
       <span class="ide" v-html="renderedContent"></span>
     </div>
@@ -30,6 +30,7 @@ import { tokenizeByWord } from '@/lib/tokenizer';
 import { findMatches } from '@/lib/definitions';
 import keys, { isControlKey } from '@/lib/keys';
 import stylizeString from '@/lib/stylizer';
+import styles from '@/lib/styles';
 
 import Dropdown from '@/components/Dropdown.vue';
 
@@ -46,6 +47,7 @@ export default {
   },
   data() {
     return {
+      styles,
       content: this.initialContent,
       rawContent: this.initialContent,
       containerHeight: 100,
@@ -194,10 +196,11 @@ export default {
 <style scoped>
 .editor-space {
   position: relative;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 1.3em;
+  font-family: var(--panel-font);
+  font-size: var(--size-normal);
   font-weight: bold;
-  border: 1px solid lightgrey;
+  border: var(--panel-border) solid var(--panel-border-color);
+  background-color: var(--panel-bg);
 }
 
 .dropdown {
@@ -206,7 +209,7 @@ export default {
 
 .editor-renderer, .editor-event {
   position: absolute;
-  padding: 0.5em;
+  padding: var(--padding);
   top: 0em;
   left: 0em;
   bottom: 0em;
@@ -220,30 +223,6 @@ export default {
 .editor-event {
   z-index: 2;
   color: transparent;
-  caret-color: black;
-}
-
-.ide >>> .symbol {
-  color: green;
-}
-
-.ide >>> .function {
-  color: purple;
-}
-
-.ide >>> .parens {
-  color: orange;
-}
-
-.ide >>> .maths {
-  color: blue;
-}
-
-.ide >>> .currency {
-  color: orange;
-}
-
-.ide >>> .item {
-  color: red;
+  caret-color: var(--text-normal);
 }
 </style>

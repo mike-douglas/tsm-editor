@@ -1,13 +1,13 @@
 import { symbols, functions } from '@/lib/definitions';
 
-const span = (classes, innerText) => `<span class="${classes.join(' ')}">${innerText}</span>`;
+const span = (classes, innerText) => `<span class="token ${classes.join(' ')}">${innerText}</span>`;
 
 const REG_GOLD = /(\d+g)/g;
 const REG_SILVER = /(\d+s)/g;
 const REG_COPPER = /(\d+c)/g;
 
 const REG_ITEM_BRACKET = /(\[.+\])/g;
-const REG_ITEM_NUMERIC = /(item:\d+)/g;
+const REG_ITEM_NUMERIC = /(item:(\d+|ID))/g;
 
 export default function stylizeString(string) {
   let replacedString = string;
