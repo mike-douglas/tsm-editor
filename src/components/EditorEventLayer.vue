@@ -18,6 +18,9 @@
         v-bind:functions="dropdownFunctionResults"
         v-bind:on-select="onSelect"
         v-bind:selected-index="dropdownSelectedIndex" />
+    <div class="pannel debug-panel" v-show="debug">
+      {{ renderedContent }}
+    </div>
   </section>
 </template>
 
@@ -48,6 +51,7 @@ export default {
   data() {
     return {
       styles,
+      debug: false,
       content: this.initialContent,
       rawContent: this.initialContent,
       containerHeight: 100,
@@ -224,5 +228,15 @@ export default {
   z-index: 2;
   color: transparent;
   caret-color: var(--text-normal);
+}
+
+.debug-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  min-height: 100px;
+  font-size: 0.8em;
 }
 </style>

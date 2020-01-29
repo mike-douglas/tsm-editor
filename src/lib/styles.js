@@ -9,7 +9,7 @@ const sizes = {
   '--size-medium': '1.6em',
   '--size-small': '0.9em',
 
-  '--panel-border': '1px',
+  '--panel-border': '3px',
 
   '--padding': '0.5em',
   '--padding-large': '1.0em',
@@ -21,7 +21,7 @@ const sizes = {
 const colors = {
   '--panel-bg': 'rgb(33, 33, 34)',
 
-  '--panel-border-color': 'transparent',
+  '--panel-border-color': 'rgb(20, 40, 73)',
 
   '--text-normal': 'rgb(240, 240, 240)',
   '--text-faded': 'rgb(140, 140, 140)',

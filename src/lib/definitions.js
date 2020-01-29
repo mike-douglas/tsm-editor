@@ -50,10 +50,10 @@ export const specialFeatures = [
 
 export function findMatches(search) {
   const regex = new RegExp(
-    search.replace('(', '\\(')
-      .replace(')', '\\)')
-      .replace('[', '\\[')
-      .replace(']', '\\]'),
+    search.replace(/\(/g, '\\(')
+      .replace(/\)/g, '\\)')
+      .replace(/\[/g, '\\[')
+      .replace(/\]/g, '\\]'),
     'ig',
   );
 

@@ -1,7 +1,6 @@
 <template>
   <div :style="styles">
-    <span class="name" v-html="stylizeString(item.name)"></span>
-    <span class="arguments">({{ item.args.join(' ,') }})</span>
+    <span class="name" v-html="stylizeString(`${item.name}(${item.args.join(', ')})`)"></span>
     <p class="definition">
       {{ item.definition }}
     </p>
@@ -30,10 +29,6 @@ export default {
 
 <style scoped>
 .name {
-  display: inline-block;
-}
-
-.arguments {
   color: var(--text-faded);
 }
 

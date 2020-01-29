@@ -9,24 +9,35 @@ const REG_COPPER = /(\d+c)/g;
 const REG_ITEM_BRACKET = /(\[.+\])/g;
 const REG_ITEM_NUMERIC = /(item:(\d+|ID))/g;
 
+const REG_LPAREN = /\(/g;
+const REG_RPAREN = /\)/g;
+
+const REG_REPLACEMENTS = [
+  [/\//g, '/'],
+  [/-/g, '-'],
+  [/\*/g, '*'],
+  [/\+/g, '+'],
+  [/%/g, '%'],
+];
+
 export default function stylizeString(string) {
   let replacedString = string;
 
-  ['/', '-', '*', '+', '%'].forEach((n) => {
-    replacedString = replacedString.replace(n, span(['maths'], n));
+  REG_REPLACEMENTS.forEach((n) => {
+    const [reg, replace] = n;
+    replacedString = replacedString.replace(reg, span(['maths'], replace));
   });
 
-  ['(', ')'].forEach((v) => {
-    replacedString = replacedString.replace(v, span(['parens'], v));
+  functions.forEach((func) => {
+    replacedString = replacedString.replace(new RegExp(`${func.name}\\s?\\(`, 'g'), span(['function'], `${func.name}(`));
   });
 
   symbols.forEach((symbol) => {
     replacedString = replacedString.replace(symbol.name, span(['symbol'], symbol.name));
   });
 
-  functions.forEach((func) => {
-    replacedString = replacedString.replace(func.name, span(['function'], func.name));
-  });
+  replacedString = replacedString.replace(REG_LPAREN, span(['parens'], '('));
+  replacedString = replacedString.replace(REG_RPAREN, span(['parens'], ')'));
 
   const cspan = c => ((_match, p1) => span(['currency', c], p1));
 
