@@ -94,7 +94,7 @@ export default {
   font-size: var(--size-extrasmall);
   font-family: var(--page-font);
   border: 1px solid var(--float-border-color);
-  box-shadow: 1px 1px 4px var(--page-bg);
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
 }
 
 .dropdown ul {

@@ -17,27 +17,29 @@ const sizes = {
 
   '--padding': '0.5em',
   '--padding-large': '1.0em',
-  '--padding-extralarge': '1.5em',
-  '--padding-normal': '0.5em',
+  '--padding-extralarge': '1.75em',
+  '--padding-normal': '0.75em',
   '--padding-small': '0.25em',
 };
 
+// https://coolors.co/2a363b-e84a5f-ff847c-33658a-86bbd8
 const colors = {
-  '--page-bg': 'rgb(28, 28, 28)',
-  '--panel-bg': 'rgb(33, 33, 34)',
+  '--page-bg': '#2A363B',
+  '--panel-bg': 'rgba(0, 0, 0, 0.1)',
 
-  '--float-bg-hover': 'rgba(20, 40, 73, 0.2)',
-  '--float-bg': 'rgba(28, 28, 28, 0.95)',
+  '--float-bg-hover': '#33658A',
+  '--float-bg': '#1F282B',
 
-  '--float-border-color': 'rgba(255, 255, 255, 0.01)',
+  '--float-border-color': '#214158',
+  '--panel-border-color': '#33658A',
+  '--sep-border-color': '#2F5C7E',
 
-  '--panel-border-color': 'rgb(20, 40, 73)',
-
-  '--sep-border-color': 'rgba(20, 40, 73, 0.4)',
-
-  '--text-normal': 'rgb(240, 240, 240)',
-  '--text-faded': 'rgb(140, 140, 140)',
-  '--text-error': 'red',
+  '--text-normal': '#FFF3F3',
+  '--text-faded': '#D8DADB',
+  '--text-error': '#E84A5F',
+  '--link-light': '#86BBD8',
+  '--link-loud': '#86BBD8',
+  '--link-mid': '#FF847C',
 };
 
 export default { ...fonts, ...colors, ...sizes };
