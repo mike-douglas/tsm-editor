@@ -23,7 +23,8 @@
 
 <script>
 import {
-  setCaretPosition, getCaretPosition, replaceTextInRange, Position,
+  setCaretRange, getCaretPosition, getCurrentCaretRange,
+  replaceTextInRange, Position,
 } from '@/lib/position';
 import { tokenizeByWord } from '@/lib/tokenizer';
 import { findMatches } from '@/lib/definitions';
@@ -71,7 +72,7 @@ export default {
   },
   methods: {
     getCurrentCaretPosition() {
-      const caret = getCaretPosition(window.getSelection());
+      const caret = getCaretPosition();
 
       return new Position(caret.x, caret.y);
     },
@@ -98,15 +99,17 @@ export default {
         return false;
       }
 
-      const currentValue = event.target.innerText;
+      const caret = getCurrentCaretRange();
 
-      // TODO: Get word at current position instead of end of string
+      if (caret) {
+        const currentValue = event.target.innerText.substr(0, caret.startOffset);
 
-      if (currentValue && currentValue.length > 2) {
-        const words = tokenizeByWord(currentValue);
+        if (currentValue && currentValue.length > 2) {
+          const words = tokenizeByWord(currentValue);
 
-        if (words.length > 0 && words[words.length - 1].length > 3) {
-          this.performWordLookup(this.getCurrentCaretPosition(), words[words.length - 1]);
+          if (words.length > 0 && words[words.length - 1].length > 3) {
+            this.performWordLookup(this.getCurrentCaretPosition(), words[words.length - 1]);
+          }
         }
       }
 
@@ -160,10 +163,14 @@ export default {
       );
     },
     onSelect(item) {
-      if (window.getSelection().rangeCount > 0) {
-        const range = window.getSelection().getRangeAt(0);
-        range.setStart(range.startContainer, range.startOffset - this.dropdownSearchTerm.length);
-        this.content = replaceTextInRange(this.$refs.editor.innerText, item.name, range);
+      const caret = getCurrentCaretRange();
+
+      if (caret) {
+        caret.setStart(caret.startContainer, caret.startOffset - this.dropdownSearchTerm.length);
+
+        const rangeStart = caret.startOffset;
+
+        this.content = replaceTextInRange(this.$refs.editor.innerText, item.name, caret);
 
         this.rawContent = this.content;
         this.$refs.editor.innerText = this.content;
@@ -172,12 +179,10 @@ export default {
           const { childNodes } = this.$refs.editor;
           const lastLineNode = childNodes[childNodes.length - 1];
 
-          setCaretPosition(
-            window.getSelection(),
-            lastLineNode,
-            lastLineNode.textContent.length,
-          );
+          const newCaret = document.createRange();
+          newCaret.setStart(lastLineNode, rangeStart + item.name.length);
 
+          setCaretRange(newCaret);
           this.hideDropdown();
         });
       }

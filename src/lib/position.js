@@ -16,6 +16,21 @@ export class Rect {
 }
 
 /**
+ * Return the range representing the caret.
+ *
+ * If the selection is not collapsed (size > 0), return null.
+ */
+export function getCurrentCaretRange() {
+  const sel = window.getSelection();
+
+  if (sel.rangeCount > 0 && sel.getRangeAt(0).collapsed === true) {
+    return sel.getRangeAt(0);
+  }
+
+  return null;
+}
+
+/**
  * Returns a zero-width rectangle representing the caret in a text selection.
  *
  * @param {selection} selection
@@ -44,10 +59,9 @@ export function getCaretRect(selection) {
 /**
  * Return the caret position in a text selection or text entry.
  *
- * @param {selection} selection
  */
-export function getCaretPosition(selection) {
-  const rect = getCaretRect(selection);
+export function getCaretPosition() {
+  const rect = getCaretRect(window.getSelection());
 
   return new Position(rect.x, rect.y + rect.height);
 }
@@ -55,20 +69,24 @@ export function getCaretPosition(selection) {
 /**
  * Sets the current selection range to the line, position within the editor.
  *
- * @param {selection} selection The current selection range
- * @param {DOMNode} lineNode The DOMNode representing the line in the editable block
- * @param {int} position The position of the character
+ * @param {TextRange} newCaret The new caret to set
  */
-export function setCaretPosition(selection, lineNode, position) {
-  const range = document.createRange();
+export function setCaretRange(newCaret) {
+  newCaret.collapse(true);
 
-  range.setStart(lineNode, position);
-  range.collapse(true);
+  const selection = window.getSelection();
 
   selection.removeAllRanges();
-  selection.addRange(range);
+  selection.addRange(newCaret);
 }
 
+/**
+ * Replace a range in the string with a new substring and return it.
+ *
+ * @param {string} text The string to make a replacement in
+ * @param {string} replacement The replacement string
+ * @param {TextRange} range The range where the replacement will occur
+ */
 export function replaceTextInRange(text, replacement, range) {
   return text.substring(0, range.startOffset) + replacement + text.substring(range.endOffset);
 }
