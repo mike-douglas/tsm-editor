@@ -1,5 +1,5 @@
 <template>
-  <img src="@/assets/icons/nope.svg" class="icon">
+  <i :class="`icon ${name}`"></i>
 </template>
 
 <script>
@@ -14,18 +14,72 @@ export default {
 };
 </script>
 
-<style scoped>
-.icon {
-  display: inline-block;
-  width: 1.0em;
-  height: 1.0em;
-  filter: invert(1);
+<style>
+@font-face {
+  font-family: 'Batch';
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: local('Batch'), url('~@/assets/fonts/batch-icons-webfont.woff') format('woff'),
+       url('~@/assets/fonts/batch-icons-webfont.eot?#iefix') format('embedded-opentype'),
+       url('~@/assets/fonts/batch-icons-webfont.ttf') format('truetype'),
+       url('~@/assets/fonts/batch-icons-webfont.svg#batchregular') format('svg');
 }
 
-.nope {
-  background: url('../assets/icons/nope.svg');
-  background-size: 1.0em 1.0em;
-  fill: white;
-  filter: hue-rotate(220deg)
+.icon {
+  font-family: "Batch";
+  font-size: 1.0em;
+  line-height: inherit;
+  display: inline-block;
+  font-style: normal;
+  font-weight: normal !important;
+}
+
+.terminal:before {
+  content: "\f060";
+}
+
+.nope:before {
+  content: "\f15b";
+}
+
+.curly:before {
+  content: "\f063";
+}
+
+.square:before {
+  content: "\f064";
+}
+
+.command:before {
+  content: "\f065";
+}
+
+.meatball:before {
+  content: "\f141";
+}
+
+.checkbox:before {
+  content: "\f164";
+}
+
+.xbox:before {
+  content: "\f165";
+}
+
+.merge:before {
+  content: "\f176";
+}
+
+.bulb:before {
+  content: "\f12d";
+}
+
+.clipboard:before {
+  content: "\f05e";
+}
+
+.share:before {
+  content: "\f02a";
 }
 </style>

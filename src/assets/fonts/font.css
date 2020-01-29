@@ -1,0 +1,9 @@
+@font-face {
+  font-family: Batch;
+  src: url('/assets/fonts/batch.eot?#iefix') format('embedded-opentype'),
+       url('/assets/fonts/batch.woff') format('woff'),
+       url('/assets/fonts/batch.ttf') format('truetype'),
+       url('/assets/fonts/batch.svg#batchregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}

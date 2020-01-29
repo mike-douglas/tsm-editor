@@ -15,7 +15,7 @@
         v-bind:class="(index + symbols.length) === selectedIndex ? 'selected': ''" />
     </ul>
     <div class="hint">
-      Hit enter or tab to insert. Select with arrow keys.
+      <Icon name="bulb" /> Hit enter or tab to insert. Select with arrow keys.
     </div>
     <div class="debug-panel panel" v-show="debug">
       <div>Selected Option: {{ selectedIndex }}</div>
@@ -29,12 +29,14 @@ import { Position } from '@/lib/position';
 
 import FunctionDropdown from '@/components/FunctionDropdown.vue';
 import SymbolDropdown from '@/components/SymbolDropdown.vue';
+import Icon from '@/components/Icon.vue';
 
 export default {
   name: 'Dropdown',
   components: {
     FunctionDropdown,
     SymbolDropdown,
+    Icon,
   },
   props: {
     visible: {
@@ -107,6 +109,8 @@ export default {
 
 .hint {
   font-size: var(--size-tiny);
+  color: var(--text-faded);
   padding: var(--padding-normal);
+  text-align: right;
 }
 </style>

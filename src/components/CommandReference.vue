@@ -1,7 +1,7 @@
 <template>
   <div class="reference">
     <section class="functions">
-      <h3>Functions</h3>
+      <h3><Icon name="curly" /> Functions</h3>
       <section class="sub-panel">
         <FunctionReference class="function-row"
           v-for="(func, index) in functions"
@@ -10,7 +10,7 @@
       </section>
     </section>
     <section class="symbols">
-      <h3>Symbols</h3>
+      <h3><Icon name="merge" /> Variables</h3>
       <section class="sub-panel">
         <SymbolReference class="symbol-row"
           v-for="(symbol, index) in specialFeatures"
@@ -30,12 +30,14 @@ import { functions, symbols, specialFeatures } from '@/lib/definitions';
 
 import FunctionReference from '@/components/FunctionReference.vue';
 import SymbolReference from '@/components/SymbolReference.vue';
+import Icon from '@/components/Icon.vue';
 
 export default {
   name: 'CommandReference',
   components: {
     FunctionReference,
     SymbolReference,
+    Icon,
   },
   data() {
     return {

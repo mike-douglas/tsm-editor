@@ -1,6 +1,7 @@
 <template>
   <li class="dropdown-row panel" :style="styles">
     <span class="name" v-html="stylizeString(item.name)"></span>
+    <Icon class="symbol" name="merge" />
     <p class="definition">
       {{ item.definition }}
     </p>
@@ -11,8 +12,13 @@
 import styles from '@/lib/styles';
 import stylizeString from '@/lib/stylizer';
 
+import Icon from '@/components/Icon.vue';
+
 export default {
   name: 'SymbolDropdown',
+  components: {
+    Icon,
+  },
   props: {
     item: Object,
   },
@@ -37,7 +43,14 @@ export default {
   background-color: var(--float-bg-hover);
 }
 
+.icon {
+  float: right;
+  font-size: var(--size-extrasmall);
+  opacity: 0.5;
+}
+
 .definition {
+  clear: both;
   margin: 0;
   font-size: var(--size-extrasmall);
 }
