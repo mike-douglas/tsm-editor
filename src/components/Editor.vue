@@ -1,148 +1,115 @@
 <template>
   <div class="editor-container">
-    <div class="editor" ref="editor" contenteditable="true"
-        v-on:keydown="onKeyDown"
-        v-on:keyup="onKeyUp"
-        v-on:blur="onBlur"
-        v-text="content">
-    </div>
+    <EditorRenderLayer class="editor"
+      v-bind:content="content"/>
+    <EditorEventLayer class="editor" ref="editor"
+      v-bind:content="content"
+      v-bind:lookup-word="performWordLookup"
+      v-bind:input-handler="onInput"
+      v-bind:nav-key-handler="onNavigationKeyPress"
+      v-bind:key="'event' + eventKey" />
     <Dropdown
-        v-bind:visible="showDropdown"
-        v-bind:position="caretPosition"
-        v-bind:symbols="symbols"
-        v-bind:functions="functions"
+        v-bind:visible="dropdownIsVisible"
+        v-bind:position="dropdownPosition"
+        v-bind:symbols="dropdownSymbolResults"
+        v-bind:functions="dropdownFunctionResults"
         v-bind:on-select="onSelect"
-        v-bind:selected-index="selectedIndex" />
+        v-bind:selected-index="dropdownSelectedIndex" />
   </div>
 </template>
 
 <script>
-import { getCaretPosition, setCaretPosition, Position } from '@/lib/position';
-import { tokenizeByWord } from '@/lib/tokenizer';
+import { setCaretPosition, Position } from '@/lib/position';
 import { findMatches } from '@/lib/definitions';
+import keys from '@/lib/keys';
 
 import Dropdown from '@/components/Dropdown.vue';
+import EditorRenderLayer from '@/components/EditorRenderLayer.vue';
+import EditorEventLayer from '@/components/EditorEventLayer.vue';
 
 export default {
   name: 'Editor',
   components: {
     Dropdown,
-  },
-  props: {
-    initialContent: {
-      default: '',
-      type: String,
-    },
+    EditorRenderLayer,
+    EditorEventLayer,
   },
   data() {
     return {
       caretPosition: new Position(0, 0),
-      symbols: [],
-      functions: [],
-      selectedIndex: 0,
-      dropdownEnabled: true,
-      content: this.initialContent,
+      content: 'Sample Content',
+      renderKey: 1,
+      eventKey: 1,
+      dropdownPosition: new Position(0, 0),
+      dropdownSelectedIndex: 0,
+      dropdownFunctionResults: [],
+      dropdownSymbolResults: [],
     };
   },
   computed: {
-    showDropdown() {
-      return this.symbols.length > 0 || this.functions.length > 0;
+    dropdownIsVisible() {
+      return this.dropdownFunctionResults.length > 0 || this.dropdownSymbolResults.length > 0;
+    },
+    dropdownCombinedResults() {
+      return this.dropdownSymbolResults.concat(this.dropdownFunctionResults);
+    },
+    currentContent() {
+      return this.content;
     },
   },
   methods: {
-    onKeyDown(event) {
-      if (!this.dropdownEnabled) {
-        return true;
-      }
-
-      const boundingRect = this.$el.getBoundingClientRect();
-      const c = getCaretPosition(window.getSelection());
-
-      this.caretPosition = new Position(c.x, c.y - boundingRect.top);
-
-      if (this.showDropdown) {
-        const KEY_UP = 38;
-        const KEY_DOWN = 40;
-        const KEY_ESCAPE = 27;
-        const KEY_ENTER = 13;
-
-        switch (event.keyCode) {
-          case KEY_UP:
-            this.selectedIndex -= 1;
-            break;
-
-          case KEY_DOWN:
-            this.selectedIndex += 1;
-            break;
-
-          case KEY_ESCAPE:
-            this.selectedIndex = 0;
-            this.functions = [];
-            this.symbols = [];
-            break;
-
-          case KEY_ENTER:
-            this.onSelect(this.symbols.concat(this.functions)[this.selectedIndex]);
-            break;
-
-          default:
-            break;
-        }
-
-        // Bound the selection by 0 - [# functions + # symbols] in the list
-        this.selectedIndex = Math.min(
-          this.functions.length + this.symbols.length - 1,
-          Math.max(0, this.selectedIndex),
-        );
-
-        if (event.keyCode === KEY_UP
-            || event.keyCode === KEY_DOWN
-            || event.keyCode === KEY_ENTER) {
-          event.preventDefault();
-          event.stopPropagation();
-
-          return false;
-        }
-      }
-
-      return true;
+    hideDropdown() {
+      this.dropdownSelectedIndex = 0;
+      this.dropdownFunctionResults = [];
+      this.dropdownSymbolResults = [];
     },
-    onKeyUp(event) {
-      if (!this.dropdownEnabled) {
-        return true;
-      }
+    performWordLookup(position, text) {
+      const bounds = this.$el.getBoundingClientRect();
+      const { symbols, functions } = findMatches(text);
 
-      const currentValue = event.target.innerText;
-
-      // Todo: Stop if ESCAPE, UP, DOWN, etc.
-
-      if (currentValue && currentValue.length > 2) {
-        const words = tokenizeByWord(currentValue);
-
-        if (words.length > 0 && words[words.length - 1].length > 2) {
-          const results = findMatches(words[words.length - 1]);
-
-          this.symbols = results.keywords;
-          this.functions = results.functions;
-        }
-      }
-
-      return true;
+      this.dropdownPosition = new Position(position.x, position.y - bounds.top);
+      this.dropdownFunctionResults = functions;
+      this.dropdownSymbolResults = symbols;
     },
-    onBlur() {
+    onNavigationKeyPress(keyCode) {
+      let selectedIndex = this.dropdownSelectedIndex;
+
+      switch (keyCode) {
+        case keys.KEY_UP:
+          selectedIndex -= 1;
+          break;
+
+        case keys.KEY_DOWN:
+          selectedIndex += 1;
+          break;
+
+        case keys.KEY_ESCAPE:
+          selectedIndex = 0;
+          this.hideDropdown();
+          break;
+
+        case keys.KEY_ENTER:
+          this.onSelect(this.dropdownCombinedResults[selectedIndex]);
+          break;
+
+        default:
+          break;
+      }
+
+      this.dropdownSelectedIndex = Math.min(
+        this.dropdownCombinedResults.length - 1,
+        Math.max(0, selectedIndex),
+      );
+    },
+    onInput() {
+      // this.renderKey += 1;
     },
     onSelect(item) {
-      if (!this.dropdownEnabled) {
-        return;
-      }
-
-      this.symbols = [];
-      this.functions = [];
-      this.selectedIndex = 0;
-      this.content += ` ${item.name}`;
+      this.content = `${this.content} ${item.name}`;
+      // this.eventKey += 1;
 
       this.$nextTick(() => {
-        const { childNodes } = this.$refs.editor;
+        const { childNodes } = this.$refs.editor.$refs.editor;
         const lastLineNode = childNodes[childNodes.length - 1];
 
         setCaretPosition(
@@ -150,6 +117,8 @@ export default {
           lastLineNode,
           lastLineNode.textContent.length,
         );
+
+        this.hideDropdown();
       });
     },
   },

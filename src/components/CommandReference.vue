@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { functions, keywords as symbols } from '@/lib/definitions';
+import { functions, symbols } from '@/lib/definitions';
 
 export default {
   name: 'CommandReference',

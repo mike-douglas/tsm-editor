@@ -13,7 +13,7 @@ class TSMKeyword {
   }
 }
 
-export const keywords = [
+export const symbols = [
   new TSMKeyword('DBGlobalHistorical', 'Global Historical Price'),
   new TSMKeyword('DBGlobalMarketAvg', 'Global Market Value Average'),
   new TSMKeyword('Crafting', 'Crafting Cost'),
@@ -51,6 +51,6 @@ export function findMatches(search) {
 
   return {
     functions: functions.filter(f => regex.test(f.name)),
-    keywords: keywords.filter(k => regex.test(k.name)),
+    symbols: symbols.filter(k => regex.test(k.name)),
   };
 }
