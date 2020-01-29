@@ -15,7 +15,7 @@ export default {
   },
   data() {
     return {
-      content: 'DBMarket + max(convert(DBMinBuyout, item:79251), 200g30s10c)',
+      content: 'DBMarket + DBRegionMark',
     };
   },
 };

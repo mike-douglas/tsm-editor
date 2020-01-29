@@ -113,7 +113,7 @@ export default {
         if (currentValue && currentValue.length > 2) {
           const words = tokenizeByWord(currentValue);
 
-          if (words.length > 0 && words[words.length - 1].length > 3) {
+          if (words.length > 0 && words[words.length - 1].length > 1) {
             this.performWordLookup(this.getCurrentCaretPosition(), words[words.length - 1]);
           }
         }

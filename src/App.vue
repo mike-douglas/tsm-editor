@@ -70,6 +70,10 @@ h3 {
   padding: var(--padding);
 }
 
+.token {
+  font-family: var(--panel-font);
+}
+
 .symbol {
   color: rgb(115, 209, 248);
 }

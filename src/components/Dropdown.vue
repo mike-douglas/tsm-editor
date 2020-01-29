@@ -1,39 +1,41 @@
 <template>
-  <div class="dropdown" v-bind:style="positionCSS">
+  <div class="dropdown panel" v-bind:style="positionCSS">
     <ul>
-      <li v-for="(item, index) in symbols"
-          v-bind:key="'symbol' + index"
-          v-on:click="didChooseOption(item)"
-          v-bind:class="index === selectedIndex ? 'selected' : ''">
-        <span class="name">{{ index }}: {{ item.name }}</span>
-        <span class="definition">{{ item.definition }}</span>
-      </li>
-      <li v-for="(item, index) in functions"
-          v-bind:key="'function' + index"
-          v-on:click="didChooseOption(item)"
-          v-bind:class="(index + symbols.length) === selectedIndex ? 'selected': ''">
-        <span class="name">{{ index + symbols.length }} {{ item.name }}</span>
-        (
-          <span class="argument"
-          v-for="(arg, i) in item.args"
-          v-bind:key="arg">
-            {{ arg }}
-            <span v-if="i == functions.length - 1">,</span>
-          </span>
-        )
-        <span class="definition">{{ item.definition }}</span>
-      </li>
+      <SymbolDropdown
+        v-for="(item, index) in symbols"
+        v-on:click="didChooseOption(item)"
+        v-bind:item="item"
+        v-bind:key="'symbol' + index"
+        v-bind:class="index === selectedIndex ? 'selected' : ''" />
+      <FunctionDropdown
+        v-for="(item, index) in functions"
+        v-on:click="didChooseOption(item)"
+        v-bind:item="item"
+        v-bind:key="'function' + index"
+        v-bind:class="(index + symbols.length) === selectedIndex ? 'selected': ''" />
     </ul>
-    <div>Selected Option: {{ selectedIndex }}</div>
-    <div class="position">Position: {{ position.x }}, {{ position.y }}</div>
+    <div class="hint">
+      Hit enter or tab to insert. Select with arrow keys.
+    </div>
+    <div class="debug-panel panel" v-show="debug">
+      <div>Selected Option: {{ selectedIndex }}</div>
+      <div class="position">Position: {{ position.x }}, {{ position.y }}</div>
+    </div>
   </div>
 </template>
 
 <script>
 import { Position } from '@/lib/position';
 
+import FunctionDropdown from '@/components/FunctionDropdown.vue';
+import SymbolDropdown from '@/components/SymbolDropdown.vue';
+
 export default {
   name: 'Dropdown',
+  components: {
+    FunctionDropdown,
+    SymbolDropdown,
+  },
   props: {
     visible: {
       type: Boolean,
@@ -59,6 +61,7 @@ export default {
     },
     onSelect: Function,
     selectedIndex: Number,
+    debug: Boolean,
   },
   methods: {
     didChooseOption(item) {
@@ -82,15 +85,28 @@ export default {
 
 <style scoped>
 .dropdown {
+  padding: 0;
   position: absolute;
-  background-color: #ccc;
+  background-color: var(--float-bg);
   min-width: 20em;
-  min-height: 4em;
-  padding: 1em;
+  font-size: var(--size-extrasmall);
+  font-family: var(--page-font);
+  border: 1px solid var(--float-border-color);
+  box-shadow: 1px 1px 4px var(--page-bg);
 }
 
-li.selected {
-  font-weight: bold;
+.dropdown ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
 }
 
+.selected {
+  background-color: var(--float-bg-hover);
+}
+
+.hint {
+  font-size: var(--size-tiny);
+  padding: var(--padding-normal);
+}
 </style>
