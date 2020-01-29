@@ -30,7 +30,7 @@ export default {
   },
   props: {
     initialContent: {
-      default: 'Hello',
+      default: '',
       type: String,
     },
   },
