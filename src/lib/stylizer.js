@@ -33,7 +33,7 @@ export default function stylizeString(string) {
   });
 
   symbols.forEach((symbol) => {
-    replacedString = replacedString.replace(symbol.name, span(['symbol'], symbol.name));
+    replacedString = replacedString.replace(new RegExp(symbol.name, 'g'), span(['symbol'], symbol.name));
   });
 
   replacedString = replacedString.replace(REG_LPAREN, span(['parens'], '('));
