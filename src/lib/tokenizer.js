@@ -1,6 +1,7 @@
 
 export function tokenizeByWord(blob) {
-  return blob.split(' ');
+  // eslint-disable-next-line no-useless-escape
+  return blob.split(/[\s\(\)\{\}]+/);
 }
 
 export function tokenizeByLetter(blob) {
