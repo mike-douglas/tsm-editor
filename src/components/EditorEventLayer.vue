@@ -1,7 +1,7 @@
 <template>
   <section class="editor-space" v-bind:style="{ height: containerHeight + 'px' }">
     <div class="editor-renderer">
-      <span class="ide" v-html="renderedContent"></span>
+      <Syntax :code="rawContent" />
     </div>
     <div class="editor-event" ref="editor"
       contenteditable="true"
@@ -20,7 +20,7 @@
         v-bind:on-select="onSelect"
         v-bind:selected-index="dropdownSelectedIndex" />
     <div class="pannel debug-panel" v-show="debug">
-      {{ renderedContent }}
+      {{ rawContent }}
     </div>
   </section>
 </template>
@@ -33,14 +33,15 @@ import {
 import { tokenizeByWord } from '@/lib/tokenizer';
 import { findMatches } from '@/lib/definitions';
 import keys, { isControlKey } from '@/lib/keys';
-import stylizeString from '@/lib/stylizer';
 
 import Dropdown from '@/components/Dropdown.vue';
+import Syntax from '@/components/Syntax.vue';
 
 export default {
   name: 'EditorEventLayer',
   components: {
     Dropdown,
+    Syntax,
   },
   props: {
     initialContent: {
@@ -67,9 +68,6 @@ export default {
     },
     dropdownCombinedResults() {
       return this.dropdownSymbolResults.concat(this.dropdownFunctionResults);
-    },
-    renderedContent() {
-      return stylizeString(this.rawContent);
     },
   },
   mounted() {

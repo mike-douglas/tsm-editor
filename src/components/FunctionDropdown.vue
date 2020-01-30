@@ -1,6 +1,6 @@
 <template>
   <li class="dropdown-row panel">
-    <span class="name" v-html="stylizeString(`${item.name}(${item.args.join(', ')})`)"></span>
+    <Syntax class="name" :code="`${item.name}(${item.args.join(', ')})`" />
     <Icon class="function" name="curly" />
     <p class="definition">
       {{ item.definition }}
@@ -9,20 +9,17 @@
 </template>
 
 <script>
-import stylizeString from '@/lib/stylizer';
-
 import Icon from '@/components/Icon.vue';
+import Syntax from '@/components/Syntax.vue';
 
 export default {
   name: 'FunctionDropdown',
   components: {
     Icon,
+    Syntax,
   },
   props: {
     item: Object,
-  },
-  methods: {
-    stylizeString,
   },
 };
 </script>

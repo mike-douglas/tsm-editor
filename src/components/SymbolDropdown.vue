@@ -1,6 +1,6 @@
 <template>
   <li class="dropdown-row panel">
-    <span class="name" v-html="stylizeString(item.name)"></span>
+    <Syntax class="name" :code="item.name" />
     <Icon class="symbol" name="merge" />
     <p class="definition">
       {{ item.definition }}
@@ -9,20 +9,17 @@
 </template>
 
 <script>
-import stylizeString from '@/lib/stylizer';
-
 import Icon from '@/components/Icon.vue';
+import Syntax from '@/components/Syntax.vue';
 
 export default {
   name: 'SymbolDropdown',
   components: {
     Icon,
+    Syntax,
   },
   props: {
     item: Object,
-  },
-  methods: {
-    stylizeString,
   },
 };
 </script>

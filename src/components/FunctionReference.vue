@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span class="name" v-html="stylizeString(`${item.name}(${item.args.join(', ')})`)"></span>
+    <Syntax class="name" :code="`${item.name}(${item.args.join(', ')})`" />
     <p class="definition">
       {{ item.definition }}
     </p>
@@ -8,15 +8,15 @@
 </template>
 
 <script>
-import stylizeString from '@/lib/stylizer';
+import Syntax from '@/components/Syntax.vue';
 
 export default {
   name: 'FunctionReference',
+  components: {
+    Syntax,
+  },
   props: {
     item: Object,
-  },
-  methods: {
-    stylizeString,
   },
 };
 </script>
@@ -25,7 +25,6 @@ export default {
 .name {
   color: $txt-faded;
   font-weight: bold;
-  font-family: $editor-font;
   font-size: $ts-normal;
 }
 

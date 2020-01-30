@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span class="name" v-html="stylizeString(item.name)"></span>
+    <Syntax class="name" :code="item.name" />
     <p class="definition">
       {{ item.definition }}
     </p>
@@ -8,15 +8,15 @@
 </template>
 
 <script>
-import stylizeString from '@/lib/stylizer';
+import Syntax from '@/components/Syntax.vue';
 
 export default {
   name: 'SymbolReference',
+  components: {
+    Syntax,
+  },
   props: {
     item: Object,
-  },
-  methods: {
-    stylizeString,
   },
 };
 </script>
@@ -24,7 +24,6 @@ export default {
 <style lang="scss" scoped>
 .name {
   font-weight: bold;
-  font-family: $editor-font;
   font-size: $ts-normal;
 }
 
