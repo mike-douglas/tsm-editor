@@ -132,7 +132,7 @@ export default {
       const bounds = this.$el.getBoundingClientRect();
       const { symbols, functions } = findMatches(text);
 
-      this.dropdownPosition = new Position(position.x, position.y - bounds.top);
+      this.dropdownPosition = new Position(position.x - bounds.left, position.y - bounds.top);
       this.dropdownFunctionResults = functions;
       this.dropdownSymbolResults = symbols;
       this.dropdownSearchTerm = text;

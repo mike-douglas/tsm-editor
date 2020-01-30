@@ -74,9 +74,16 @@ export default {
   },
   computed: {
     positionCSS() {
+      let leftPosition = this.position.x;
+
+      if (this.$el) {
+        const bounds = this.$el.getBoundingClientRect();
+        leftPosition = Math.min(leftPosition, window.innerWidth - bounds.width);
+      }
+
       return {
         position: 'absolute',
-        left: `${this.position.x}px`,
+        left: `${leftPosition}px`,
         top: `${this.position.y}px`,
         visibility: this.visible ? 'visible' : 'hidden',
       };
