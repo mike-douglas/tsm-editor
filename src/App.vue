@@ -38,8 +38,7 @@ export default {
 
 <style>
 body {
-  background: #2a363b url('~@/assets/background.jpg') top left no-repeat;
-  background-size: cover;
+  background: #2a363b url('~@/assets/noise.png');
   font-size: 125%;
 }
 

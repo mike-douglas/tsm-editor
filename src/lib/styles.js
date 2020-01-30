@@ -30,6 +30,8 @@ const colors = {
   '--float-bg-hover': '#33658A',
   '--float-bg': '#1F282B',
 
+  '--editor-outline-color': '#86BBD8',
+
   '--float-border-color': '#214158',
   '--panel-border-color': '#33658A',
   '--sep-border-color': '#2F5C7E',
@@ -40,6 +42,18 @@ const colors = {
   '--link-light': '#86BBD8',
   '--link-loud': '#86BBD8',
   '--link-mid': '#FF847C',
+
+  '--button-action-color': '#E84A5F',
+  '--button-action-click-color': '#BE3D4E',
+  '--button-action-hover-color': '#E84A5F',
+  '--button-action-border-color': '#E84A5F',
+  '--button-action-hover-border-color': '#EE7B8A',
+
+  '--button-light-color': '#86BBD8',
+  '--button-light-click-color': '#6E9AB1',
+  '--button-light-hover-color': '#86BBD8',
+  '--button-light-border-color': '#86BBD8',
+  '--button-light-hover-border-color': '#B2D3E6',
 };
 
 export default { ...fonts, ...colors, ...sizes };

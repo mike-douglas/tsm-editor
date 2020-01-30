@@ -3,9 +3,9 @@
     <EditorEventLayer class="editor" ref="editor"
       v-bind:initial-content="content" />
     <div class="panel editor-status">
-      <button class="copy-to-clipboard">
-        <Icon name="clipboard" /> Copy to Clipboard
-      </button>
+      <Button icon="clipboard" type="small link" class="copy-to-clipboard">
+        Copy to Clipboard
+      </Button>
     </div>
   </div>
 </template>
@@ -14,13 +14,13 @@
 import styles from '@/lib/styles';
 
 import EditorEventLayer from '@/components/EditorEventLayer.vue';
-import Icon from '@/components/Icon.vue';
+import Button from '@/components/Button.vue';
 
 export default {
   name: 'Editor',
   components: {
     EditorEventLayer,
-    Icon,
+    Button,
   },
   data() {
     return {
@@ -34,13 +34,5 @@ export default {
 <style scoped>
 .editor-status {
   padding-left: 0;
-}
-
-.copy-to-clipboard {
-  background-color: transparent;
-  border: 0;
-  font-size: var(--size-small);
-  color: var(--link-light);
-  padding: 0;
 }
 </style>

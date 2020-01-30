@@ -55,7 +55,7 @@ export default {
       debug: false,
       content: this.initialContent,
       rawContent: this.initialContent,
-      containerHeight: 100,
+      containerHeight: 150,
       dropdownPosition: new Position(0, 0),
       dropdownSelectedIndex: 0,
       dropdownFunctionResults: [],
@@ -229,6 +229,7 @@ export default {
   z-index: 2;
   color: transparent;
   caret-color: var(--text-normal);
+  outline-color: var(--editor-outline-color);
 }
 
 .debug-panel {
