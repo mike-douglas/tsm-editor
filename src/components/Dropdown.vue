@@ -92,15 +92,15 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .dropdown {
   padding: 0;
   position: absolute;
-  background-color: var(--float-bg);
+  background-color: $dropdown-background;
   min-width: 20em;
-  font-size: var(--size-extrasmall);
-  font-family: var(--page-font);
-  border: 1px solid var(--float-border-color);
+  font-size: $ts-xs;
+  font-family: $page-font;
+  border: 1px solid $dropdown-border;
   box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
 }
 
@@ -111,13 +111,13 @@ export default {
 }
 
 .selected {
-  background-color: var(--float-bg-hover);
+  background-color: $dropdown-hover;
 }
 
 .hint {
-  font-size: var(--size-tiny);
-  color: var(--text-faded);
-  padding: var(--padding-normal);
+  font-size: $ts-tiny;
+  color: $txt-faded;
+  padding: $padding;
   text-align: right;
 }
 </style>

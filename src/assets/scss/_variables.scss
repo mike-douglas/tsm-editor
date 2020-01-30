@@ -1,1 +1,53 @@
-$blue: blue;
+@import '~@/assets/scss/fonts.scss';
+
+$page-font: "Avenir", Helvetica, Arial, sans-serif;
+$editor-font: "Courier New", Courier, monospace;
+
+// Text sizes
+$ts-tiny: 0.7em;
+$ts-xs: 0.8em;
+$ts-sm: 0.9em;
+$ts-normal: 1.25em;
+$ts-med: 1.6em;
+$ts-lg: 1.8em;
+
+// Padding values
+$padding: 0.5em;
+$padding-normal: $padding;
+$padding-lg: 1.0em;
+$padding-xl: 1.75em;
+$padding-sm: 0.25em;
+
+// Text colors
+$txt-normal: #FFF3F3;
+$txt-faded: #D8DADB;
+$txt-error: #E84A5F;
+$txt-light: #86BBD8;
+$txt-loud: #86BBD8;
+$txt-mid: #FF847C;
+
+// Specific control colors (Maybe move to component level?)
+$page-background: #2A363B;
+
+$editor-background: rgba(0, 0, 0, 0.1);
+$editor-border: #33658A;
+$editor-outline: #86BBD8;
+
+$dropdown-hover: #33658A;
+$dropdown-background: #1F282B;
+$dropdown-border: #214158;
+$dropdown-separator: #2F5C7E;
+
+$btn-action-txt: #FADEE1;
+$btn-action: #E84A5F;
+$btn-action-active: #BE3D4E;
+$btn-action-hover: #E84A5F;
+$btn-action-border: #E84A5F;
+$btn-action-hover-border: #EE7B8A;
+
+$btn-light-txt: white;
+$btn-light: #86BBD8;
+$btn-light-active: #6E9AB1;
+$btn-light-hover: #86BBD8;
+$btn-light-border: #86BBD8;
+$btn-light-hover-border: #B2D3E6;

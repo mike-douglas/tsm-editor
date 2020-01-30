@@ -1,5 +1,5 @@
 <template>
-  <section class="editor-space" v-bind:style="{ ...styles, height: containerHeight + 'px' }">
+  <section class="editor-space" v-bind:style="{ height: containerHeight + 'px' }">
     <div class="editor-renderer">
       <span class="ide" v-html="renderedContent"></span>
     </div>
@@ -34,7 +34,6 @@ import { tokenizeByWord } from '@/lib/tokenizer';
 import { findMatches } from '@/lib/definitions';
 import keys, { isControlKey } from '@/lib/keys';
 import stylizeString from '@/lib/stylizer';
-import styles from '@/lib/styles';
 
 import Dropdown from '@/components/Dropdown.vue';
 
@@ -51,7 +50,6 @@ export default {
   },
   data() {
     return {
-      styles,
       debug: false,
       content: this.initialContent,
       rawContent: this.initialContent,
@@ -198,14 +196,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .editor-space {
   position: relative;
-  font-family: var(--panel-font);
-  font-size: var(--size-normal);
+  font-family: $editor-font;
+  font-size: $ts-normal;
   font-weight: bold;
-  border: var(--panel-border) solid var(--panel-border-color);
-  background-color: var(--panel-bg);
+  border: 3px solid $editor-border;
+  background-color: $editor-background;
 }
 
 .dropdown {
@@ -214,7 +212,7 @@ export default {
 
 .editor-renderer, .editor-event {
   position: absolute;
-  padding: var(--padding);
+  padding: $padding;
   top: 0em;
   left: 0em;
   bottom: 0em;
@@ -228,8 +226,8 @@ export default {
 .editor-event {
   z-index: 2;
   color: transparent;
-  caret-color: var(--text-normal);
-  outline-color: var(--editor-outline-color);
+  caret-color: $txt-normal;
+  outline-color: $editor-outline;
 }
 
 .debug-panel {

@@ -1,0 +1,58 @@
+@font-face {
+  font-family: 'Batch';
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: local('Batch'), url('~@/assets/fonts/batch-icons-webfont.woff') format('woff'),
+       url('~@/assets/fonts/batch-icons-webfont.eot?#iefix') format('embedded-opentype'),
+       url('~@/assets/fonts/batch-icons-webfont.ttf') format('truetype'),
+       url('~@/assets/fonts/batch-icons-webfont.svg#batchregular') format('svg');
+}
+
+.terminal:before {
+  content: "\f060";
+}
+
+.nope:before {
+  content: "\f15b";
+}
+
+.curly:before {
+  content: "\f063";
+}
+
+.square:before {
+  content: "\f064";
+}
+
+.command:before {
+  content: "\f065";
+}
+
+.meatball:before {
+  content: "\f141";
+}
+
+.checkbox:before {
+  content: "\f164";
+}
+
+.xbox:before {
+  content: "\f165";
+}
+
+.merge:before {
+  content: "\f176";
+}
+
+.bulb:before {
+  content: "\f12d";
+}
+
+.clipboard:before {
+  content: "\f05e";
+}
+
+.share:before {
+  content: "\f02a";
+}

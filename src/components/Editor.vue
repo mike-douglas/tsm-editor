@@ -1,5 +1,5 @@
 <template>
-  <div :style="styles" class="editor-container">
+  <div class="editor-container">
     <EditorEventLayer class="editor" ref="editor"
       v-bind:initial-content="content" />
     <div class="panel editor-status">
@@ -11,8 +11,6 @@
 </template>
 
 <script>
-import styles from '@/lib/styles';
-
 import EditorEventLayer from '@/components/EditorEventLayer.vue';
 import Button from '@/components/Button.vue';
 
@@ -25,13 +23,12 @@ export default {
   data() {
     return {
       content: 'DBMarket + DBRegionMark',
-      styles,
     };
   },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .editor-status {
   padding-left: 0;
 }

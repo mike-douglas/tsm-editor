@@ -1,0 +1,31 @@
+.token {
+  font-family: $editor-font;
+}
+
+.symbol {
+  color: rgb(115, 209, 248);
+}
+
+.function, .parens {
+  color: rgb(0, 191, 161);
+}
+
+.maths {
+  color: rgb(38, 145, 211);
+}
+
+.gold {
+  color: orange;
+}
+
+.silver {
+  color: silver;
+}
+
+.copper {
+  color: rgb(228, 183, 125);
+}
+
+.item {
+  color: rgb(205, 117, 185);
+}

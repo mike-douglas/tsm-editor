@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :style="styles">
+  <div id="app">
     <section id="editor" class="panel">
       <h1>Formula Editor</h1>
       <p>
@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import styles from '@/lib/styles';
 
 import Editor from '@/components/Editor.vue';
 import CommandReference from '@/components/CommandReference.vue';
@@ -28,93 +27,57 @@ export default {
     Editor,
     CommandReference,
   },
-  data() {
-    return {
-      styles,
-    };
-  },
 };
 </script>
 
-<style>
+<style lang="scss">
 body {
-  background: #2a363b url('~@/assets/noise.png');
-  font-size: 125%;
+  background: $page-background url('~@/assets/noise.png');
+  font-size: 115%;
 }
 
 #app {
   margin: 0;
   padding: 0;
   width: 100%;
-  font-family: var(--page-font);
+  font-size: 1.0em;
+  font-family: $page-font;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: var(--text-normal);
+  color: $txt-normal;
 }
 
 h1, h2, h3 {
-  margin: 0 0 var(--padding-normal) 0;
+  margin: 0 0 $padding 0;
   padding: 0;
 }
 
 h1 {
-  font-size: var(--size-large);
+  font-size: $ts-lg;
 }
 
 h2 {
-  font-size: var(--size-medium);
+  font-size: $ts-med;
 }
 
 h3 {
-  font-size: var(--size-normal);
-  color: var(--text-faded);
+  font-size: $ts-normal;
+  color: $txt-faded;
 }
 
 .panel {
-  padding: var(--padding);
-}
-
-.token {
-  font-family: var(--panel-font);
-}
-
-.symbol {
-  color: rgb(115, 209, 248);
-}
-
-.function, .parens {
-  color: rgb(0, 191, 161);
-}
-
-.maths {
-  color: rgb(38, 145, 211);
-}
-
-.gold {
-  color: orange;
-}
-
-.silver {
-  color: silver;
-}
-
-.copper {
-  color: rgb(228, 183, 125);
-}
-
-.item {
-  color: rgb(205, 117, 185);
+  padding: $padding;
 }
 </style>
 
-<style scoped>
+<style lang="scss" scoped>
 #reference {
-  margin-top: var(--padding-large);
+  margin-top: $padding-lg;
   max-width: 60em;
 }
 
 footer {
-  font-size: var(--size-small);
+  font-size: $ts-sm;
   color: rgba(255, 255, 255, 0.2);
   text-align: center;
 }

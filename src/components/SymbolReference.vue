@@ -1,5 +1,5 @@
 <template>
-  <div :style="styles">
+  <div>
     <span class="name" v-html="stylizeString(item.name)"></span>
     <p class="definition">
       {{ item.definition }}
@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import styles from '@/lib/styles';
 import stylizeString from '@/lib/stylizer';
 
 export default {
@@ -19,23 +18,18 @@ export default {
   methods: {
     stylizeString,
   },
-  data() {
-    return {
-      styles,
-    };
-  },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .name {
   font-weight: bold;
-  font-family: var(--panel-font);
-  font-size: var(--size-normal);
+  font-family: $editor-font;
+  font-size: $ts-normal;
 }
 
 .definition {
-  font-size: var(--size-small);
-  margin: var(--padding-small) 0 var(--padding-extralarge) 0;
+  font-size: $ts-sm;
+  margin: $padding-sm 0 $padding-xl 0;
 }
 </style>

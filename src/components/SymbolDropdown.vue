@@ -1,5 +1,5 @@
 <template>
-  <li class="dropdown-row panel" :style="styles">
+  <li class="dropdown-row panel">
     <span class="name" v-html="stylizeString(item.name)"></span>
     <Icon class="symbol" name="merge" />
     <p class="definition">
@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import styles from '@/lib/styles';
 import stylizeString from '@/lib/stylizer';
 
 import Icon from '@/components/Icon.vue';
@@ -25,33 +24,28 @@ export default {
   methods: {
     stylizeString,
   },
-  data() {
-    return {
-      styles,
-    };
-  },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .dropdown-row {
   cursor: pointer;
-  border-bottom: var(--sep-border) solid var(--sep-border-color);
+  border-bottom: 1px solid $dropdown-separator;
 }
 
 .dropdown-row:hover {
-  background-color: var(--float-bg-hover);
+  background-color: $dropdown-hover;
 }
 
 .icon {
   float: right;
-  font-size: var(--size-extrasmall);
+  font-size: $ts-xs;
   opacity: 0.5;
 }
 
 .definition {
   clear: both;
   margin: 0;
-  font-size: var(--size-extrasmall);
+  font-size: $ts-xs;
 }
 </style>

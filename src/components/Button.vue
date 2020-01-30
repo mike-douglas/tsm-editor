@@ -1,13 +1,11 @@
 <template>
-  <button :style="styles" v-bind:class="`button ${type}`" v-on:click="handleClick">
+  <button v-bind:class="`button ${type}`" v-on:click="handleClick">
     <Icon class="icon" v-show="icon && icon.length > 0 === true" v-bind:name="icon" />
     <span class="text"><slot /></span>
   </button>
 </template>
 
 <script>
-import styles from '@/lib/styles';
-
 import Icon from '@/components/Icon.vue';
 
 export default {
@@ -30,31 +28,26 @@ export default {
       }
     },
   },
-  data() {
-    return {
-      styles,
-    };
-  },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .small {
-  font-size: var(--size-small);
+  font-size: $ts-sm;
 }
 
 .medium {
-  font-size: var(--size-medium);
+  font-size: $ts-med;
 }
 
 .large {
-  font-size: var(--size-large);
+  font-size: $ts-lg;
 }
 
 .button {
   border: 1px solid darkgray;
   border-radius: 0.25em;
-  padding: var(--padding-normal) var(--padding-extralarge);
+  padding: $padding-normal $padding-xl;
   background: grey url('~@/assets/noise.png');
   color: #fff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0);
@@ -76,18 +69,18 @@ export default {
 
 .button .text {
   display: inline-block;
-  margin-left: var(--padding);
-  margin-right: var(--padding);
+  margin-left: $padding;
+  margin-right: $padding;
 }
 
 .button .icon {
-  padding-right: var(--padding-small);
+  padding-right: $padding-sm;
 }
 
 .link {
   background: none;
   border: 0;
-  color: var(--link-light);
+  color: $txt-light;
   padding: 0;
 }
 
@@ -111,40 +104,40 @@ export default {
 }
 
 .action {
-  color: #FADEE1;
+  color: $btn-action-txt;
   font-weight: bold;
 }
 
 .action {
-  border: 1px solid var(--button-action-border-color);
-  background-color: var(--button-action-color);
+  border: 1px solid $btn-action-border;
+  background-color: $btn-action;
 }
 
 .action:hover {
-  border: 1px solid var(--button-action-hover-border-color);
-  background-color: var(--button-action-color);
+  border: 1px solid $btn-action-hover-border;
+  background-color: $btn-action-hover;
 }
 
 .action:hover:active {
-  background-color: var(--button-action-click-color);
+  background-color: $btn-action-active;
 }
 
 .light {
-  color: white;
+  color: $btn-light-txt;
   font-weight: bold;
 }
 
 .light {
-  border: 1px solid var(--button-light-border-color);
-  background-color: var(--button-light-color);
+  border: 1px solid $btn-light-border;
+  background-color: $btn-light;
 }
 
 .light:hover {
-  border: 1px solid var(--button-light-hover-border-color);
-  background-color: var(--button-light-color);
+  border: 1px solid $btn-light-hover-border;
+  background-color: $btn-light-hover;
 }
 
 .light:hover:active {
-  background-color: var(--button-light-click-color);
+  background-color: $btn-light-active;
 }
 </style>
