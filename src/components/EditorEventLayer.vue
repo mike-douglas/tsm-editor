@@ -10,6 +10,8 @@
       v-on:keyup="onKeyUp"
       v-on:blur="onBlur"
       v-on:input="onInput"
+      v-on:paste="onPaste"
+      v-on:click="onClick"
       v-text="content">
     </div>
     <Dropdown class="dropdown"
@@ -119,6 +121,18 @@ export default {
       return true;
     },
     onBlur() {
+      this.hideDropdown();
+    },
+    onPaste(event) {
+      event.preventDefault();
+
+      const newContent = event.clipboardData.getData('text/plain').replace(/\n/g, ' ');
+
+      this.$refs.editor.innerText = newContent;
+      this.onInput();
+    },
+    onClick() {
+      this.hideDropdown();
     },
     hideDropdown() {
       this.dropdownSelectedIndex = 0;

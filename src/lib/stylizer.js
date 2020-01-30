@@ -29,11 +29,11 @@ export default function stylizeString(string) {
   });
 
   functions.forEach((func) => {
-    replacedString = replacedString.replace(new RegExp(`${func.name}\\s?\\(`, 'g'), span(['function'], `${func.name}(`));
+    replacedString = replacedString.replace(new RegExp(`${func.name}\\s?\\(`, 'gi'), span(['function'], `${func.name}(`));
   });
 
   symbols.forEach((symbol) => {
-    replacedString = replacedString.replace(new RegExp(symbol.name, 'g'), span(['symbol'], symbol.name));
+    replacedString = replacedString.replace(new RegExp(symbol.name, 'gi'), span(['symbol'], symbol.name));
   });
 
   replacedString = replacedString.replace(REG_LPAREN, span(['parens'], '('));
