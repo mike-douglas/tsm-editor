@@ -5,6 +5,7 @@
     </div>
     <div class="editor-event" ref="editor"
       contenteditable="true"
+      spellcheck="false"
       v-on:keydown="onKeyDown"
       v-on:keyup="onKeyUp"
       v-on:blur="onBlur"
