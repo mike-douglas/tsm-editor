@@ -35,6 +35,7 @@ export default {
 .name, .arguments {
   font-weight: bold;
   font-family: var(--panel-font);
+  font-size: var(--size-normal);
 }
 
 .definition {

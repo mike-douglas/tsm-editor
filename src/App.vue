@@ -39,6 +39,7 @@ export default {
 <style>
 body {
   background-color: #2a363b;
+  font-size: 125%;
 }
 
 #app {

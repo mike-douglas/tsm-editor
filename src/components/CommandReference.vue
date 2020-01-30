@@ -71,7 +71,7 @@ export default {
 }
 
 .symbol-row {
-  flex-basis: 25%;
+  flex-basis: 30%;
   flex-grow: 0;
   flex-shrink: 0;
 }
