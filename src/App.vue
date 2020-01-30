@@ -38,7 +38,8 @@ export default {
 
 <style>
 body {
-  background-color: #2a363b;
+  background: #2a363b url('~@/assets/background.jpg') top left no-repeat;
+  background-size: cover;
   font-size: 125%;
 }
 
