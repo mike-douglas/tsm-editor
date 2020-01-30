@@ -14,6 +14,8 @@
 import EditorEventLayer from '@/components/EditorEventLayer.vue';
 import Button from '@/components/Button.vue';
 
+import store from '@/lib/store';
+
 export default {
   name: 'Editor',
   components: {
@@ -22,8 +24,13 @@ export default {
   },
   data() {
     return {
-      content: 'DBMarket + DBRegionMark',
+      sharedState: store.state,
     };
+  },
+  computed: {
+    content() {
+      return this.sharedState.formula;
+    },
   },
 };
 </script>

@@ -35,6 +35,7 @@ import {
 import { tokenizeByWord } from '@/lib/tokenizer';
 import { findMatches } from '@/lib/definitions';
 import keys, { isControlKey } from '@/lib/keys';
+import store from '@/lib/store';
 
 import Dropdown from '@/components/Dropdown.vue';
 import Syntax from '@/components/Syntax.vue';
@@ -53,7 +54,8 @@ export default {
   },
   data() {
     return {
-      debug: false,
+      debug: store.debug,
+      sharedState: store.state,
       content: this.initialContent,
       rawContent: this.initialContent,
       containerHeight: 150,
@@ -84,6 +86,8 @@ export default {
     onInput() {
       this.rawContent = this.$refs.editor.innerText;
       this.containerHeight = this.$refs.editor ? this.$refs.editor.scrollHeight : 100;
+
+      store.setCurrentFormula(this.rawContent);
     },
     onKeyDown(event) {
       if (isControlKey(event.keyCode)) {
@@ -189,7 +193,7 @@ export default {
 
         this.content = replaceTextInRange(this.$refs.editor.innerText, item.name, caret);
 
-        this.rawContent = this.content;
+        // this.rawContent = this.content;
         this.$refs.editor.innerText = this.content;
 
         this.$nextTick(() => {
@@ -201,6 +205,7 @@ export default {
 
           setCaretRange(newCaret);
           this.hideDropdown();
+          this.onInput();
         });
       }
     },
@@ -249,6 +254,7 @@ export default {
   right: 0;
   background-color: rgba(0, 0, 0, 0.85);
   min-height: 100px;
-  font-size: 0.8em;
+  font-size: 0.6em;
+  padding: $padding;
 }
 </style>
