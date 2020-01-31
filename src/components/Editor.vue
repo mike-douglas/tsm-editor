@@ -33,6 +33,11 @@ export default {
       },
       set(value) {
         this.$store.commit('updateCleanUp', value);
+        this.$gtag.event('toggleCleanup', {
+          event_category: 'settings',
+          event_label: 'default',
+          value,
+        });
       },
     },
   },

@@ -77,7 +77,10 @@ export default {
     this.$refs.editor.innerText = this.content;
 
     this.$store.dispatch('loadFromLocation')
-      .then(restored => (this.$store.state.cleanUp === true ? reformatter(restored) : restored))
+      .then((restored) => {
+        this.$gtag.pageview({ page_path: window.location.pathname + window.location.hash });
+        return this.$store.state.cleanUp === true ? reformatter(restored) : restored;
+      })
       .then((restored) => {
         this.$refs.editor.innerText = restored;
         this.rawContent = restored;
