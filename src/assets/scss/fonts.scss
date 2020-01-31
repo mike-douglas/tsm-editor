@@ -9,50 +9,58 @@
        url('~@/assets/fonts/batch-icons-webfont.svg#batchregular') format('svg');
 }
 
-.terminal:before {
+.icon.play:before {
+  content: "\f16b";
+}
+
+.icon.terminal:before {
   content: "\f060";
 }
 
-.nope:before {
+.icon.nope:before {
   content: "\f15b";
 }
 
-.curly:before {
+.icon.curly:before, .icon.function:before {
   content: "\f063";
 }
 
-.square:before {
+.icon.square:before {
   content: "\f064";
 }
 
-.command:before {
+.icon.command:before {
   content: "\f065";
 }
 
-.meatball:before {
+.icon.meatball:before {
   content: "\f141";
 }
 
-.checkbox:before {
+.icon.checkbox:before {
   content: "\f164";
 }
 
-.xbox:before {
+.icon.xbox:before {
   content: "\f165";
 }
 
-.merge:before {
+.icon.merge:before {
   content: "\f176";
 }
 
-.bulb:before {
+.icon.swap:before, .icon.symbol:before {
+  content: "\f0bb";
+}
+
+.icon.bulb:before {
   content: "\f12d";
 }
 
-.clipboard:before {
+.icon.clipboard:before {
   content: "\f05e";
 }
 
-.share:before {
+.icon.share:before {
   content: "\f02a";
 }

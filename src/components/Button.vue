@@ -18,7 +18,7 @@ export default {
     onClick: Function,
     type: {
       type: String,
-      default: 'action',
+      default: 'action normal',
     },
   },
   methods: {
@@ -44,10 +44,14 @@ export default {
   font-size: $ts-lg;
 }
 
+.normal {
+  font-size: $ts-normal;
+}
+
 .button {
   border: 1px solid darkgray;
   border-radius: 0.25em;
-  padding: $padding-normal $padding-xl;
+  padding: $padding-normal $padding-normal;
   background: grey url('~@/assets/noise.png');
   color: #fff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0);
@@ -68,13 +72,15 @@ export default {
 }
 
 .button .text {
-  display: inline-block;
-  margin-left: $padding;
+  // display: inline-block;
+  margin-left: $padding-sm;
   margin-right: $padding;
+  vertical-align: middle;
 }
 
 .button .icon {
-  padding-right: $padding-sm;
+  font-size: 2.0em;
+  vertical-align: middle;
 }
 
 .link {

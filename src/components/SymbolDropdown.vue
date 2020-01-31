@@ -1,7 +1,7 @@
 <template>
   <li class="dropdown-row panel">
     <Syntax class="name" :code="item.name" />
-    <Icon class="symbol" name="merge" />
+    <Icon class="symbol" name="symbol" />
     <p class="definition">
       {{ item.definition }}
     </p>

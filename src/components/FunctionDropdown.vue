@@ -1,7 +1,7 @@
 <template>
   <li class="dropdown-row panel">
     <Syntax class="name" :code="`${item.name}(${item.args.join(', ')})`" />
-    <Icon class="function" name="curly" />
+    <Icon class="function" name="function" />
     <p class="definition">
       {{ item.definition }}
     </p>
