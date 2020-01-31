@@ -1,8 +1,14 @@
 /* eslint-disable no-console */
+import { deserialize, serializeAndSave } from '@/lib/serializer';
+
+const defaultValue = deserialize() || '50 % DBMarket';
+
+console.log('Initial state: ', defaultValue);
+
 const store = {
-  debug: true,
+  debug: false,
   state: {
-    formula: '50 % DBMarket',
+    formula: defaultValue,
   },
   setCurrentFormula(newValue) {
     if (this.debug) {
@@ -18,5 +24,9 @@ const store = {
     this.state.formula = '';
   },
 };
+
+window.setInterval(() => {
+  serializeAndSave(store.state.formula);
+}, 3000);
 
 export default store;
