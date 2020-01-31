@@ -50,7 +50,7 @@ export const functions = [
   new TSMFunction('check', ['n', 'b', 'c'], 'If the first parameter is greater than 0 return the second parameter, otherwise return the third parameter'),
   new TSMFunction('convert', ['variable', 'optional_item'], 'Returns the lowest cost conversion of the item being evaluated'),
   new TSMFunction('ifgt', ['a', 'b', 'x', 'y'], 'Returns x if a is greater than b, otherwise it returns y'),
-  new TSMFunction('ifgt', ['a', 'b', 'x', 'y'], 'Returns x if a is greater than or equal to b, otherwise it returns y'),
+  new TSMFunction('ifgte', ['a', 'b', 'x', 'y'], 'Returns x if a is greater than or equal to b, otherwise it returns y'),
   new TSMFunction('iflt', ['a', 'b', 'x', 'y'], 'Returns x if a is less than b, otherwise it returns y'),
   new TSMFunction('iflte', ['a', 'b', 'x', 'y'], 'Returns x if a is less than or equal to b, otherwise it returns y'),
   new TSMFunction('ifeq', ['a', 'b', 'x', 'y'], 'Returns x if a is equal to b, otherwise it returns y'),
