@@ -2,21 +2,16 @@
   <div class="editor-container">
     <EditorEventLayer class="editor" ref="editor"
       v-bind:initial-content="content" />
-    <div class="panel editor-status">
-      <Button icon="play">Clean Up</Button>
-    </div>
   </div>
 </template>
 
 <script>
 import EditorEventLayer from '@/components/EditorEventLayer.vue';
-import Button from '@/components/Button.vue';
 
 export default {
   name: 'Editor',
   components: {
     EditorEventLayer,
-    Button,
   },
   computed: {
     content() {

@@ -8,7 +8,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    debug: true,
+    debug: false,
     formula: 'dbminbuyout([Ghost Iron Ore]) matprice([Ink of Dreams]) dbmarket + convert(dbminbuyout, item:79251)',
     lastSave: null,
   },

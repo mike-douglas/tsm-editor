@@ -41,6 +41,7 @@ export const functions = [
   new TSMFunction('max', ['a', 'b'], 'Returns the numerical maximum between a and b'),
   new TSMFunction('first', ['n..'], 'Returns the first valid price in the list'),
   new TSMFunction('check', ['n', 'b', 'c'], 'If the first parameter is greater than 0, return the second parameter. Otherwise, return the third parameter.'),
+  new TSMFunction('convert', ['variable', 'optional_item'], 'Returns the lowest cost conversion of the item being evaluated.'),
 ];
 
 export const specialFeatures = [
