@@ -11,8 +11,7 @@
       v-on:blur="onBlur"
       v-on:input="onInput"
       v-on:paste="onPaste"
-      v-on:click="onClick"
-      v-text="content">
+      v-on:click="onClick">
     </div>
     <Dropdown class="dropdown"
         v-bind:visible="dropdownIsVisible"
@@ -35,7 +34,6 @@ import {
 import { tokenizeByWord } from '@/lib/tokenizer';
 import { findMatches } from '@/lib/definitions';
 import keys, { isControlKey } from '@/lib/keys';
-import store from '@/lib/store';
 
 import Dropdown from '@/components/Dropdown.vue';
 import Syntax from '@/components/Syntax.vue';
@@ -54,8 +52,7 @@ export default {
   },
   data() {
     return {
-      debug: store.debug,
-      sharedState: store.state,
+      debug: this.$store.state.debug,
       content: this.initialContent,
       rawContent: this.initialContent,
       containerHeight: 150,
@@ -76,6 +73,13 @@ export default {
   },
   mounted() {
     this.$refs.editor.innerText = this.content;
+
+    this.$store.dispatch('loadFromLocation')
+      .then((restored) => {
+        this.$refs.editor.innerText = restored;
+        this.rawContent = restored;
+        this.content = restored;
+      }).catch(() => {});
   },
   methods: {
     getCurrentCaretPosition() {
@@ -87,7 +91,8 @@ export default {
       this.rawContent = this.$refs.editor.innerText;
       this.containerHeight = this.$refs.editor ? this.$refs.editor.scrollHeight : 100;
 
-      store.setCurrentFormula(this.rawContent);
+      this.$store.commit('save', this.rawContent);
+      this.$store.dispatch('saveToLocation');
     },
     onKeyDown(event) {
       if (isControlKey(event.keyCode)) {
@@ -191,10 +196,10 @@ export default {
 
         const rangeStart = caret.startOffset;
 
-        this.content = replaceTextInRange(this.$refs.editor.innerText, item.name, caret);
+        this.rawContent = replaceTextInRange(this.$refs.editor.innerText, item.name, caret);
 
         // this.rawContent = this.content;
-        this.$refs.editor.innerText = this.content;
+        this.$refs.editor.innerText = this.rawContent;
 
         this.$nextTick(() => {
           const { childNodes } = this.$refs.editor;

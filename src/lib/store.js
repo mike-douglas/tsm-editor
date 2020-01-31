@@ -1,32 +1,51 @@
 /* eslint-disable no-console */
-import { deserialize, serializeAndSave } from '@/lib/serializer';
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-const defaultValue = deserialize() || '50 % DBMarket';
+import { serializeAndSave, deserialize } from '@/lib/serializer';
 
-console.log('Initial state: ', defaultValue);
+Vue.use(Vuex);
 
-const store = {
-  debug: false,
+export default new Vuex.Store({
   state: {
-    formula: defaultValue,
+    debug: true,
+    formula: 'dbminbuyout([Ghost Iron Ore]) matprice([Ink of Dreams]) dbmarket + convert(dbminbuyout, item:79251)',
+    lastSave: null,
   },
-  setCurrentFormula(newValue) {
-    if (this.debug) {
-      console.log(`Old State: ${this.state.formula}`);
-      console.log(`New State: ${newValue}`);
-    }
-    this.state.formula = newValue;
+  mutations: {
+    save(state, newValue) {
+      state.formula = newValue;
+    },
+    clearSaveTimeout(state) {
+      state.lastSave = null;
+    },
+    startNewTimeout(state, newValue) {
+      state.lastSave = newValue;
+    },
   },
-  clearFormula() {
-    if (this.debug) {
-      console.log('Clearing current formula value');
-    }
-    this.state.formula = '';
-  },
-};
+  actions: {
+    async loadFromLocation() {
+      return deserialize();
+    },
+    async saveToLocation({ commit, state }) {
+      if (state.lastSave) {
+        window.clearTimeout(state.lastSave);
+        commit('clearSaveTimeout');
 
-window.setInterval(() => {
-  serializeAndSave(store.state.formula);
-}, 3000);
+        if (state.debug) {
+          console.log('Canceled save...');
+        }
+      }
 
-export default store;
+      const t = window.setTimeout(() => {
+        serializeAndSave(state.formula).catch(console.log);
+
+        if (state.debug) {
+          console.log('Saved...');
+        }
+      }, 1000);
+
+      commit('startNewTimeout', t);
+    },
+  },
+});

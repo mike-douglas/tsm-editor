@@ -14,22 +14,15 @@
 import EditorEventLayer from '@/components/EditorEventLayer.vue';
 import Button from '@/components/Button.vue';
 
-import store from '@/lib/store';
-
 export default {
   name: 'Editor',
   components: {
     EditorEventLayer,
     Button,
   },
-  data() {
-    return {
-      sharedState: store.state,
-    };
-  },
   computed: {
     content() {
-      return this.sharedState.formula;
+      return this.$store.state.formula;
     },
   },
 };

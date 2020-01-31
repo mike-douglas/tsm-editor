@@ -1,18 +1,29 @@
+import codec from 'json-url';
+
+const lzw = codec('lzw');
+
 export function deserialize() {
   const { hash } = window.location;
 
   if (hash && hash.length > 1) {
-    return JSON.parse(unescape(hash.substr(1))).formula;
+    return lzw.decompress(hash.substr(1)).then(json => json.formula);
   }
 
-  return null;
+  return new Promise((_, r) => r(Error('Parse error')));
 }
 
 export function serializeAndSave(value) {
-  const serialized = JSON.stringify({ formula: value });
-  const hash = `#${serialized}`;
-
-  if (hash !== window.location.hash) {
-    window.history.pushState(null, null, hash);
+  if (value === null || value.length < 1) {
+    return new Promise((_, r) => r(Error('Nothing to save')));
   }
+
+  return lzw.compress({ formula: value }).then((serialized) => {
+    const hash = `#${serialized}`;
+
+    if (hash !== window.location.hash) {
+      window.history.pushState(null, null, hash);
+    }
+
+    return serialized;
+  });
 }
