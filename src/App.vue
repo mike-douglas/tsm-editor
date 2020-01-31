@@ -1,13 +1,20 @@
 <template>
   <div id="app">
     <section id="editor" class="panel">
-      <h1>Formula Editor</h1>
+      <div class="hero">
+        <h1>TSM Price String Editor</h1>
+        <p>Custom Price Strings Made Easy and Beautiful</p>
+      </div>
       <p>
-        Use the boxes below to write a TSM price formula.
+        Hi goblin! This tool makes it easy to create new custom price strings for the <a target="_new" href="https://www.tradeskillmaster.com/">TradeSkillMaster</a> addon in World of Warcraft. It provides some syntax highlighting as well as autocomplete features to make writing new formulas easy and readable.
+      </p>
+      <p>
+        Paste your string below or just start typing to try it out!
       </p>
       <Editor />
     </section>
     <section id="reference" class="panel">
+      <h2>Reference</h2>
       <CommandReference />
     </section>
     <footer>
@@ -29,6 +36,31 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+#reference {
+  margin-top: $padding-lg;
+  max-width: 60em;
+}
+
+footer {
+  font-size: $ts-sm;
+  color: rgba(255, 255, 255, 0.2);
+  text-align: center;
+}
+
+.hero {
+  font-size: $ts-lg;
+}
+
+.hero > * {
+  margin: 0;
+}
+
+.hero .p {
+  color: $txt-faded;
+}
+</style>
 
 <style lang="scss">
 body {
@@ -68,17 +100,9 @@ h3 {
 .panel {
   padding: $padding;
 }
-</style>
 
-<style lang="scss" scoped>
-#reference {
-  margin-top: $padding-lg;
-  max-width: 60em;
-}
-
-footer {
-  font-size: $ts-sm;
-  color: rgba(255, 255, 255, 0.2);
-  text-align: center;
+a {
+  color: $txt-mid;
+  font-weight: bold;
 }
 </style>

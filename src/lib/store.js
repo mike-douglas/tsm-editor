@@ -9,12 +9,16 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     debug: false,
-    formula: 'dbminbuyout([Ghost Iron Ore]) matprice([Ink of Dreams]) dbmarket + convert(dbminbuyout, item:79251)',
+    formula: 'check(first(Crafting, DBMarket, DBRegionMarketAvg), max(0.25 * avg(Crafting, DBMarket, DBRegionMarketAvg), 1.5 * VendorSell))',
     lastSave: null,
+    cleanUp: true,
   },
   mutations: {
     save(state, newValue) {
       state.formula = newValue;
+    },
+    updateCleanUp(state, newValue) {
+      state.cleanUp = newValue;
     },
     clearSaveTimeout(state) {
       state.lastSave = null;

@@ -15,7 +15,7 @@
         v-bind:class="(index + symbols.length) === selectedIndex ? 'selected': ''" />
     </ul>
     <div class="hint">
-      <Icon name="bulb" /> Hit enter or tab to insert. Select with arrow keys.
+      <Icon name="bulb" /> Hit enter or tab to insert
     </div>
     <div class="debug-panel panel" v-show="debug">
       <div>Selected Option: {{ selectedIndex }}</div>
@@ -98,6 +98,7 @@ export default {
   position: absolute;
   background-color: $dropdown-background;
   min-width: 20em;
+  max-width: 25em;
   font-size: $ts-xs;
   font-family: $page-font;
   border: 1px solid $dropdown-border;

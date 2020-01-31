@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import stylizeString from '@/lib/stylizer';
+import { stylizeString } from '@/lib/stylizer';
 
 export default {
   name: 'Syntax',
@@ -21,6 +21,8 @@ export default {
 <style lang="scss" scoped>
 .ide {
   font-family: $editor-font;
+  margin: 0;
+  padding: 0;
 }
 
 ::v-deep .symbol {

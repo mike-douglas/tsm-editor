@@ -21,7 +21,7 @@
         v-bind:on-select="onSelect"
         v-bind:selected-index="dropdownSelectedIndex" />
     <div class="pannel debug-panel" v-show="debug">
-      {{ rawContent }}
+      <div>{{ rawContent }}</div>
     </div>
   </section>
 </template>
@@ -34,6 +34,7 @@ import {
 import { tokenizeByWord } from '@/lib/tokenizer';
 import { findMatches } from '@/lib/definitions';
 import keys, { isControlKey } from '@/lib/keys';
+import { reformatter } from '@/lib/stylizer';
 
 import Dropdown from '@/components/Dropdown.vue';
 import Syntax from '@/components/Syntax.vue';
@@ -61,6 +62,7 @@ export default {
       dropdownFunctionResults: [],
       dropdownSymbolResults: [],
       dropdownSearchTerm: '',
+      keyPressCount: 0,
     };
   },
   computed: {
@@ -75,6 +77,7 @@ export default {
     this.$refs.editor.innerText = this.content;
 
     this.$store.dispatch('loadFromLocation')
+      .then(restored => (this.$store.state.cleanUp === true ? reformatter(restored) : restored))
       .then((restored) => {
         this.$refs.editor.innerText = restored;
         this.rawContent = restored;
@@ -82,6 +85,7 @@ export default {
       }).catch(() => {});
   },
   methods: {
+    reformatter,
     getCurrentCaretPosition() {
       const caret = getCaretPosition();
 
@@ -137,7 +141,9 @@ export default {
 
       const newContent = event.clipboardData.getData('text/plain').replace(/\n/g, ' ');
 
-      this.$refs.editor.innerText = newContent;
+      this.$refs.editor.innerText = this.$store.state.cleanUp === true
+        ? reformatter(newContent)
+        : newContent;
       this.onInput();
     },
     onClick() {
@@ -158,35 +164,30 @@ export default {
       this.dropdownSearchTerm = text;
     },
     onNavigationKeyPress(keyCode) {
-      let selectedIndex = this.dropdownSelectedIndex;
-
       switch (keyCode) {
         case keys.KEY_UP:
-          selectedIndex -= 1;
+          this.keyPressCount -= 1;
           break;
 
         case keys.KEY_DOWN:
-          selectedIndex += 1;
+          this.keyPressCount += 1;
           break;
 
         case keys.KEY_ESCAPE:
-          selectedIndex = 0;
           this.hideDropdown();
           break;
 
         case keys.KEY_ENTER:
         case keys.KEY_TAB:
-          this.onSelect(this.dropdownCombinedResults[selectedIndex]);
+          this.onSelect(this.dropdownCombinedResults[this.dropdownSelectedIndex]);
           break;
 
         default:
           break;
       }
 
-      this.dropdownSelectedIndex = Math.min(
-        this.dropdownCombinedResults.length - 1,
-        Math.max(0, selectedIndex),
-      );
+      const size = this.dropdownCombinedResults.length;
+      this.dropdownSelectedIndex = (((this.keyPressCount % size) + size) % size);
     },
     onSelect(item) {
       const caret = getCurrentCaretRange();
@@ -239,6 +240,8 @@ export default {
   left: 0em;
   bottom: 0em;
   right: 0em;
+  line-height: 1.4em;
+  word-wrap: break-word;
 }
 
 .editor-renderer {

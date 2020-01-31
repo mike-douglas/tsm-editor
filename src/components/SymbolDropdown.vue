@@ -1,7 +1,7 @@
 <template>
   <li class="dropdown-row panel">
-    <Syntax class="name" :code="item.name" />
     <Icon class="symbol" name="symbol" />
+    <Syntax class="name" :code="item.name" />
     <p class="definition">
       {{ item.definition }}
     </p>
@@ -40,9 +40,13 @@ export default {
   opacity: 0.5;
 }
 
+.name {
+  font-size: $ts-normal;
+}
+
 .definition {
   clear: both;
-  margin: 0;
-  font-size: $ts-xs;
+  margin: $padding-sm 0 0 0;
+  font-size: $ts-sm;
 }
 </style>
