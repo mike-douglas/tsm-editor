@@ -57,8 +57,8 @@ export const functions = [
 ];
 
 export const specialFeatures = [
-  new TSMKeyword('[Item Name]', 'Reference an item by name.'),
-  new TSMKeyword('item:ID', 'Reference an item by ID.'),
+  new TSMKeyword('[Item Name]', 'Reference an item by name'),
+  new TSMKeyword('item:ID', 'Reference an item by ID'),
 ];
 
 export function findMatches(search) {
