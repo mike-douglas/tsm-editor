@@ -1,6 +1,6 @@
 {
   "name": "tsm-editor",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -8,6 +8,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@bugsnag/js": "^6.5.0",
+    "@bugsnag/plugin-vue": "^6.5.0",
     "core-js": "^3.4.4",
     "json-url": "^2.5.0",
     "vue": "^2.6.10",
@@ -24,7 +26,8 @@
     "eslint-plugin-vue": "^5.0.0",
     "sass": "^1.25.0",
     "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "webpack-bugsnag-plugins": "^1.4.3"
   },
   "eslintConfig": {
     "root": true,
