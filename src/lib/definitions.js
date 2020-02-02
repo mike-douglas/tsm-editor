@@ -14,10 +14,6 @@ class TSMKeyword {
 }
 
 export const symbols = [
-  new TSMKeyword('DBGlobalHistorical', 'Global Historical Price'),
-  new TSMKeyword('DBGlobalMarketAvg', 'Global Market Value Average'),
-  new TSMKeyword('DBGlobalMinBuyoutAvg', 'Global Minimum Buyout Average'),
-  new TSMKeyword('DBGlobalSaleAvg', 'Global Sale Average'),
   new TSMKeyword('DBHistorical', 'Historical Price'),
   new TSMKeyword('DBMarket', 'Market Value'),
   new TSMKeyword('DBMinBuyout', 'Minimum Buyout Value'),
@@ -32,33 +28,37 @@ export const symbols = [
   new TSMKeyword('ItemLevel', 'The item level of the item'),
   new TSMKeyword('RequiredLevel', 'The level required to use or equip the item'),
   new TSMKeyword('Crafting', 'Cost of crafting an item'),
-  new TSMKeyword('Destroy', 'Cost of materials if you were to destroy the item'),
+  new TSMKeyword('Destroy', 'Value of materials if you were to destroy the item'),
   new TSMKeyword('VendorBuy', 'Cost if you were to buy the item from a vendor'),
-  new TSMKeyword('VendorSell', 'Cost if you were to sell the item to the vendor'),
-  new TSMKeyword('avgBuy', 'Average Buy Price'),
-  new TSMKeyword('avgSell', 'Average Sell Price'),
-  new TSMKeyword('matPrice', 'Crafting Material Cost'),
-  new TSMKeyword('maxBuy', 'Max Buy Price'),
-  new TSMKeyword('maxSell', 'Max Sell Price'),
+  new TSMKeyword('VendorSell', 'Value if you were to sell the item to the vendor'),
+  new TSMKeyword('AvgBuy', 'Average Buy Price'),
+  new TSMKeyword('AvgSell', 'Average Sell Price'),
+  new TSMKeyword('MatPrice', 'Crafting Material Cost'),
+  new TSMKeyword('MaxBuy', 'Max Buy Price'),
+  new TSMKeyword('MaxSell', 'Max Sell Price'),
 ];
 
 export const functions = [
-  new TSMFunction('min', ['a', 'b'], 'Returns the numerical minimum between a and b'),
-  new TSMFunction('max', ['a', 'b'], 'Returns the numerical maximum between a and b'),
+  new TSMFunction('min', ['n..'], 'Returns the numerical minimum of the prices in the list'),
+  new TSMFunction('max', ['n..'], 'Returns the numerical maximum of the prices in the list'),
   new TSMFunction('first', ['n..'], 'Returns the first valid price in the list'),
   new TSMFunction('avg', ['n..'], 'Returns the average of the prices in the list'),
   new TSMFunction('check', ['n', 'b', 'c'], 'If the first parameter is greater than 0 return the second parameter, otherwise return the third parameter'),
-  new TSMFunction('convert', ['variable', 'optional_item'], 'Returns the lowest cost conversion of the item being evaluated'),
+  new TSMFunction('convert', ['variable'], 'Returns the lowest cost conversion of the item being evaluated'),
   new TSMFunction('ifgt', ['a', 'b', 'x', 'y'], 'Returns x if a is greater than b, otherwise it returns y'),
   new TSMFunction('ifgte', ['a', 'b', 'x', 'y'], 'Returns x if a is greater than or equal to b, otherwise it returns y'),
   new TSMFunction('iflt', ['a', 'b', 'x', 'y'], 'Returns x if a is less than b, otherwise it returns y'),
   new TSMFunction('iflte', ['a', 'b', 'x', 'y'], 'Returns x if a is less than or equal to b, otherwise it returns y'),
   new TSMFunction('ifeq', ['a', 'b', 'x', 'y'], 'Returns x if a is equal to b, otherwise it returns y'),
+  new TSMFunction('round', ['x', 'y'], 'Rounds x to the nearest multiple of y'),
+  new TSMFunction('roundup', ['x', 'y'], 'Rounds x up to the nearest multiple of y'),
+  new TSMFunction('rounddown', ['x', 'y'], 'Rounds x down to the nearest multiple of y'),
 ];
 
 export const specialFeatures = [
-  new TSMKeyword('[Item Name]', 'Reference an item by name'),
-  new TSMKeyword('item:ID', 'Reference an item by ID'),
+  new TSMKeyword('[Item Link]', 'Reference an item by link'),
+  new TSMKeyword('i:ID', 'Reference an item by ID'),
+  new TSMKeyword('baseitem', 'Reference the base item (without item variations)'),
 ];
 
 export function findMatches(search) {
