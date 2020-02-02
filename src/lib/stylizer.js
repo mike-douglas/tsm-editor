@@ -4,9 +4,6 @@ const REG_GOLD = /(\d+g)/g;
 const REG_SILVER = /(\d+s)/g;
 const REG_COPPER = /(\d+c)/g;
 
-const REG_ITEM_BRACKET = /(\[.+\])/g;
-const REG_ITEM_NUMERIC = /(item:(\d+|ID))/g;
-
 const REG_LPAREN = /\(/g;
 const REG_RPAREN = /\)/g;
 
@@ -20,6 +17,11 @@ const REG_MATH_REPLACEMENTS = [
 
 const REG_PUNCTUATION = /(,)/g;
 const REG_NUMERIC = /(\d+\.?\d{0,}|\.?\d+)/g;
+
+const REG_ITEMS = [
+  /(\[.+\])/g,
+  /(i:(\d+|ID))/g,
+];
 
 const REG_FUNCTIONS = functions.map(f => ({
   func: f,
@@ -44,6 +46,7 @@ const addSpaces = (_classes, text) => {
   _classes.map((textClass) => {
     switch (textClass) {
       case 'maths':
+      case 'item':
         replacedString = ` ${replacedString} `;
         break;
 
@@ -87,6 +90,10 @@ function stylizer(func) {
       replacedString = replacedString.replace(reg, func(['maths'], replace));
     });
 
+    REG_ITEMS.forEach((regex) => {
+      replacedString = replacedString.replace(regex, (_match, p1) => func(['item'], p1));
+    });
+
     REG_FUNCTIONS.forEach(({ regex }) => {
       replacedString = replacedString.replace(regex, (_match, p1) => func(['function'], p1));
     });
@@ -104,9 +111,6 @@ function stylizer(func) {
     replacedString = replacedString.replace(REG_SILVER, currencyReplace('silver'));
     replacedString = replacedString.replace(REG_COPPER, currencyReplace('copper'));
 
-    replacedString = replacedString.replace(REG_ITEM_BRACKET, (_match, p1) => func(['item'], p1));
-    replacedString = replacedString.replace(REG_ITEM_NUMERIC, (_match, p1) => func(['item'], p1));
-
     replacedString = replacedString.replace(REG_PUNCTUATION, (_match, p1) => func(['punc'], p1));
     replacedString = replacedString.replace(REG_NUMERIC, (_match, p1) => func(['numeric'], p1));
 
@@ -114,9 +118,5 @@ function stylizer(func) {
   };
 }
 
-export function reformatter(string) {
-  // Pass in a string completely stripped of spaces to make our life easier
-  return stylizer(addSpaces)(string.replace(/\s+/g, ''));
-}
-
+export const reformatter = stylizer(addSpaces);
 export const stylizeString = stylizer(span);

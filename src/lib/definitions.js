@@ -27,15 +27,16 @@ export const symbols = [
   new TSMKeyword('ItemQuality', 'Item Quality (0 = poor, 1 = common, 2 = uncommon, 3 = rare, 4 = epic, 5 = legendary)'),
   new TSMKeyword('ItemLevel', 'The item level of the item'),
   new TSMKeyword('RequiredLevel', 'The level required to use or equip the item'),
-  new TSMKeyword('Crafting', 'Cost of crafting an item'),
   new TSMKeyword('Destroy', 'Value of materials if you were to destroy the item'),
   new TSMKeyword('VendorBuy', 'Cost if you were to buy the item from a vendor'),
   new TSMKeyword('VendorSell', 'Value if you were to sell the item to the vendor'),
   new TSMKeyword('AvgBuy', 'Average Buy Price'),
   new TSMKeyword('AvgSell', 'Average Sell Price'),
-  new TSMKeyword('MatPrice', 'Crafting Material Cost'),
+  new TSMKeyword('Crafting', 'Total cost of crafting an item (sum of all MatPrices for an item)'),
+  new TSMKeyword('MatPrice', 'The cost of a single crafting material'),
   new TSMKeyword('MaxBuy', 'Max Buy Price'),
   new TSMKeyword('MaxSell', 'Max Sell Price'),
+  new TSMKeyword('BaseItem', 'Reference the base item (without item variations)'),
 ];
 
 export const functions = [
@@ -58,7 +59,6 @@ export const functions = [
 export const specialFeatures = [
   new TSMKeyword('[Item Link]', 'Reference an item by link'),
   new TSMKeyword('i:ID', 'Reference an item by ID'),
-  new TSMKeyword('baseitem', 'Reference the base item (without item variations)'),
 ];
 
 export function findMatches(search) {
