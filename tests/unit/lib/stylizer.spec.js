@@ -1,5 +1,6 @@
+/* eslint-disable import/extensions */
 import { reformatter, stylizeString } from '@/lib/stylizer.js';
-import { symbols, functions, specialFeatures } from '@/lib/definitions.js';
+import { symbols, functions } from '@/lib/definitions.js';
 
 describe('reformatter', () => {
   it('adds a single space after commas', () => {
