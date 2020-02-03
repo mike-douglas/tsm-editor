@@ -114,6 +114,13 @@ export default {
       return true;
     },
     onKeyUp(event) {
+      if (this.dropdownIsVisible
+          && (event.keyCode === keys.LEFT
+          || event.keyCode === keys.RIGHT)) {
+        this.hideDropdown();
+        return true;
+      }
+
       if (isControlKey(event.keyCode)) {
         event.preventDefault();
         event.stopPropagation();
@@ -168,20 +175,20 @@ export default {
     },
     onNavigationKeyPress(keyCode) {
       switch (keyCode) {
-        case keys.KEY_UP:
+        case keys.UP:
           this.keyPressCount -= 1;
           break;
 
-        case keys.KEY_DOWN:
+        case keys.DOWN:
           this.keyPressCount += 1;
           break;
 
-        case keys.KEY_ESCAPE:
+        case keys.ESCAPE:
           this.hideDropdown();
           break;
 
-        case keys.KEY_ENTER:
-        case keys.KEY_TAB:
+        case keys.ENTER:
+        case keys.TAB:
           this.onSelect(this.dropdownCombinedResults[this.dropdownSelectedIndex]);
           break;
 
@@ -202,7 +209,6 @@ export default {
 
         this.rawContent = replaceTextInRange(this.$refs.editor.innerText, item.name, caret);
 
-        // this.rawContent = this.content;
         this.$refs.editor.innerText = this.rawContent;
 
         this.$nextTick(() => {

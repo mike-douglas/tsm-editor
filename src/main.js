@@ -6,15 +6,18 @@ import bugsnagVue from '@bugsnag/plugin-vue';
 import store from '@/lib/store';
 import App from './App.vue';
 
-const bugsnagClient = bugsnag({
-  apiKey: '1a5d9bde039258ef72cf342d7057f654',
-  appVersion: process.env.PACKAGE_VERSION,
-});
+if (process.env.NODE_ENV === 'production') {
+  const bugsnagClient = bugsnag({
+    apiKey: '1a5d9bde039258ef72cf342d7057f654',
+    appVersion: process.env.PACKAGE_VERSION,
+  });
 
-bugsnagClient.use(bugsnagVue, Vue);
+  bugsnagClient.use(bugsnagVue, Vue);
+}
 
 Vue.use(VueGtag, {
   config: { id: 'UA-49351028-1' },
+  enabled: process.env.NODE_ENV === 'production',
 });
 
 Vue.config.productionTip = false;

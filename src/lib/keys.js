@@ -1,15 +1,17 @@
 
 const keys = {
-  KEY_UP: 38,
-  KEY_DOWN: 40,
-  KEY_ESCAPE: 27,
-  KEY_ENTER: 13,
-  KEY_SHIFT: 16,
-  KEY_TAB: 9,
+  UP: 38,
+  DOWN: 40,
+  LEFT: 37,
+  RIGHT: 39,
+  ESCAPE: 27,
+  ENTER: 13,
+  SHIFT: 16,
+  TAB: 9,
 };
 
 export function isControlKey(key) {
-  return Object.values(keys).includes(key);
+  return Object.values(keys).filter(k => k !== keys.LEFT && k !== keys.RIGHT).includes(key);
 }
 
 export default keys;
