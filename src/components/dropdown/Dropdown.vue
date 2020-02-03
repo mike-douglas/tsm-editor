@@ -27,8 +27,8 @@
 <script>
 import { Position } from '@/lib/position';
 
-import FunctionDropdown from '@/components/FunctionDropdown.vue';
-import SymbolDropdown from '@/components/SymbolDropdown.vue';
+import FunctionDropdown from '@/components/dropdown/FunctionDropdown.vue';
+import SymbolDropdown from '@/components/dropdown/SymbolDropdown.vue';
 import Icon from '@/components/Icon.vue';
 
 export default {
