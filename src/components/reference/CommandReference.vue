@@ -28,8 +28,8 @@
 <script>
 import { functions, symbols, specialFeatures } from '@/lib/definitions';
 
-import FunctionReference from '@/components/FunctionReference.vue';
-import SymbolReference from '@/components/SymbolReference.vue';
+import FunctionReference from '@/components/reference/FunctionReference.vue';
+import SymbolReference from '@/components/reference/SymbolReference.vue';
 import Icon from '@/components/Icon.vue';
 
 export default {

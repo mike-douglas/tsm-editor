@@ -25,8 +25,8 @@
 
 <script>
 
-import Editor from '@/components/Editor.vue';
-import CommandReference from '@/components/CommandReference.vue';
+import Editor from '@/components/editor/Editor.vue';
+import CommandReference from '@/components/reference/CommandReference.vue';
 
 export default {
   name: 'app',

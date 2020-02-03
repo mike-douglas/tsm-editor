@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import EditorEventLayer from '@/components/EditorEventLayer.vue';
+import EditorEventLayer from '@/components/editor/EditorEventLayer.vue';
 import Tooltip from '@/components/Tooltip.vue';
 
 export default {

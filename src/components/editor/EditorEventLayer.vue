@@ -36,7 +36,7 @@ import { findMatches } from '@/lib/definitions';
 import keys, { isControlKey } from '@/lib/keys';
 import { reformatter } from '@/lib/stylizer';
 
-import Dropdown from '@/components/Dropdown.vue';
+import Dropdown from '@/components/dropdown/Dropdown.vue';
 import Syntax from '@/components/Syntax.vue';
 
 export default {

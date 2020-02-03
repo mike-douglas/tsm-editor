@@ -3,8 +3,8 @@ import VueGtag from 'vue-gtag';
 import bugsnag from '@bugsnag/js';
 import bugsnagVue from '@bugsnag/plugin-vue';
 
-import App from './App.vue';
 import store from '@/lib/store';
+import App from './App.vue';
 
 const bugsnagClient = bugsnag({
   apiKey: '1a5d9bde039258ef72cf342d7057f654',

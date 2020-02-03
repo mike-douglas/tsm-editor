@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -19,8 +20,10 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.1.0",
     "@vue/cli-plugin-eslint": "^4.1.2",
+    "@vue/cli-plugin-unit-jest": "^4.1.2",
     "@vue/cli-service": "^4.1.0",
     "@vue/eslint-config-airbnb": "^4.0.0",
+    "@vue/test-utils": "1.0.0-beta.29",
     "babel-eslint": "^10.0.3",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
@@ -28,6 +31,19 @@
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.10",
     "webpack-bugsnag-plugins": "^1.4.3"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      ".*\\.(vue)$": "vue-jest"
+    },
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    }
   },
   "eslintConfig": {
     "root": true,
@@ -42,7 +58,18 @@
     "rules": {},
     "parserOptions": {
       "parser": "babel-eslint"
-    }
+    },
+    "overrides": [
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "jest": true
+        }
+      }
+    ]
   },
   "browserslist": [
     "> 1%",
