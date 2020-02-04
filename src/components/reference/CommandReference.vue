@@ -79,4 +79,18 @@ export default {
 .row {
   padding: $padding-sm $padding;
 }
+
+@media only screen and (max-width : $mobile-breakpoint) {
+  .reference {
+    display: block;
+  }
+
+  .symbols .sub-panel {
+    display: block;
+  }
+
+  .row {
+    padding: 0;
+  }
+}
 </style>
