@@ -21,6 +21,7 @@ const REG_NUMERIC = /(\d+\.?\d{0,}|\.?\d+)/g;
 const REG_ITEMS = [
   /(\[.+\])/g,
   /(i:(\d+|ID))/g,
+  /(item:(\d+|ID))/g,
 ];
 
 const REG_FUNCTIONS = functions.map(f => ({
