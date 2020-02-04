@@ -208,15 +208,13 @@ export default {
         const rangeStart = caret.startOffset;
 
         this.rawContent = replaceTextInRange(this.$refs.editor.innerText, item.name, caret);
-
         this.$refs.editor.innerText = this.rawContent;
 
         this.$nextTick(() => {
           const { childNodes } = this.$refs.editor;
-          const lastLineNode = childNodes[childNodes.length - 1];
-
           const newCaret = document.createRange();
-          newCaret.setStart(lastLineNode, rangeStart + item.name.length);
+
+          newCaret.setStart(childNodes[0], rangeStart + item.name.length);
 
           setCaretRange(newCaret);
           this.hideDropdown();
