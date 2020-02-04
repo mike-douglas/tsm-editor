@@ -105,4 +105,22 @@ a {
   color: $txt-mid;
   font-weight: bold;
 }
+
+@media only screen and (max-width : $mobile-breakpoint) {
+  .hero {
+    text-align: center;
+  }
+
+  .hero p {
+    font-size: $ts-tiny;
+  }
+
+  h1 {
+    font-size: $ts-sm;
+  }
+
+  .panel {
+    padding: $padding-sm;
+  }
+}
 </style>

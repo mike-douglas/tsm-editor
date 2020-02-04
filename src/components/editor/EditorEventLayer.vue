@@ -75,6 +75,7 @@ export default {
   },
   mounted() {
     this.$refs.editor.innerText = this.content;
+    this.resetContainerHeight();
 
     this.$store.dispatch('loadFromLocation')
       .then((restored) => {
@@ -89,6 +90,9 @@ export default {
   },
   methods: {
     reformatter,
+    resetContainerHeight() {
+      this.containerHeight = this.$refs.editor ? this.$refs.editor.scrollHeight : 100;
+    },
     getCurrentCaretPosition() {
       const caret = getCaretPosition();
 
@@ -96,10 +100,11 @@ export default {
     },
     onInput() {
       this.rawContent = this.$refs.editor.innerText;
-      this.containerHeight = this.$refs.editor ? this.$refs.editor.scrollHeight : 100;
 
       this.$store.commit('save', this.rawContent);
       this.$store.dispatch('saveToLocation');
+
+      this.resetContainerHeight();
     },
     onKeyDown(event) {
       if (isControlKey(event.keyCode)) {
