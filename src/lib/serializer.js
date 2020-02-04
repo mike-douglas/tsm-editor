@@ -21,7 +21,7 @@ export function serializeAndSave(value) {
     const hash = `#${serialized}`;
 
     if (hash !== window.location.hash) {
-      window.history.pushState(null, null, hash);
+      window.history.pushState(window.location.pathname, null, hash);
     }
 
     return serialized;

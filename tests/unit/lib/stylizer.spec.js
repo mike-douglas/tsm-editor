@@ -35,6 +35,7 @@ describe('stylizeString', () => {
   it('correctly tags item strings', () => {
     expect(stylizeString('[Foo of Bar]')).toMatch('<span class="token item">[Foo of Bar]</span>');
     expect(stylizeString('i:31337')).toMatch('<span class="token item">i:<span class="token numeric">31337</span></span>');
+    expect(stylizeString('item:31337')).toMatch('<span class="token item">item:<span class="token numeric">31337</span></span>');
   });
 
   it('correctly tags currency strings', () => {
