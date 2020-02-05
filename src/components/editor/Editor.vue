@@ -1,14 +1,20 @@
 <template>
   <div class="editor-container">
-    <EditorEventLayer class="editor" ref="editor"
-      v-bind:initial-content="content" />
-    <div class="editor-status">
-      <Tooltip class="tooltip" text="Reformats your string to make it more readable!">
+    <div class="editor-status right">
+      <Tooltip class="tooltip" position="bottom-left"
+        text="Reformats your string to make it more readable!">
         <label>
           <input class="check" type="checkbox" v-model="checked" />
           <span class="text">Beautify</span>
         </label>
       </Tooltip>
+    </div>
+    <EditorEventLayer class="editor" ref="editor"
+      v-bind:initial-content="content" />
+    <div class="editor-status">
+      <Button type="xsmall link" icon="clipboard" :on-click="copyToClipboard">
+        Copy to Clipboard
+      </Button>
     </div>
   </div>
 </template>
@@ -16,12 +22,14 @@
 <script>
 import EditorEventLayer from '@/components/editor/EditorEventLayer.vue';
 import Tooltip from '@/components/Tooltip.vue';
+import Button from '@/components/Button.vue';
 
 export default {
   name: 'Editor',
   components: {
     EditorEventLayer,
     Tooltip,
+    Button,
   },
   computed: {
     content() {
@@ -41,13 +49,21 @@ export default {
       },
     },
   },
+  methods: {
+    copyToClipboard() {
+      if (this.$store.state.select) {
+        this.$store.state.select();
+        document.execCommand('copy');
+      }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .editor-status {
   padding-left: 0;
-  margin-top: $padding-sm;
+  margin: $padding-sm 0;
 }
 
 .check {
@@ -58,4 +74,9 @@ export default {
   vertical-align: middle;
   font-weight: bold;
 }
+
+.right {
+  text-align: right;
+}
+
 </style>

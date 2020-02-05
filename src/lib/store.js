@@ -12,10 +12,14 @@ export default new Vuex.Store({
     formula: 'check(first(Crafting, DBMarket, DBRegionMarketAvg), max(0.25 * avg(Crafting, DBMarket, DBRegionMarketAvg), 1.5 * VendorSell))',
     lastSave: null,
     cleanUp: true,
+    select: null,
   },
   mutations: {
     save(state, newValue) {
       state.formula = newValue;
+    },
+    setSelect(state, newValue) {
+      state.select = newValue;
     },
     updateCleanUp(state, newValue) {
       state.cleanUp = newValue;
