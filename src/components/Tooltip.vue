@@ -1,7 +1,7 @@
 <template>
   <span class="tooltip">
     <slot />
-    <span class="tooltip-text">{{ text }}</span>
+    <span :class="`tooltip-text ${position}`">{{ text }}</span>
   </span>
 </template>
 
@@ -10,6 +10,10 @@ export default {
   name: 'Tooltip',
   props: {
     text: String,
+    position: {
+      type: String,
+      default: 'bottom-right',
+    },
   },
 };
 </script>
@@ -30,23 +34,53 @@ export default {
   border-radius: 0.5em;
   position: absolute;
   z-index: 4;
-  top: 125%;
-  left: 50%;
-  margin-left: -3.25em;
 }
 
 .tooltip-text::after {
   content: ' ';
   position: absolute;
-  bottom: 100%;
-  left: 25%;
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent $dropdown-background transparent;
+  bottom: 100%;
 }
 
 .tooltip:hover .tooltip-text {
   visibility: visible;
 }
+
+.bottom-right {
+  top: 125%;
+  left: 50%;
+  margin-left: -3.25em;
+}
+
+.bottom-right::after {
+  left: 25%;
+  border-color: transparent transparent $dropdown-background transparent;
+}
+
+.top-right {
+  bottom: 125%;
+  left: 50%;
+}
+
+.top-right::after {
+  left: 25%;
+  top: 100%;
+  border-color: $dropdown-background transparent transparent transparent;
+}
+
+.bottom-left {
+  top: 125%;
+  left: -100%;
+  margin-left: -3.25em;
+}
+
+.bottom-left::after {
+  left: 85%;
+  bottom: 100%;
+  border-color: transparent transparent $dropdown-background transparent;
+}
+
 </style>
