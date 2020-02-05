@@ -12,6 +12,9 @@ const REG_MATH_REPLACEMENTS = [
   [/-/g, '-'],
   [/\*/g, '*'],
   [/\+/g, '+'],
+];
+
+const REG_PERCENT_REPLACEMENTS = [
   [/%/g, '%'],
 ];
 
@@ -89,6 +92,11 @@ function stylizer(func) {
     REG_MATH_REPLACEMENTS.forEach((n) => {
       const [reg, replace] = n;
       replacedString = replacedString.replace(reg, func(['maths'], replace));
+    });
+
+    REG_PERCENT_REPLACEMENTS.forEach((n) => {
+      const [reg, replace] = n;
+      replacedString = replacedString.replace(reg, func(['percent'], replace));
     });
 
     REG_ITEMS.forEach((regex) => {
