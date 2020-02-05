@@ -33,7 +33,7 @@ export default {
   color: rgb(0, 191, 161);
 }
 
-::v-deep .maths {
+::v-deep .maths, ::v-deep .percent {
   color: rgb(38, 145, 211);
 }
 

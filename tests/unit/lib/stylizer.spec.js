@@ -23,13 +23,21 @@ describe('reformatter', () => {
   it('pads item links with a space WITHOUT adding spaces inside the brackets', () => {
     expect(reformatter('[Bag of Tricks  with extra space there]')).toMatch(' [Bag of Tricks  with extra space there] ');
   });
+
+  it('does not add a space between a value and %', () => {
+    expect(reformatter('200% DBMarket')).toEqual('200% DBMarket');
+  });
 });
 
 describe('stylizeString', () => {
   it('correctly tags math operations', () => {
-    '+-*/%'.split('').forEach((operation) => {
+    '+-*/'.split('').forEach((operation) => {
       expect(stylizeString(`2 ${operation} 2`)).toMatch(`<span class="token numeric">2</span> <span class="token maths">${operation}</span> <span class="token numeric">2</span>`);
     });
+  });
+
+  it('correctly handles percent strings', () => {
+    expect(stylizeString('200% DBMarket')).toMatch('<span class="token numeric">200</span><span class="token percent">%</span> <span class="token symbol">DBMarket</span>');
   });
 
   it('correctly tags item strings', () => {
