@@ -32,6 +32,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.xsmall {
+  font-size: $ts-xs;
+}
+
 .small {
   font-size: $ts-sm;
 }

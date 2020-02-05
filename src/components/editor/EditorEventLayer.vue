@@ -77,6 +77,14 @@ export default {
     this.$refs.editor.innerText = this.content;
     this.resetContainerHeight();
 
+    this.$store.commit('setSelect', () => {
+      const range = document.createRange();
+      range.selectNodeContents(this.$refs.editor);
+
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    });
     this.$store.dispatch('loadFromLocation')
       .then((restored) => {
         this.$gtag.pageview({ page_path: window.location.pathname + window.location.hash });
