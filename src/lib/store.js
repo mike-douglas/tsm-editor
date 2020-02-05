@@ -9,26 +9,26 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     debug: false,
-    formula: 'check(first(Crafting, DBMarket, DBRegionMarketAvg), max(0.25 * avg(Crafting, DBMarket, DBRegionMarketAvg), 1.5 * VendorSell))',
-    lastSave: null,
-    cleanUp: true,
-    select: null,
+    priceString: 'check(first(Crafting, DBMarket, DBRegionMarketAvg), max(0.25 * avg(Crafting, DBMarket, DBRegionMarketAvg), 1.5 * VendorSell))',
+    saveTimeout: null,
+    cleanUpFlag: true,
+    selectCallback: null,
   },
   mutations: {
-    save(state, newValue) {
-      state.formula = newValue;
+    saveString(state, newValue) {
+      state.priceString = newValue;
     },
-    setSelect(state, newValue) {
-      state.select = newValue;
+    setSelectCallback(state, newValue) {
+      state.selectCallback = newValue;
     },
-    updateCleanUp(state, newValue) {
-      state.cleanUp = newValue;
+    setCleanupFlag(state, newValue) {
+      state.cleanUpFlag = newValue;
     },
     clearSaveTimeout(state) {
-      state.lastSave = null;
+      state.saveTimeout = null;
     },
-    startNewTimeout(state, newValue) {
-      state.lastSave = newValue;
+    setSaveTimeout(state, newValue) {
+      state.saveTimeout = newValue;
     },
   },
   actions: {
@@ -36,8 +36,8 @@ export default new Vuex.Store({
       return deserialize();
     },
     async saveToLocation({ commit, state }) {
-      if (state.lastSave) {
-        window.clearTimeout(state.lastSave);
+      if (state.saveTimeout) {
+        window.clearTimeout(state.saveTimeout);
         commit('clearSaveTimeout');
 
         if (state.debug) {
@@ -46,14 +46,14 @@ export default new Vuex.Store({
       }
 
       const t = window.setTimeout(() => {
-        serializeAndSave(state.formula).catch(console.log);
+        serializeAndSave(state.priceString).catch(console.log);
 
         if (state.debug) {
           console.log('Saved...');
         }
       }, 1000);
 
-      commit('startNewTimeout', t);
+      commit('setSaveTimeout', t);
     },
   },
 });

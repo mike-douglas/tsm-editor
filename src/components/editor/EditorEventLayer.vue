@@ -77,7 +77,7 @@ export default {
     this.$refs.editor.innerText = this.content;
     this.resetContainerHeight();
 
-    this.$store.commit('setSelect', () => {
+    this.$store.commit('setSelectCallback', () => {
       const range = document.createRange();
       range.selectNodeContents(this.$refs.editor);
 
@@ -88,7 +88,7 @@ export default {
     this.$store.dispatch('loadFromLocation')
       .then((restored) => {
         this.$gtag.pageview({ page_path: window.location.pathname + window.location.hash });
-        return this.$store.state.cleanUp === true ? reformatter(restored) : restored;
+        return this.$store.state.cleanUpFlag === true ? reformatter(restored) : restored;
       })
       .then((restored) => {
         this.$refs.editor.innerText = restored;
@@ -109,7 +109,7 @@ export default {
     onInput() {
       this.rawContent = this.$refs.editor.innerText;
 
-      this.$store.commit('save', this.rawContent);
+      this.$store.commit('saveString', this.rawContent);
       this.$store.dispatch('saveToLocation');
 
       this.resetContainerHeight();
@@ -164,7 +164,7 @@ export default {
 
       const newContent = event.clipboardData.getData('text/plain').replace(/\n/g, ' ');
 
-      this.$refs.editor.innerText = this.$store.state.cleanUp === true
+      this.$refs.editor.innerText = this.$store.state.cleanUpFlag === true
         ? reformatter(newContent)
         : newContent;
       this.onInput();

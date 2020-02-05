@@ -33,14 +33,14 @@ export default {
   },
   computed: {
     content() {
-      return this.$store.state.formula;
+      return this.$store.state.priceString;
     },
     checked: {
       get() {
-        return this.$store.state.cleanUp;
+        return this.$store.state.cleanUpFlag;
       },
       set(value) {
-        this.$store.commit('updateCleanUp', value);
+        this.$store.commit('setCleanupFlag', value);
         this.$gtag.event('toggleCleanup', {
           event_category: 'settings',
           event_label: 'default',
@@ -51,8 +51,8 @@ export default {
   },
   methods: {
     copyToClipboard() {
-      if (this.$store.state.select) {
-        this.$store.state.select();
+      if (this.$store.state.selectCallback) {
+        this.$store.state.selectCallback();
         document.execCommand('copy');
       }
     },
