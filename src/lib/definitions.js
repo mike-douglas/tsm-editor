@@ -32,10 +32,12 @@ export const symbols = [
   new TSMKeyword('VendorSell', 'Value if you were to sell the item to the vendor'),
   new TSMKeyword('AvgBuy', 'Average Buy Price'),
   new TSMKeyword('AvgSell', 'Average Sell Price'),
-  new TSMKeyword('Crafting', 'Total cost of crafting an item (sum of all MatPrices for an item)'),
+  new TSMKeyword('Crafting', 'Total cost of crafting the item (sum of all MatPrices for the item)'),
   new TSMKeyword('MatPrice', 'The cost of a single crafting material'),
-  new TSMKeyword('MaxBuy', 'Max Buy Price'),
-  new TSMKeyword('MaxSell', 'Max Sell Price'),
+  new TSMKeyword('MinSell', 'Minimum sell price that you sold the item'),
+  new TSMKeyword('MinBuy', 'Minimum buy price that you bought the item'),
+  new TSMKeyword('MaxBuy', 'Max buy price that you purchased the item'),
+  new TSMKeyword('MaxSell', 'Max sell price that you sold the item'),
   new TSMKeyword('BaseItem', 'Reference the base item (without item variations)'),
 ];
 
