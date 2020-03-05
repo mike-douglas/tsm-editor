@@ -10,7 +10,7 @@
       </Tooltip>
     </div>
     <EditorEventLayer class="editor" ref="editor"
-      v-bind:initial-content="content" />
+      :initial-content="content" />
     <div class="editor-status">
       <Button type="xsmall link" icon="clipboard" :on-click="copyToClipboard">
         Copy to Clipboard
