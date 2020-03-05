@@ -1,18 +1,18 @@
 <template>
-  <div class="dropdown panel" v-bind:style="positionCSS">
+  <div class="dropdown panel" :style="positionCSS">
     <ul>
       <SymbolDropdown
         v-for="(item, index) in symbols"
-        v-on:click="didChooseOption(item)"
-        v-bind:item="item"
-        v-bind:key="'symbol' + index"
-        v-bind:class="index === selectedIndex ? 'selected' : ''" />
+        @click="didChooseOption(item)"
+        :item="item"
+        :key="'symbol' + index"
+        :class="index === selectedIndex ? 'selected' : ''" />
       <FunctionDropdown
         v-for="(item, index) in functions"
-        v-on:click="didChooseOption(item)"
-        v-bind:item="item"
-        v-bind:key="'function' + index"
-        v-bind:class="(index + symbols.length) === selectedIndex ? 'selected': ''" />
+        @click="didChooseOption(item)"
+        :item="item"
+        :key="'function' + index"
+        :class="(index + symbols.length) === selectedIndex ? 'selected': ''" />
     </ul>
     <div class="hint">
       <Icon name="bulb" /> Hit enter or tab to insert

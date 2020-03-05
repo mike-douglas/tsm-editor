@@ -1,25 +1,25 @@
 <template>
-  <section class="editor-space" v-bind:style="{ height: containerHeight + 'px' }">
+  <section class="editor-space" :style="{ height: containerHeight + 'px' }">
     <div class="editor-renderer">
       <Syntax :code="rawContent" />
     </div>
     <div class="editor-event" ref="editor"
       contenteditable="true"
       spellcheck="false"
-      v-on:keydown="onKeyDown"
-      v-on:keyup="onKeyUp"
-      v-on:blur="onBlur"
-      v-on:input="onInput"
-      v-on:paste="onPaste"
-      v-on:click="onClick">
+      @keydown="onKeyDown"
+      @keyup="onKeyUp"
+      @blur="onBlur"
+      @input="onInput"
+      @paste="onPaste"
+      @click="onClick">
     </div>
     <Dropdown class="dropdown"
-        v-bind:visible="dropdownIsVisible"
-        v-bind:position="dropdownPosition"
-        v-bind:symbols="dropdownSymbolResults"
-        v-bind:functions="dropdownFunctionResults"
-        v-bind:on-select="onSelect"
-        v-bind:selected-index="dropdownSelectedIndex" />
+        :visible="dropdownIsVisible"
+        :position="dropdownPosition"
+        :symbols="dropdownSymbolResults"
+        :functions="dropdownFunctionResults"
+        :on-select="onSelect"
+        :selected-index="dropdownSelectedIndex" />
     <div class="pannel debug-panel" v-show="debug">
       <div>{{ rawContent }}</div>
     </div>

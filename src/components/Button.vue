@@ -1,6 +1,6 @@
 <template>
-  <button v-bind:class="`button ${type}`" v-on:click="handleClick">
-    <Icon class="icon" v-show="icon && icon.length > 0 === true" v-bind:name="icon" />
+  <button :class="`button ${type}`" @click="handleClick">
+    <Icon class="icon" v-show="icon && icon.length > 0 === true" :name="icon" />
     <span class="text"><slot /></span>
   </button>
 </template>

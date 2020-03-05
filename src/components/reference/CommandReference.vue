@@ -5,8 +5,8 @@
       <section class="sub-panel">
         <FunctionReference class="row function-row"
           v-for="(func, index) in functions"
-          v-bind:key="'function' + index"
-          v-bind:item="func" />
+          :key="'function' + index"
+          :item="func" />
       </section>
     </section>
     <section class="symbols">
@@ -14,12 +14,12 @@
       <section class="sub-panel">
         <SymbolReference class="row symbol-row"
           v-for="(symbol, index) in specialFeatures"
-          v-bind:key="'feat' + index"
-          v-bind:item="symbol" />
+          :key="'feat' + index"
+          :item="symbol" />
         <SymbolReference class="row symbol-row"
           v-for="(symbol, index) in symbols"
-          v-bind:key="'symbol' + index"
-          v-bind:item="symbol" />
+          :key="'symbol' + index"
+          :item="symbol" />
       </section>
     </section>
   </div>
