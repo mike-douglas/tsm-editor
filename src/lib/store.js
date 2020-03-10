@@ -6,39 +6,53 @@ import { serializeAndSave, deserialize } from '@/lib/serializer';
 
 Vue.use(Vuex);
 
+export const UPDATE_PRICESTRING = 'UpdatePriceString';
+export const UPDATE_CLEANUPFLAG = 'UpdateCleanupFlag';
+export const UPDATE_SAVETIMEOUT = 'UpdateSaveTimeout';
+export const UPDATE_DEBUG = 'UpdateDebugFlag';
+
+export const GET_PRICESTRING = 'GetPriceString';
+export const SAVE_PRICESTRING = 'SavePriceString';
+
 export default new Vuex.Store({
   state: {
-    debug: false,
-    priceString: 'check(first(Crafting, DBMarket, DBRegionMarketAvg), max(0.25 * avg(Crafting, DBMarket, DBRegionMarketAvg), 1.5 * VendorSell))',
+    debug: true,
+    priceString: null,
     saveTimeout: null,
     cleanUpFlag: true,
-    selectCallback: null,
+  },
+  getters: {
+    priceString: state => state.priceString,
+    debug: state => state.debug,
   },
   mutations: {
-    saveString(state, newValue) {
-      state.priceString = newValue;
+    [UPDATE_PRICESTRING](state, newString) {
+      state.priceString = newString;
     },
-    setSelectCallback(state, newValue) {
-      state.selectCallback = newValue;
+    [UPDATE_CLEANUPFLAG](state, newFlag) {
+      state.cleanUpFlag = newFlag;
     },
-    setCleanupFlag(state, newValue) {
-      state.cleanUpFlag = newValue;
+    [UPDATE_SAVETIMEOUT](state, newTimeout) {
+      state.saveTimeout = newTimeout;
     },
-    clearSaveTimeout(state) {
-      state.saveTimeout = null;
-    },
-    setSaveTimeout(state, newValue) {
-      state.saveTimeout = newValue;
+    [UPDATE_DEBUG](state, newFlag) {
+      state.debug = newFlag;
     },
   },
   actions: {
-    async loadFromLocation() {
-      return deserialize();
+    async [GET_PRICESTRING]({ commit }) {
+      const fulfilled = await deserialize()
+        .then((restoredString) => {
+          commit(UPDATE_PRICESTRING, restoredString);
+          return restoredString;
+        }).catch(() => {});
+
+      return fulfilled;
     },
-    async saveToLocation({ commit, state }) {
+    async [SAVE_PRICESTRING]({ commit, state }) {
       if (state.saveTimeout) {
         window.clearTimeout(state.saveTimeout);
-        commit('clearSaveTimeout');
+        commit(UPDATE_SAVETIMEOUT, null);
 
         if (state.debug) {
           console.log('Canceled save...');
@@ -53,7 +67,7 @@ export default new Vuex.Store({
         }
       }, 1000);
 
-      commit('setSaveTimeout', t);
+      commit(UPDATE_SAVETIMEOUT, t);
     },
   },
 });

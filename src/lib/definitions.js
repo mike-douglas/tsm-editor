@@ -4,12 +4,20 @@ class TSMFunction {
     this.args = args;
     this.definition = definition;
   }
+
+  getCompletion() {
+    return `${this.name}(`;
+  }
 }
 
 class TSMKeyword {
   constructor(name, definition) {
     this.name = name;
     this.definition = definition;
+  }
+
+  getCompletion() {
+    return this.name;
   }
 }
 

@@ -11,7 +11,7 @@
       <p>
         Paste your string below or just start typing to try it out!
       </p>
-      <Editor />
+      <Editor v-model="priceString" />
     </section>
     <section id="reference" class="panel">
       <h2>Reference</h2>
@@ -24,15 +24,32 @@
 </template>
 
 <script>
-
 import Editor from '@/components/editor/Editor.vue';
 import CommandReference from '@/components/reference/CommandReference.vue';
+
+import { UPDATE_PRICESTRING, GET_PRICESTRING, SAVE_PRICESTRING } from '@/lib/store';
 
 export default {
   name: 'app',
   components: {
     Editor,
     CommandReference,
+  },
+  computed: {
+    priceString: {
+      get() {
+        return this.$store.getters.priceString;
+      },
+      set(newValue) {
+        this.$store.commit(UPDATE_PRICESTRING, newValue);
+        this.$store.dispatch(SAVE_PRICESTRING, newValue);
+      },
+    },
+  },
+  mounted() {
+    this.$store.dispatch(GET_PRICESTRING).then((restoredString) => {
+      this.priceString = restoredString;
+    });
   },
 };
 </script>
