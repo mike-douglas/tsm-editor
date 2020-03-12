@@ -7,9 +7,12 @@ export default EditorEventBus;
 export const events = {
   /* Sets the internal state of the contenteditable editor element.
    * Payload: { string: newStringValue, caret: { start: offsetValue, length: lengthValue } }
-   * Note: This is the only event EditEvent listens for. All other events are emitted from it.
    */
   SET_EDITOR_STATE: 'Editor.SetState',
+
+  /* Copies content to the system clipboard from the editor element.
+   */
+  SET_EDITOR_COPY_TO_CLIPBOARD: 'Editor.CopyToClipboard',
 
   /* Fired from the editor when an input event occurs.
    * Payload: newStringValue (the current value in the editor element)

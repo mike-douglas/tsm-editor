@@ -8,7 +8,12 @@
         :visible="dropdownIsVisible"
         :results="dropdownCompletions" />
       <EditorRender ref="editor" class="editor-render" />
-      <EditorEvent class="editor-event" />
+      <EditorEvent class="editor-event" :shouldReformat="cleanUpSyntax" />
+    </div>
+    <div class="editor-status">
+      <Button type="xsmall link" icon="clipboard" :onClick="copyToClipboard">
+        Copy to Clipboard
+      </Button>
     </div>
   </div>
 </template>
@@ -18,6 +23,7 @@ import EditorEventBus, { events } from '@/components/editor/eventbus';
 import EditorRender from '@/components/editor/EditorRender.vue';
 import EditorEvent from '@/components/editor/EditorEvent.vue';
 import Dropdown from '@/components/dropdown/Dropdown.vue';
+import Button from '@/components/Button.vue';
 
 import keys from '@/lib/keys';
 import {
@@ -38,9 +44,11 @@ export default {
     EditorRender,
     EditorEvent,
     Dropdown,
+    Button,
   },
   props: {
     value: String,
+    cleanUpSyntax: Boolean,
   },
   data: () => ({
     // Maintain the height of the container based on the text entered in the Event component.
@@ -206,6 +214,9 @@ export default {
           this.dismissDropdown();
         });
       }
+    },
+    copyToClipboard() {
+      EditorEventBus.$emit(events.SET_EDITOR_COPY_TO_CLIPBOARD);
     },
   },
 };

@@ -24,6 +24,7 @@ export default new Vuex.Store({
   getters: {
     priceString: state => state.priceString,
     debug: state => state.debug,
+    cleanUpSyntax: state => state.cleanUpFlag,
   },
   mutations: {
     [UPDATE_PRICESTRING](state, newString) {
@@ -55,15 +56,17 @@ export default new Vuex.Store({
         commit(UPDATE_SAVETIMEOUT, null);
 
         if (state.debug) {
-          console.log('Canceled save...');
+          console.log('Canceling pending save.');
         }
       }
 
       const t = window.setTimeout(() => {
-        serializeAndSave(state.priceString).catch(console.log);
+        if (state.priceString !== undefined) {
+          serializeAndSave(state.priceString).catch(console.log);
 
-        if (state.debug) {
-          console.log('Saved...');
+          if (state.debug) {
+            console.log('Saved.');
+          }
         }
       }, 1000);
 

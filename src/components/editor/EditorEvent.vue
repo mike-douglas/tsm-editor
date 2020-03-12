@@ -4,7 +4,8 @@
     @keydown="onKeyDown"
     @keyup="onKeyUp"
     @click="onClick"
-    @blur="onBlur">
+    @blur="onBlur"
+    @paste="onPaste">
   </div>
 </template>
 
@@ -12,6 +13,8 @@
 import EditorEventBus, { events } from '@/components/editor/eventbus';
 import { getCaretPosition, getCurrentCaretRange, setCaretRange } from '@/lib/position';
 import { isControlKey } from '@/lib/keys';
+import { reformatter } from '@/lib/stylizer';
+
 /**
  * This component collects the input events of the editor. It passes events using
  * the event bus that are used to coordinate rendering content and suggesting options in
@@ -19,13 +22,15 @@ import { isControlKey } from '@/lib/keys';
  */
 export default {
   name: 'EditorEvent',
+  props: {
+    shouldReformat: Boolean,
+  },
   data: () => ({
     content: '',
   }),
   mounted() {
     /**
-     * The only event we listen for in this component. Sets the internal state of
-     * the component's editor and selection.
+     * Sets the internal state of the component's editor and selection.
      */
     EditorEventBus.$on(events.SET_EDITOR_STATE, (state) => {
       if (state.string) {
@@ -42,6 +47,20 @@ export default {
           setCaretRange(c);
         });
       }
+    });
+
+    /**
+     * Selects all of the content inside of the editor and copies it to the clipboard.
+     */
+    EditorEventBus.$on(events.SET_EDITOR_COPY_TO_CLIPBOARD, () => {
+      const r = document.createRange();
+      r.selectNodeContents(this.$refs.editor);
+
+      const s = window.getSelection();
+      s.removeAllRanges();
+      s.addRange(r);
+
+      document.execCommand('copy');
     });
   },
   methods: {
@@ -88,8 +107,24 @@ export default {
     onPaste(event) {
       event.preventDefault();
 
-      const newContent = event.clipboardData.getData('text/plain').replace(/\n/g, ' ');
+      let newContent = event.clipboardData.getData('text/plain').replace(/\n/g, ' ');
+
+      if (this.shouldReformat === true) {
+        newContent = reformatter(newContent);
+      }
+
+      this.content = newContent;
+      this.$refs.editor.innerText = newContent;
+
+      EditorEventBus.$emit(events.EDITOR_SCROLLHEIGHT_CHANGED, event.target.scrollHeight);
       EditorEventBus.$emit(events.EDITOR_INPUT, newContent);
+
+      // Move the caret to the end of the new content
+      const c = document.createRange();
+      c.setStart(this.$refs.editor.childNodes[0], newContent.length);
+      c.setEnd(this.$refs.editor.childNodes[0], newContent.length);
+
+      setCaretRange(c);
 
       return false;
     },
