@@ -55,9 +55,11 @@ export default {
       this.content = event.target.innerText;
       EditorEventBus.$emit(events.EDITOR_SCROLLHEIGHT_CHANGED, event.target.scrollHeight);
       EditorEventBus.$emit(events.EDITOR_INPUT, event.target.innerText);
-      EditorEventBus.$emit(events.EDITOR_CARET_CHANGED, {
-        position: getCaretPosition(),
-        range: getCurrentCaretRange(),
+      this.$nextTick(() => {
+        EditorEventBus.$emit(events.EDITOR_CARET_CHANGED, {
+          position: getCaretPosition(),
+          range: getCurrentCaretRange(),
+        });
       });
     },
     onKeyDown(event) {
