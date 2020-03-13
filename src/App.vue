@@ -70,6 +70,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch(GET_PRICESTRING).then((restoredString) => {
+      this.$gtag.pageview({ page_path: window.location.pathname + window.location.hash });
       this.priceString = restoredString;
     });
   },
