@@ -52,6 +52,9 @@
     "env": {
       "node": true
     },
+    "plugins": [
+      "testcafe"
+    ],
     "extends": [
       "plugin:testcafe/recommended",
       "plugin:vue/essential",
