@@ -27,7 +27,7 @@ import Button from '@/components/Button.vue';
 
 import keys from '@/lib/keys';
 import {
-  Position, getCurrentCaretRange, replaceTextInRange,
+  Position, replaceTextInRange,
 } from '@/lib/position';
 import { tokenizeByWord } from '@/lib/tokenizer';
 import { findMatches } from '@/lib/definitions';
@@ -65,6 +65,8 @@ export default {
     dropdownCompletions: { functions: [], symbols: [] },
     // Counter to maintain cycling through dropdown suggestions
     keyPressCount: 0,
+    // The last known caret TextRange
+    currentCaretRange: null,
   }),
   computed: {
     dropdownIsVisible() {
@@ -80,6 +82,7 @@ export default {
     EditorEventBus.$on(events.EDITOR_CARET_CHANGED, this.onEditorCaretPositionChange);
     EditorEventBus.$on(events.EDITOR_KEYDOWN, this.onEditorKeyDown);
     EditorEventBus.$on(events.EDITOR_KEYUP, this.onEditorKeyUp);
+    EditorEventBus.$on(events.EDITOR_BLUR, this.onEditorBlur);
   },
   watch: {
     value(newValue) {
@@ -164,6 +167,8 @@ export default {
      * set of functions and variables.
      */
     onEditorCaretPositionChange({ range, position }) {
+      this.currentCaretRange = range;
+
       const searchString = this.value.substr(0, range.startOffset);
 
       if (searchString && searchString.length > 2) {
@@ -180,6 +185,14 @@ export default {
       }
     },
     /**
+     * Dismiss the dropdown when you click off
+     */
+    onEditorBlur() {
+      setTimeout(() => {
+        this.dismissDropdown();
+      }, 250);
+    },
+    /**
      * Reset the dropdown state so it's no longer visible.
      */
     dismissDropdown() {
@@ -192,7 +205,7 @@ export default {
      * click event in the component or from a keyDown event which we handle above.
      */
     onDropdownSelect(item) {
-      const caret = getCurrentCaretRange();
+      const caret = this.currentCaretRange.cloneRange();
 
       if (caret) {
         // Replace the current search term

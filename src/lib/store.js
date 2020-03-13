@@ -16,7 +16,7 @@ export const SAVE_PRICESTRING = 'SavePriceString';
 
 export default new Vuex.Store({
   state: {
-    debug: true,
+    debug: false,
     priceString: 'check(first(Crafting, DBMarket, DBRegionMarketAvg), max(0.25 * avg(Crafting, DBMarket, DBRegionMarketAvg), 1.5 * VendorSell))',
     saveTimeout: null,
     cleanUpFlag: true,
