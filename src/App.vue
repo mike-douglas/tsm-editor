@@ -11,7 +11,16 @@
       <p>
         Paste your string below or just start typing to try it out!
       </p>
-      <Editor />
+      <div class="editor-status right">
+        <Tooltip class="tooltip" position="bottom-left"
+          text="Reformats your string to make it more readable!">
+          <label>
+            <input class="check" type="checkbox" v-model="cleanUpSyntax" />
+            <span class="text">Beautify</span>
+          </label>
+        </Tooltip>
+      </div>
+      <Editor ref="editor" v-model="priceString" :cleanUpSyntax="cleanUpSyntax" />
     </section>
     <section id="reference" class="panel">
       <h2>Reference</h2>
@@ -24,15 +33,45 @@
 </template>
 
 <script>
-
 import Editor from '@/components/editor/Editor.vue';
 import CommandReference from '@/components/reference/CommandReference.vue';
+import Tooltip from '@/components/Tooltip.vue';
+
+import {
+  UPDATE_PRICESTRING, GET_PRICESTRING, SAVE_PRICESTRING,
+  UPDATE_CLEANUPFLAG,
+} from '@/lib/store';
 
 export default {
   name: 'app',
   components: {
     Editor,
     CommandReference,
+    Tooltip,
+  },
+  computed: {
+    priceString: {
+      get() {
+        return this.$store.getters.priceString;
+      },
+      set(newValue) {
+        this.$store.commit(UPDATE_PRICESTRING, newValue);
+        this.$store.dispatch(SAVE_PRICESTRING, newValue);
+      },
+    },
+    cleanUpSyntax: {
+      get() {
+        return this.$store.getters.cleanUpSyntax;
+      },
+      set(newValue) {
+        this.$store.commit(UPDATE_CLEANUPFLAG, newValue);
+      },
+    },
+  },
+  mounted() {
+    this.$store.dispatch(GET_PRICESTRING).then((restoredString) => {
+      this.priceString = restoredString;
+    });
   },
 };
 </script>
@@ -59,6 +98,19 @@ footer {
 
 .hero .p {
   color: $txt-faded;
+}
+
+.check {
+  font-size: $ts-lg;
+}
+
+.text {
+  vertical-align: middle;
+  font-weight: bold;
+}
+
+.right {
+  text-align: right;
 }
 </style>
 

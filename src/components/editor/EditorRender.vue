@@ -1,0 +1,29 @@
+<template>
+  <div>
+    <Syntax :code="content" />
+  </div>
+</template>
+
+<script>
+import EditorEventBus, { events } from '@/components/editor/eventbus';
+
+import Syntax from '@/components/Syntax.vue';
+
+/**
+ * Renders the content of a string as part of the editor component.
+ */
+export default {
+  name: 'EditorRender',
+  components: {
+    Syntax,
+  },
+  data: () => ({
+    content: '',
+  }),
+  mounted() {
+    EditorEventBus.$on(events.EDITOR_INPUT, (newInput) => {
+      this.content = newInput;
+    });
+  },
+};
+</script>

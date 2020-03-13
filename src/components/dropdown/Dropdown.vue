@@ -2,23 +2,25 @@
   <div class="dropdown panel" :style="positionCSS">
     <ul>
       <SymbolDropdown
-        v-for="(item, index) in symbols"
-        @click="didChooseOption(item)"
+        v-for="(item, index) in results.symbols"
+        @click.native="onClickItem(item)"
+        @mouseover.native="onHoverItem(index)"
         :item="item"
         :key="'symbol' + index"
-        :class="index === selectedIndex ? 'selected' : ''" />
+        :class="index === value ? 'selected' : ''" />
       <FunctionDropdown
-        v-for="(item, index) in functions"
-        @click="didChooseOption(item)"
+        v-for="(item, index) in results.functions"
+        @click.native="onClickItem(item)"
+        @mouseover.native="onHoverItem(index + results.symbols.length);"
         :item="item"
         :key="'function' + index"
-        :class="(index + symbols.length) === selectedIndex ? 'selected': ''" />
+        :class="(index + results.symbols.length) === value ? 'selected': ''" />
     </ul>
     <div class="hint">
       <Icon name="bulb" /> Hit enter or tab to insert
     </div>
     <div class="debug-panel panel" v-show="debug">
-      <div>Selected Option: {{ selectedIndex }}</div>
+      <div>Active Option: {{ selectedIndex }}</div>
       <div class="position">Position: {{ position.x }}, {{ position.y }}</div>
     </div>
   </div>
@@ -49,27 +51,22 @@ export default {
         return new Position(0, 0);
       },
     },
-    functions: {
-      type: Array,
-      default() {
-        return [];
-      },
-    },
-    symbols: {
-      type: Array,
-      default() {
-        return [];
-      },
-    },
-    onSelect: Function,
-    selectedIndex: Number,
+    value: Number,
+    results: Object,
     debug: Boolean,
   },
+  data: () => ({
+    selectedIndex: {
+      get: () => this.value,
+      set: newValue => this.onHoverItem(newValue),
+    },
+  }),
   methods: {
-    didChooseOption(item) {
-      if (this.onSelect) {
-        this.onSelect(item);
-      }
+    onClickItem(item) {
+      this.$emit('change', item);
+    },
+    onHoverItem(index) {
+      this.$emit('input', index);
     },
   },
   computed: {
