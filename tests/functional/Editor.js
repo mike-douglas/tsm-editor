@@ -12,6 +12,16 @@ test('Autocomplete dropdown appears', async t => {
     .expect(Selector('.dropdown.panel').visible).eql(true);
 });
 
+test('Autocomplete accept on click', async t => {
+  await t
+    .click('#editor-event')
+    .pressKey('ctrl+a delete')
+    .typeText('#editor-event', 'DBM')
+    .click(Selector('.dropdown.panel ul').child(0))
+    .expect(Selector('#editor-event').innerText)
+    .eql('DBMarket');
+});
+
 test('Autocomplete accept on enter', async t => {
   await t
     .click('#editor-event')
