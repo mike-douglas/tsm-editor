@@ -209,7 +209,10 @@ export default {
 
       if (caret) {
         // Replace the current search term
-        caret.setStart(caret.startContainer, caret.startOffset - this.dropdownSearchTerm.length);
+        caret.setStart(
+          caret.startContainer,
+          Math.max(0, caret.startOffset - this.dropdownSearchTerm.length),
+        );
 
         const rangeStart = caret.startOffset;
         const newString = replaceTextInRange(this.value, item.getCompletion(), caret);
