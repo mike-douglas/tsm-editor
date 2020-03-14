@@ -17,4 +17,4 @@ perl -pi -e "s/\"version\": \"${CURRENT_VERSION}\"/\"version\": \"${NEXT_VERSION
   git commit -a -m "Releasing v${NEXT_VERSION}" && \
   git tag v${NEXT_VERSION}
 
-echo "Done. Now you can run git push --tags origin/master to deploy"
+echo "Done. Now you can run git push --tags origin master to deploy"
