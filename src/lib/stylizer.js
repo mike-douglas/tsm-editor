@@ -1,152 +1,133 @@
 import { symbols, functions } from '@/lib/definitions';
+import Lexer, { Token } from '@/lib/lexer';
 
-const searchReplace = (search, replace, item) => ({
-  search,
-  replace: (f, tags) => (replace ? f(tags, replace) : ((_, p1) => f(tags, p1))),
-  item: item || null,
+const functionNames = functions.map(f => f.name);
+const symbolNames = symbols.map(s => s.name);
+const lowerCaseToNormalCase = {};
+
+functionNames.forEach((n) => {
+  lowerCaseToNormalCase[n.toLowerCase()] = n;
+  return null;
 });
 
-// This simply wraps the result as-is in a <span> tag
-const span = (classes, innerText) => `<span class="token ${classes.join(' ')}">${innerText}</span>`;
-
-const REG_GOLD = searchReplace(/(\d+g)/g);
-const REG_SILVER = searchReplace(/(\d+s)/g);
-const REG_COPPER = searchReplace(/(\d+c)/g);
-
-const REG_LPAREN = searchReplace(/\(/g, '(');
-const REG_RPAREN = searchReplace(/\)/g, ')');
-
-const REG_MATH_REPLACEMENTS = [
-  searchReplace(/\//g, '/'),
-  searchReplace(/-/g, '-'),
-  searchReplace(/\*/g, '*'),
-  searchReplace(/\+/g, '+'),
-];
-
-const REG_PERCENT_REPLACEMENTS = [
-  searchReplace(/%/g, '%'),
-];
-
-const REG_PUNCTUATION = searchReplace(/(,)/g);
-const REG_NUMERIC = searchReplace(/(\d+\.?\d{0,}|\.?\d+)/g);
-
-const REG_ITEMS = [
-  searchReplace(/(\[.+\])/g),
-  searchReplace(/(i:(\d+|ID))/g),
-  searchReplace(/(item:(\d+|ID))/g),
-];
-
-const REG_FUNCTIONS = functions.map(f => searchReplace(new RegExp(`(${f.name}\\s?\\()`, 'gi'), null, f));
-
-const REG_SYMBOLS = symbols.map(s => searchReplace(new RegExp(`(${s.name})`, 'gi'), null, s));
+symbolNames.forEach((n) => {
+  lowerCaseToNormalCase[n.toLowerCase()] = n;
+  return null;
+});
 
 /**
- * Returns a function that takes a string argument and parses it using known
- * grammar rules defined in this file.
- *
- * The functions passed defined each step of the process, from walking through each
- * grammar rule (the walker function), to tagging the found patterns along the way (the
- * tagger function). It returns a string, defined by the end function.
- *
- * @param {Function} start Function in the form of (String)
- * @param {Function} walker Function in the form of (RegExp|Array, Function, Array)
- * @param {Function} tagger Function in the form of (Array, String) => String
- * @param {Function} end Function in the form of (String) => String
+ * Returns a reformatted version of the passed string. It retains any existing whitespace.
+ * What it reformats:
+ * - Text case for function and symbol names
+ * - Spacing between function arguments
+ * - Spacing between operations such as +, -, *, and /
+ * @param {string} string The TSM String to reformat
  */
-function lemmatizer(start, walker, tagger, end) {
-  return (string) => {
-    start(string);
+function reformatter(string) {
+  const correctCase = s => lowerCaseToNormalCase[s.toLowerCase()] || s;
+  const doNothing = token => token.value;
+  const appendSpace = token => `${token.value} `;
+  const padSpace = token => ` ${token.value} `;
 
-    REG_MATH_REPLACEMENTS.forEach((n) => {
-      walker(n, tagger, ['maths']);
-    });
+  const tokenFormat = {
+    [Token.WHITESPACE]: doNothing,
+    [Token.EXPRESSION]: doNothing,
+    [Token.PLUS]: padSpace,
+    [Token.MINUS]: padSpace,
+    [Token.MUL]: padSpace,
+    [Token.DIV]: padSpace,
+    [Token.PERCENT]: appendSpace,
+    [Token.RBRACKET]: doNothing,
+    [Token.LBRACKET]: doNothing,
+    [Token.RPAR]: doNothing,
+    [Token.LPAR]: doNothing,
+    [Token.NUMBER]: doNothing,
+    [Token.PUNC]: appendSpace,
+    [Token.COLON]: doNothing,
+    [Token.ITEM]: doNothing,
+    [Token.DENOM]: doNothing,
+    [Token.KWORD]: (token) => {
+      if (functionNames.find(e => e.toLowerCase() === token.value.toLowerCase())) {
+        return correctCase(token.value);
+      }
+      if (symbolNames.find(e => e.toLowerCase() === token.value.toLowerCase())) {
+        return correctCase(token.value);
+      }
 
-    REG_PERCENT_REPLACEMENTS.forEach((n) => {
-      walker(n, tagger, ['percent']);
-    });
-
-    REG_ITEMS.forEach((regex) => {
-      walker(regex, tagger, ['item']);
-    });
-
-    REG_FUNCTIONS.forEach((regex) => {
-      walker(regex, tagger, ['function']);
-    });
-
-    REG_SYMBOLS.forEach((regex) => {
-      walker(regex, tagger, ['symbol']);
-    });
-
-    walker(REG_LPAREN, tagger, ['parens', 'lparen']);
-    walker(REG_RPAREN, tagger, ['parens', 'rparen']);
-
-    walker(REG_GOLD, tagger, ['currency', 'gold']);
-    walker(REG_SILVER, tagger, ['currency', 'silver']);
-    walker(REG_COPPER, tagger, ['currency', 'copper']);
-
-    walker(REG_PUNCTUATION, tagger, ['punc']);
-    walker(REG_NUMERIC, tagger, ['numeric']);
-
-    return end(string);
+      return token.value;
+    },
   };
+
+  const lexer = new Lexer(string);
+  let token = lexer.getNextToken();
+  let result = '';
+
+  while (token.type !== Token.EOF) {
+    result += tokenFormat[token.type](token);
+    token = lexer.getNextToken();
+  }
+
+  return result;
 }
 
-/* This is a little more involved. It adds spaces and applies capitalization
- * to the names of symbols to make things look nice.
- *
- * It uses the capitalization from the symbol definition.
- */
-const addSpaces = (_classes, text) => {
-  let replacedString = text;
-  _classes.map((textClass) => {
-    switch (textClass) {
-      case 'maths':
-      case 'item':
-        replacedString = ` ${replacedString} `;
-        break;
+function stylizeString(string) {
+  if (string.length === 0) {
+    return '';
+  }
+  const classes = {
+    [Token.WHITESPACE]: () => 'whitespace',
+    [Token.EXPRESSION]: () => 'expression',
+    [Token.PLUS]: () => 'maths',
+    [Token.MINUS]: () => 'maths',
+    [Token.MUL]: () => 'maths',
+    [Token.DIV]: () => 'maths',
+    [Token.PERCENT]: () => 'percent',
+    [Token.RBRACKET]: () => 'brackets rbracket',
+    [Token.LBRACKET]: () => 'brackets lbracket',
+    [Token.RPAR]: () => 'parens rparen',
+    [Token.LPAR]: () => 'parens lparen',
+    [Token.NUMBER]: () => 'numeric',
+    [Token.PUNC]: () => 'punc',
+    [Token.COLON]: () => 'punc',
+    [Token.ITEM]: () => 'item',
+    [Token.DENOM]: (token) => {
+      const denom = { g: 'gold', s: 'silver', c: 'copper' };
+      return `currency ${denom[token.value]}`;
+    },
+    [Token.KWORD]: (token) => {
+      if (functionNames.find(e => e.toLowerCase() === token.value.toLowerCase())) {
+        return 'function';
+      }
+      if (symbolNames.find(e => e.toLowerCase() === token.value.toLowerCase())) {
+        return 'symbol';
+      }
 
-      case 'punc':
-        replacedString = ', ';
-        break;
+      return '';
+    },
+  };
 
-      case 'function':
-        REG_FUNCTIONS.forEach(({ search, item }) => {
-          replacedString = replacedString.replace(search, `${item.name}(`);
-        });
-        break;
+  const span = token => `<span class="token ${classes[token.type](token)}">${token.value}</span>`;
 
-      case 'symbol':
-        REG_SYMBOLS.forEach(({ search, item }) => {
-          replacedString = replacedString.replace(search, item.name);
-        });
-        break;
-      default:
-        break;
+  const lexer = new Lexer(string);
+
+  let token = lexer.getNextToken();
+  let result = '';
+
+  while (token.type !== Token.EOF) {
+    const nextToken = lexer.getNextToken();
+    if (token.type === Token.WHITESPACE) {
+      result += token.value;
+    } else if (token.type !== Token.DENOM) {
+      if (nextToken.type === Token.DENOM) {
+        result += `<span class="token ${classes[nextToken.type](nextToken)}">${span(token)}${nextToken.value}</span>`;
+      } else {
+        result += span(token);
+      }
     }
+    token = nextToken;
+  }
 
-    return null;
-  });
-
-  return replacedString;
-};
-
-/**
- * A lemmatization function that returns a function that applies the passed argument
- * to each of the parsed tokens in the input string with classes and matched text.
- *
- * @param {function} func A function in this form: (classes, text) => (some value)
- */
-function stylizer(func) {
-  let replaceString = '';
-  return lemmatizer((s) => {
-    replaceString = s;
-  },
-  (struct, f, tags) => {
-    replaceString = replaceString.replace(struct.search, struct.replace(f, tags));
-  },
-  func,
-  () => replaceString);
+  return result;
 }
 
-export const reformatter = stylizer(addSpaces);
-export const stylizeString = stylizer(span);
+export { stylizeString, reformatter };
