@@ -100,9 +100,23 @@ export class KeywordNode extends Node {
  * Represents an in-game item
  */
 export class ItemNode extends Node {
+  constructor(values) {
+    super(null);
+    this.values = values;
+    this.type = NodeType.Item;
+  }
+
+  toString() {
+    return `(${this.values.map(v => v.toString()).join(', ')})`;
+  }
+}
+
+/**
+ * Represents an in-game item, referenced by Item ID
+ */
+export class ItemIDNode extends Node {
   constructor(token) {
     super(token);
-    this.token = token;
     this.type = NodeType.Item;
   }
 }
