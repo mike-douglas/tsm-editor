@@ -29,7 +29,7 @@ function LexerMock(tokens, getCharacterAt) {
 }
 
 describe('Grammar rules', () => {
-  it('implements term : KWORD|NUM|LPAR expr RPAR|func|cur|item', () => {
+  it('implements term   : KWORD|NUM|LPAR expr RPAR|func|cur|item|itemid', () => {
     // KWORD
     expect((
       new Parser(LexerMock([
@@ -57,7 +57,41 @@ describe('Grammar rules', () => {
       .toEqual('T(keyword, DBMarket)');
   });
 
-  it('implements cur  : NUM DENOM (NUM DENOM)* (WHITESPACE)?', () => {
+  it('implements item   : LBRACKET KWORD (KWORD)* RBRACKET', () => {
+    // LBRACKET KWORD RBRACKET
+    expect((
+      new Parser(LexerMock([
+        new Token(Token.LBRACKET, '['),
+        new Token(Token.KWORD, 'Frostmourne'),
+        new Token(Token.RBRACKET, ']'),
+        new Token(Token.EOF, null),
+      ]))).item().toString())
+      .toEqual('(T(keyword, Frostmourne))');
+    // LBRACKET KWORD RBRACKET
+    expect((
+      new Parser(LexerMock([
+        new Token(Token.LBRACKET, '['),
+        new Token(Token.KWORD, 'Sulfuron'),
+        new Token(Token.KWORD, 'Hammer'),
+        new Token(Token.RBRACKET, ']'),
+        new Token(Token.EOF, null),
+      ]))).item().toString())
+      .toEqual('(T(keyword, Sulfuron), T(keyword, Hammer))');
+  });
+
+  it('implements itemid : KWORD(\'i\') COLON NUM', () => {
+    // KWORD COLON NUM
+    expect((
+      new Parser(LexerMock([
+        new Token(Token.KWORD, 'i'),
+        new Token(Token.COLON, ':'),
+        new Token(Token.NUMBER, '1234'),
+        new Token(Token.EOF, null),
+      ]))).itemid().toString())
+      .toEqual('T(number, 1234)');
+  });
+
+  it('implements cur    : NUM DENOM (NUM DENOM)*', () => {
     // NUM DENOM
     expect((
       new Parser(LexerMock([
@@ -80,7 +114,7 @@ describe('Grammar rules', () => {
         new Token(Token.EOF, null),
       ]))).cur().toString())
       .toEqual('(T(number, 50),T(denom, c))');
-    
+
     // NUM DENOM (NUM DENOM)*
     expect((
       new Parser(LexerMock([
@@ -104,7 +138,7 @@ describe('Grammar rules', () => {
       .toEqual('(T(number, 50000),T(denom, g),T(number, 20),T(denom, s),T(number, 10),T(denom, c))');
   });
 
-  it('implements fact : term (WHITESPACE)? ((MUL|DIV|PERCENT) term)*', () => {
+  it('implements fact   : term ((MUL|DIV|PERCENT) term)*', () => {
     expect((
       new Parser(LexerMock([
         new Token(Token.NUMBER, '10'),
@@ -133,7 +167,7 @@ describe('Grammar rules', () => {
       .toEqual('(T(number, 100), T(mul, %), T(keyword, DBMarket))');
   });
 
-  it('implements expr : fact (WHITESPACE)? ((PLUS|MINUS) fact)*', () => {
+  it('implements expr   : fact (WHITESPACE)? ((PLUS|MINUS) fact)*', () => {
     expect((
       new Parser(LexerMock([
         new Token(Token.NUMBER, '10'),
@@ -166,7 +200,7 @@ describe('Grammar rules', () => {
       .toEqual('(((T(number, 10), T(minus, -), T(number, 20)), T(minus, -), T(number, 20)), T(minus, -), T(number, 20))');
   });
 
-  it('implements func : KWORD LPAR (expr (PUNC expr)*)? RPAR', () => {
+  it('implements func   : KWORD LPAR (expr (PUNC expr)*)? RPAR', () => {
     // KWORD LPAR RPAR
     expect((
       new Parser(LexerMock([
@@ -280,6 +314,35 @@ describe('Formula parsing', () => {
         new Token(Token.EOF, null),
       ], c => `${'DBMarket+max(100%DBRegionalAverage,5*VendorSell)'[c]}`))).parse().toString(),
     ).toMatch('(T(keyword, DBMarket), T(plus, +), T(keyword, max)((T(number, 100), T(percent, %), T(keyword, DBRegionalAverage)), (T(number, 5), T(mul, *), T(keyword, VendorSell))))');
+  });
+  it('parses `DBMarket + max(100% DBRegionalAverage([Atiesh]), 5 * VendorSell(i:12345))`', () => {
+    expect(
+      (new Parser(LexerMock([
+        new Token(Token.KWORD, 'DBMarket'),
+        new Token(Token.PLUS, '+'),
+        new Token(Token.KWORD, 'max'),
+        new Token(Token.LPAR, '('),
+        new Token(Token.NUMBER, '100'),
+        new Token(Token.PERCENT, '%'),
+        new Token(Token.KWORD, 'DBRegionalAverage'),
+        new Token(Token.LPAR, '('),
+        new Token(Token.LBRACKET, '['),
+        new Token(Token.KWORD, 'Atiesh'),
+        new Token(Token.RBRACKET, ']'),
+        new Token(Token.RPAR, ')'),
+        new Token(Token.PUNC, ','),
+        new Token(Token.NUMBER, '5'),
+        new Token(Token.MUL, '*'),
+        new Token(Token.KWORD, 'VendorSell'),
+        new Token(Token.LPAR, '('),
+        new Token(Token.KWORD, 'i'),
+        new Token(Token.COLON, ':'),
+        new Token(Token.NUMBER, '1234'),
+        new Token(Token.RPAR, ')'),
+        new Token(Token.RPAR, ')'),
+        new Token(Token.EOF, null),
+      ], c => `${'DBMarket+max(100%DBRegionalAverage([Atiesh]),5*VendorSell(i:12345))'[c]}`))).parse().toString(),
+    ).toMatch('(T(keyword, DBMarket), T(plus, +), T(keyword, max)((T(number, 100), T(percent, %), T(keyword, DBRegionalAverage)((T(keyword, Atiesh)))), (T(number, 5), T(mul, *), T(keyword, VendorSell)(T(number, 1234)))))');
   });
   it('handles mismatched parens in `1 + (2 * 4 / 5`', () => {
     let errorMessage = '';

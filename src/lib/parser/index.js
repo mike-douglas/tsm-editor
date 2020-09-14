@@ -1,6 +1,6 @@
 import { Token } from '@/lib/lexer';
 import {
-  FunctionNode, BinaryOperatorNode, NumberNode, CurrencyNode, KeywordNode, ItemNode,
+  FunctionNode, BinaryOperatorNode, NumberNode, CurrencyNode, KeywordNode, ItemNode, ItemIDNode,
 } from './node';
 
 class ParserError extends Error {
@@ -31,7 +31,7 @@ export default class Parser {
 
   /**
    * Returns a term, following the format:
-   *  term  : KWORD | NUM | LPAR expr RPAR | func | cur | item(TODO)
+   *  term  : KWORD | NUM | LPAR expr RPAR | func | cur | item | itemid
    */
   term() {
     const token = this.currentToken;
@@ -49,6 +49,11 @@ export default class Parser {
     }
 
     if (token.type === Token.KWORD
+        && this.lexer.currentCharacter === ':') {
+      return this.itemid();
+    }
+
+    if (token.type === Token.KWORD
         && this.lexer.currentCharacter === '(') {
       return this.func();
     }
@@ -59,10 +64,8 @@ export default class Parser {
       return new KeywordNode(token);
     }
 
-    if (token.type === Token.ITEM) {
-      this.eat(Token.ITEM);
-
-      return new ItemNode(token);
+    if (token.type === Token.LBRACKET) {
+      return this.item();
     }
 
     if (token.type === Token.LPAR) {
@@ -73,6 +76,43 @@ export default class Parser {
     }
 
     return null;
+  }
+
+  /**
+   * Parse an item node, following the format:
+   *  item  : LBRACKET KWORD (KWORD)* RBRACKET
+   */
+  item() {
+    const values = [];
+
+    this.eat(Token.LBRACKET);
+
+    let token = this.currentToken;
+
+    while (token.type === Token.KWORD) {
+      values.push(token);
+
+      this.eat(Token.KWORD);
+      token = this.currentToken;
+    }
+
+    this.eat(Token.RBRACKET);
+
+    return new ItemNode(values);
+  }
+
+  /**
+   * Parse an item ID node following the format:
+   *  itemid : KWORD('i') COLON NUM
+   */
+  itemid() {
+    this.eat(Token.KWORD);
+    this.eat(Token.COLON);
+
+    const token = this.currentToken;
+    this.eat(Token.NUMBER);
+
+    return new ItemIDNode(token);
   }
 
   /**
