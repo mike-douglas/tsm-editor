@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 Vue.use(VueGtag, {
-  config: { id: 'UA-49351028-1' },
+  config: { id: 'UA-5459688-4' },
   enabled: process.env.NODE_ENV === 'production',
 });
 
