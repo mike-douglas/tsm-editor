@@ -36,7 +36,7 @@ function reformatter(string) {
     [Token.MINUS]: padSpace,
     [Token.MUL]: padSpace,
     [Token.DIV]: padSpace,
-    [Token.PERCENT]: appendSpace,
+    [Token.PERCENT]: doNothing,
     [Token.RBRACKET]: doNothing,
     [Token.LBRACKET]: doNothing,
     [Token.RPAR]: doNothing,
