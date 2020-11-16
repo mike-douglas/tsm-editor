@@ -8,7 +8,7 @@ import App from './App.vue';
 
 if (process.env.NODE_ENV === 'production') {
   const bugsnagClient = bugsnag({
-    apiKey: '1a5d9bde039258ef72cf342d7057f654',
+    apiKey: '16d836736f8f6e23169eb3ed2393a37f',
     appVersion: process.env.PACKAGE_VERSION,
   });
 
