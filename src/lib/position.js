@@ -23,11 +23,7 @@ export class Rect {
 export function getCurrentCaretRange() {
   const sel = window.getSelection();
 
-  if (sel.rangeCount > 0 && sel.getRangeAt(0).collapsed === true) {
-    return sel.getRangeAt(0);
-  }
-
-  return null;
+  return sel.getRangeAt(0);
 }
 
 /**

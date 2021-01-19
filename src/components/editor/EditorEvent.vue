@@ -107,11 +107,18 @@ export default {
     onPaste(event) {
       event.preventDefault();
 
-      let newContent = event.clipboardData.getData('text/plain').replace(/\n/g, ' ');
+      const currentCaret = getCurrentCaretRange();
+      let clipboardContent = event.clipboardData.getData('text/plain').replace(/\n/g, ' ');
 
       if (this.shouldReformat === true) {
-        newContent = reformatter(newContent);
+        clipboardContent = reformatter(clipboardContent);
       }
+
+      const newContent = this.content.slice(0, currentCaret.startOffset)
+        + clipboardContent
+        + this.content.slice(currentCaret.endOffset, this.content.length);
+
+      const newCaret = currentCaret.startOffset + clipboardContent.length;
 
       this.content = newContent;
       this.$refs.editor.innerText = newContent;
@@ -121,8 +128,8 @@ export default {
 
       // Move the caret to the end of the new content
       const c = document.createRange();
-      c.setStart(this.$refs.editor.childNodes[0], newContent.length);
-      c.setEnd(this.$refs.editor.childNodes[0], newContent.length);
+      c.setStart(this.$refs.editor.childNodes[0], newCaret);
+      c.setEnd(this.$refs.editor.childNodes[0], newCaret);
 
       setCaretRange(c);
 
