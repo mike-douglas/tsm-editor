@@ -65,6 +65,7 @@ export default {
       },
       set(newValue) {
         this.$store.commit(UPDATE_CLEANUPFLAG, newValue);
+        this.$gtag.event('editorEvent', { action: 'cleanupSyntax' });
       },
     },
   },

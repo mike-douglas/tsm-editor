@@ -228,10 +228,12 @@ export default {
             },
           });
           this.dismissDropdown();
+          this.$gtag.event('editorEvent', { action: 'dismissedDropdownWithSelection' });
         });
       }
     },
     copyToClipboard() {
+      this.$gtag.event('editorEvent', { action: 'copyToClipboard' });
       EditorEventBus.$emit(events.SET_EDITOR_COPY_TO_CLIPBOARD);
     },
   },
