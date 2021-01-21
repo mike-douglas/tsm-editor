@@ -1,25 +1,37 @@
 <template>
   <div class="reference">
+    <p>
+      Includes the functions and strings from TSM 4.0+.
+    </p>
+    <p>
+      <input class="search" placeholder="Search" type="search" v-model="searchTerm">
+    </p>
     <section class="functions">
       <h3><Icon name="function" /> Functions</h3>
-      <section class="sub-panel">
+      <section v-if="filteredFunctions.length > 0" class="sub-panel">
         <FunctionReference class="row function-row"
-          v-for="(func, index) in functions"
+          v-for="(func, index) in filteredFunctions"
           :key="'function' + index"
           :item="func" />
+      </section>
+      <section v-else class="not-found">
+        No functions found.
       </section>
     </section>
     <section class="symbols">
       <h3><Icon name="symbol" /> Variables</h3>
-      <section class="sub-panel">
+      <section v-if="filteredSpecials.length > 0 || filteredSymbols.length > 0" class="sub-panel">
         <SymbolReference class="row symbol-row"
-          v-for="(symbol, index) in specialFeatures"
+          v-for="(symbol, index) in filteredSpecials"
           :key="'feat' + index"
           :item="symbol" />
         <SymbolReference class="row symbol-row"
-          v-for="(symbol, index) in symbols"
+          v-for="(symbol, index) in filteredSymbols"
           :key="'symbol' + index"
           :item="symbol" />
+      </section>
+      <section v-else class="not-found">
+        No symbols found.
       </section>
     </section>
   </div>
@@ -41,56 +53,80 @@ export default {
   },
   data() {
     return {
-      symbols,
-      functions,
-      specialFeatures,
+      searchTerm: '',
     };
+  },
+  computed: {
+    filteredFunctions() {
+      return this.searchTerm.length >= 2
+        ? functions.filter(f => f.name.includes(this.searchTerm) === true, this)
+        : functions;
+    },
+    filteredSymbols() {
+      return this.searchTerm.length >= 2
+        ? symbols.filter(s => s.name.includes(this.searchTerm) === true, this)
+        : symbols;
+    },
+    filteredSpecials() {
+      return this.searchTerm.length >= 2
+        ? specialFeatures.filter(s => s.name.includes(this.searchTerm) === true, this)
+        : specialFeatures;
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.reference {
+.search {
+  font-size: $ts-normal;
+  color: $txt-normal;
+  padding: $padding-normal;
+  border: 1px solid $editor-border;
+  background-color: $editor-background;
+  min-width: 30%;
+  border-radius: $border-radius;
+}
+
+.not-found {
+  color: adjust-color($txt-normal, $lightness: -50%);
+  padding: $padding-normal;
+}
+
+.search:focus, .search:active {
+  border-color: $editor-border;
+}
+
+.sub-panel {
   display: flex;
-}
-
-.functions {
-  flex-grow: 1;
-  flex-basis: 30%;
-}
-
-.symbols {
-  flex-grow: 1;
-  flex-basis: 70%;
-}
-
-.symbols .sub-panel {
-  flex-direction: row;
+  flex-direction: ltr;
   flex-wrap: wrap;
-  display: flex;
-}
-
-.symbol-row {
-  flex-basis: 40%;
-  flex-grow: 1;
-  flex-shrink: 0;
 }
 
 .row {
-  padding: $padding-sm $padding;
+  flex: 0 0 auto;
+  width: 30%;
+  min-height: 120px;
+  margin: $padding-sm;
+  padding: $padding-med $padding;
+  border-radius: $border-radius;
+  border: 1px solid adjust-color($editor-border, $alpha: -0.8);
 }
 
 @media only screen and (max-width : $mobile-breakpoint) {
-  .reference {
-    display: block;
+  .search {
+    width: 100%;
   }
 
-  .symbols .sub-panel {
+  .sub-panel {
+    margin: 0;
+    padding: 0;
     display: block;
   }
 
   .row {
-    padding: 0;
+    flex: none;
+    width: auto;
+    display: block;
   }
 }
 </style>

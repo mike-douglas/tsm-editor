@@ -26,30 +26,30 @@ export default {
 }
 
 ::v-deep .symbol {
-  color: rgb(115, 209, 248);
+  color: $symbol;
 }
 
 ::v-deep .function, ::v-deep .parens {
-  color: rgb(0, 191, 161);
+  color: $function;
 }
 
 ::v-deep .maths, ::v-deep .percent {
-  color: rgb(38, 145, 211);
+  color: $math;
 }
 
 ::v-deep .gold {
-  color: orange;
+  color: $gold;
 }
 
 ::v-deep .silver {
-  color: silver;
+  color: $silver;
 }
 
 ::v-deep .copper {
-  color: rgb(228, 183, 125);
+  color: $copper;
 }
 
 ::v-deep .item {
-  color: rgb(205, 117, 185);
+  color: $item;
 }
 </style>

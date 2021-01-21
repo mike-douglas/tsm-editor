@@ -52,7 +52,7 @@ export default {
   },
   data: () => ({
     // Maintain the height of the container based on the text entered in the Event component.
-    containerHeight: 120,
+    containerHeight: 170,
     // Flag to determine if input event is coming from inside the editor or elsewhere.
     inputIsFromEditor: false,
     // The current search term that is used to find completions to display in the dropdown.
@@ -242,10 +242,11 @@ export default {
 .editor {
   position: relative;
   font-family: $editor-font;
-  font-size: $ts-normal;
+  font-size: $ts-med;
   font-weight: bold;
-  border: 3px solid $editor-border;
+  border: 2px solid $editor-border;
   background-color: $editor-background;
+  border-radius: $border-radius;
 }
 
 .editor-render, .editor-event {

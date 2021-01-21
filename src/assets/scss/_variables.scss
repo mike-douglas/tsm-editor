@@ -1,18 +1,24 @@
-// https://coolors.co/2a363b-e84a5f-ff847c-33658a-86bbd8
+// https://coolors.co/1a1a1d-d3d4d9-4b88a2-bb0a21-fff9fb
 @import '~@/assets/scss/fonts.scss';
 
-$page-font: "Avenir", Helvetica, Arial, sans-serif;
+$page-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
 $editor-font: "Courier New", Courier, monospace;
 
 $mobile-breakpoint: 380px;
 
+$erie-black: #1a1a1d;
+$light-gray: #d3d4d9;
+$blue-munsell: #4b88a2;
+$firebrick: #bb0a21;
+$snow: #fff9fb;
+
 // Text sizes
 $ts-tiny: 0.7em;
 $ts-xs: 0.8em;
-$ts-sm: 0.9em;
-$ts-normal: 1.0em;
-$ts-med: 1.6em;
-$ts-lg: 1.8em;
+$ts-sm: 0.85em;
+$ts-normal: 0.9em;
+$ts-med: 1.15em;
+$ts-lg: 1.4em;
 
 // Padding values
 $padding: 0.5em;
@@ -23,36 +29,51 @@ $padding-xl: 1.75em;
 $padding-sm: 0.25em;
 $padding-xs: 0.125em;
 
+// Line heights
+$line-height: 1.4em;
+
 // Text colors
-$txt-normal: #FFF3F3;
-$txt-faded: #D8DADB;
-$txt-error: #E84A5F;
-$txt-light: #86BBD8;
-$txt-loud: #86BBD8;
-$txt-mid: #FF847C;
+$txt-normal: $light-gray;
+$txt-faded: $light-gray;
+$txt-error: $light-gray;
+$txt-light: $light-gray;
+$txt-loud: $light-gray;
+$txt-mid: $light-gray;
+
+// Radii
+$border-radius: 5px;
 
 // Specific control colors (Maybe move to component level?)
-$page-background: #2A363B;
+$page-background: $erie-black;
 
 $editor-background: rgba(0, 0, 0, 0.1);
-$editor-border: #33658A;
-$editor-outline: #86BBD8;
+$editor-border: $blue-munsell;
+$editor-outline: $blue-munsell;
 
-$dropdown-hover: #33658A;
-$dropdown-background: #1F282B;
-$dropdown-border: #214158;
-$dropdown-separator: #2F5C7E;
+$dropdown-hover: $snow;
+$dropdown-background: $erie-black;
+$dropdown-border: $blue-munsell;
+$dropdown-separator: $light-gray;
 
-$btn-action-txt: #FADEE1;
-$btn-action: #E84A5F;
-$btn-action-active: #BE3D4E;
-$btn-action-hover: #E84A5F;
-$btn-action-border: #E84A5F;
-$btn-action-hover-border: #EE7B8A;
+$btn-action-txt: $light-gray;
+$btn-action: $firebrick;
+$btn-action-active: $firebrick;
+$btn-action-hover: $firebrick;
+$btn-action-border: $firebrick;
+$btn-action-hover-border: $firebrick;
 
-$btn-light-txt: white;
-$btn-light: #86BBD8;
-$btn-light-active: #6E9AB1;
-$btn-light-hover: #86BBD8;
-$btn-light-border: #86BBD8;
-$btn-light-hover-border: #B2D3E6;
+$btn-light-txt: $snow;
+$btn-light: $blue-munsell;
+$btn-light-active: $blue-munsell;
+$btn-light-hover: $blue-munsell;
+$btn-light-border: $blue-munsell;
+$btn-light-hover-border: $blue-munsell;
+
+// Syntax colors
+$symbol: green;
+$function: yellow;
+$math: green;
+$gold: orange;
+$silver: silver;
+$copper: rgb(228, 183, 125);
+$item: rgb(205, 117, 185);
