@@ -3,7 +3,6 @@
     <section id="editor" class="panel">
       <div class="hero">
         <h1>TSM Price String Editor</h1>
-        <p>Custom Price Strings Made Easy and Beautiful</p>
       </div>
       <p>
         Hi goblin! This tool makes it easy to create new custom price strings for the <a target="_new" href="https://www.tradeskillmaster.com/">TradeSkillMaster</a> addon in World of Warcraft. It provides some syntax highlighting as well as autocomplete features to make writing new formulas easy and readable.
@@ -23,7 +22,7 @@
       <Editor ref="editor" v-model="priceString" :cleanUpSyntax="cleanUpSyntax" />
     </section>
     <section id="reference" class="panel">
-      <h2>Reference</h2>
+      <h1>String Reference</h1>
       <CommandReference />
     </section>
     <footer>
@@ -98,10 +97,6 @@ footer {
   margin: 0;
 }
 
-.hero .p {
-  color: $txt-faded;
-}
-
 .check {
   font-size: $ts-lg;
 }
@@ -118,8 +113,10 @@ footer {
 
 <style lang="scss">
 body {
-  background: $page-background url('~@/assets/noise.png');
+  background: $page-background;
   font-size: 115%;
+  padding: 0;
+  margin: 0;
 }
 
 #app {
@@ -134,7 +131,7 @@ body {
 }
 
 h1, h2, h3 {
-  margin: 0 0 $padding 0;
+  // margin: 0 0 $padding 0;
   padding: 0;
 }
 
@@ -147,12 +144,16 @@ h2 {
 }
 
 h3 {
-  font-size: $ts-normal;
+  font-size: $ts-med;
   color: $txt-faded;
 }
 
 .panel {
   padding: $padding;
+}
+
+p {
+  line-height: $line-height;
 }
 
 a {
@@ -167,10 +168,6 @@ a {
 
   .hero p {
     font-size: $ts-tiny;
-  }
-
-  h1 {
-    font-size: $ts-sm;
   }
 
   .panel {

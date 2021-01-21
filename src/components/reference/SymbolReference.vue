@@ -24,11 +24,12 @@ export default {
 <style lang="scss" scoped>
 .name {
   font-weight: bold;
-  font-size: $ts-normal;
+  font-size: $ts-med;
 }
 
 .definition {
-  font-size: $ts-sm;
+  font-size: $ts-normal;
+  line-height: $line-height;
   margin: $padding-sm 0 $padding-xl 0;
 }
 </style>
