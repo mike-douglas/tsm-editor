@@ -56,5 +56,3 @@ yarn test:func # (in another tab, and them chrome opens)
 ## License and Attribution
 
 This project is licensed under the [MIT License](LICENSE).
-
-Icons are provided by the wonderful [Batch](http://adamwhitcroft.com/batch/) icon set by Adam Whitcroft.
