@@ -1,7 +1,8 @@
 // https://coolors.co/1a1a1d-d3d4d9-4b88a2-bb0a21-fff9fb
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 
 $page-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
-$editor-font: "Courier New", Courier, monospace;
+$editor-font: "Roboto Mono", "Courier New", Courier, monospace;
 
 $mobile-breakpoint: 380px;
 
@@ -46,11 +47,12 @@ $line-height: 1.5em;
 
 // Text colors
 $txt-normal: $text-base;
-$txt-faded: $text-base;
+$txt-faded: adjust-color($text-base, $lightness: -40%);
 $txt-error: $text-base;
 $txt-light: $text-base;
-$txt-loud: $text-base;
-$txt-mid: $text-base;
+$txt-loud: $text-highlight;
+$txt-mid: adjust-color($celadon-blue, $lightness: 20%);
+$txt-action: $tart-orange;
 
 // Radii
 $border-radius: 5px;
@@ -93,3 +95,17 @@ $gold: gold;
 $silver: silver;
 $copper: rgb(228, 183, 125);
 $item: rgb(205, 117, 185);
+
+@mixin text-gradient($name, $deg, $top-color, $bottom-color) {
+  #{$name} {
+    background-color: #{$top-color};
+    background-image: linear-gradient(#{$deg}, #{$top-color}, #{$bottom-color});
+    background-size: 100%;
+    background-clip: text;
+    backface-visibility: hidden;
+    -webkit-background-clip: text;
+    -moz-backface-visibility: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+  }
+}

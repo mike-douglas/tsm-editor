@@ -6,9 +6,11 @@
           :key="tab"
           :class="{ 'active-tab': activeTab === tab }"
           @click="switchTab(tab)">
-          <slot :name="getTabHeadSlotName(tab)">
-            {{ tab }}
-          </slot>
+          <span>
+            <slot :name="getTabHeadSlotName(tab)">
+              {{ tab }}
+            </slot>
+          </span>
         </li>
       </ul>
     </header>
@@ -35,7 +37,7 @@
 .tab-panel ul li {
   display: inline-block;
   padding: $padding-sm $padding $padding;
-  margin: 0;
+  margin: 0 $padding-sm 0 0;
   min-width: 10em;
   font-size: $ts-lg;
   font-weight: bold;
@@ -44,6 +46,16 @@
   background-color: $panel-background;
   cursor: pointer;
 }
+
+.tab-panel ul li span {
+  color: $txt-faded;
+}
+
+@include text-gradient('.tab-panel ul li.active-tab span',
+  180deg,
+  $txt-loud,
+  adjust-color($txt-loud, $lightness: -40%)
+);
 
 .tab-panel ul li:hover {
   background-color: $panel-background-hover;

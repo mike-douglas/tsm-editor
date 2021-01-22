@@ -43,6 +43,7 @@
 <style lang="scss" scoped>
 #about {
   max-width: 50em;
+  padding: $padding-normal;
 }
 
 li {

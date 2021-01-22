@@ -1,5 +1,5 @@
 <template>
-  <ion-icon class="icon" :name="iconName"></ion-icon>
+  <ion-icon class="icon" :name="iconName" />
 </template>
 
 <script>
