@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="symbol">
     <Syntax class="name" :code="item.name" />
     <p class="definition">
       {{ item.definition }}
@@ -9,6 +9,7 @@
 
 <script>
 import Syntax from '@/components/Syntax.vue';
+import { kwTags } from '@/lib/definitions';
 
 export default {
   name: 'SymbolReference',
@@ -18,10 +19,22 @@ export default {
   props: {
     item: Object,
   },
+  computed: {
+    tags() {
+      if (!this.item.tags) {
+        return [];
+      }
+      return this.item.tags.filter(t => t === kwTags.PRICE_SOURCE || t === kwTags.VALUE_SOURCE);
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+.symbol {
+  position: relative;
+}
+
 .name {
   font-weight: bold;
   font-size: $ts-med;
