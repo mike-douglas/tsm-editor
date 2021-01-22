@@ -26,6 +26,14 @@
           <About />
         </section>
       </template>
+      <template slot="tab-head-news">
+        News
+      </template>
+      <template slot="tab-panel-news">
+        <section id="news" class="panel">
+          <MarkdownContent />
+        </section>
+      </template>
     </TabView>
     <footer>
       Made with <Icon name="heart" /> by trenchy
@@ -38,6 +46,7 @@ import Editor from '@/components/editor/Editor.vue';
 import CommandReference from '@/components/reference/CommandReference.vue';
 import TabView from '@/components/TabView.vue';
 import About from '@/components/About.vue';
+import MarkdownContent from '@/components/MarkdownContent.vue';
 import Icon from '@/components/Icon.vue';
 
 import {
@@ -53,11 +62,12 @@ export default {
     TabView,
     About,
     Icon,
+    MarkdownContent,
   },
   data() {
     return {
       defaultTab: 'reference',
-      tabs: ['reference', 'about'],
+      tabs: ['reference', 'about', 'news'],
     };
   },
   computed: {
