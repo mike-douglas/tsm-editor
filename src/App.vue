@@ -5,20 +5,9 @@
         <h1>TSM Price String Editor</h1>
       </div>
       <p>
-        Hi goblin! This tool makes it easy to create new custom price strings for the <a target="_new" href="https://www.tradeskillmaster.com/">TradeSkillMaster</a> addon in World of Warcraft. It provides some syntax highlighting as well as autocomplete features to make writing new formulas easy and readable.
-      </p>
-      <p>
         Paste your string below or just start typing to try it out!
       </p>
-      <div class="editor-status right">
-        <Tooltip class="tooltip" position="bottom-left"
-          text="Reformats your string to make it more readable!">
-          <label>
-            <input class="check" type="checkbox" v-model="cleanUpSyntax" />
-            <span class="text">Beautify</span>
-          </label>
-        </Tooltip>
-      </div>
+      <h1>Editor</h1>
       <Editor ref="editor" v-model="priceString" :cleanUpSyntax="cleanUpSyntax" />
     </section>
     <section id="reference" class="panel">
@@ -34,7 +23,6 @@
 <script>
 import Editor from '@/components/editor/Editor.vue';
 import CommandReference from '@/components/reference/CommandReference.vue';
-import Tooltip from '@/components/Tooltip.vue';
 
 import {
   UPDATE_PRICESTRING, GET_PRICESTRING, SAVE_PRICESTRING,
@@ -46,7 +34,6 @@ export default {
   components: {
     Editor,
     CommandReference,
-    Tooltip,
   },
   computed: {
     priceString: {
@@ -79,7 +66,6 @@ export default {
 <style lang="scss" scoped>
 #reference {
   margin-top: $padding-lg;
-  max-width: 60em;
 }
 
 footer {
@@ -96,8 +82,12 @@ footer {
   margin: 0;
 }
 
-.check {
-  font-size: $ts-lg;
+.syntax-cleanup {
+  font-size: $ts-sm
+}
+
+.editor-status {
+  margin-bottom: $padding-sm;
 }
 
 .text {

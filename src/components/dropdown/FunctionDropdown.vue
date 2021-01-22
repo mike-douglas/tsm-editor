@@ -1,7 +1,7 @@
 <template>
   <li class="dropdown-row panel">
     <Syntax class="name" :code="`${item.name}(${item.args.join(', ')})`" />
-    <Icon class="function" name="function" />
+    <Icon class="icon" name="function" />
     <p class="definition">
       {{ item.definition }}
     </p>
@@ -36,7 +36,6 @@ export default {
 
 .icon {
   float: right;
-  font-size: $ts-xs;
   opacity: 0.5;
 }
 

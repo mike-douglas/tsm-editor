@@ -12,8 +12,17 @@
     </div>
     <div class="editor-status">
       <Button type="xsmall link" icon="clipboard" :onClick="copyToClipboard">
-        Copy to Clipboard
+      Copy to Clipboard
       </Button>
+      <Tooltip
+        class="tooltip"
+        position="bottom-left"
+        text="Clean up your TSM string to make it more readable">
+        <label class="syntax-cleanup">
+          <input type="checkbox" v-model="cleanUpSyntax" />
+          <span class="text">Clean up Syntax</span>
+        </label>
+      </Tooltip>
     </div>
   </div>
 </template>
@@ -24,6 +33,7 @@ import EditorRender from '@/components/editor/EditorRender.vue';
 import EditorEvent from '@/components/editor/EditorEvent.vue';
 import Dropdown from '@/components/dropdown/Dropdown.vue';
 import Button from '@/components/Button.vue';
+import Tooltip from '@/components/Tooltip.vue';
 
 import keys from '@/lib/keys';
 import {
@@ -45,12 +55,13 @@ export default {
     EditorEvent,
     Dropdown,
     Button,
+    Tooltip,
   },
   props: {
     value: String,
-    cleanUpSyntax: Boolean,
   },
   data: () => ({
+    cleanUpSyntax: true,
     // Maintain the height of the container based on the text entered in the Event component.
     containerHeight: 170,
     // Flag to determine if input event is coming from inside the editor or elsewhere.
@@ -189,7 +200,7 @@ export default {
      */
     onEditorBlur() {
       setTimeout(() => {
-        this.dismissDropdown();
+        // this.dismissDropdown();
       }, 250);
     },
     /**
@@ -277,11 +288,19 @@ export default {
 
 .editor-status {
   padding-left: 0;
-  margin: $padding-sm 0;
+  margin: $padding-med 0;
 }
 
-.check {
-  font-size: $ts-lg;
+.tooltip {
+  float: right;
+}
+
+.syntax-cleanup {
+  font-size: $ts-sm;
+}
+
+.syntax-cleanup span {
+  margin-left: $padding-sm;
 }
 
 .text {

@@ -98,8 +98,9 @@ export default {
   max-width: 25em;
   font-size: $ts-xs;
   font-family: $page-font;
-  border: 1px solid $dropdown-border;
-  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
+  border: 2px solid $dropdown-border;
+  border-radius: $border-radius;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 .dropdown ul {

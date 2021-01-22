@@ -1,5 +1,5 @@
 <template>
-  <i :class="`icon ${name}`"></i>
+  <ion-icon class="icon" :name="iconName"></ion-icon>
 </template>
 
 <script>
@@ -11,16 +11,24 @@ export default {
       default: 'nope',
     },
   },
+  computed: {
+    iconName() {
+      const map = {
+        function: 'code-working-outline',
+        symbol: 'code-download-outline',
+        clipboard: 'clipboard-outline',
+        chevronLeft: 'chevron-forward-outline',
+        bulb: 'bulb',
+      };
+
+      return map[this.name];
+    },
+  },
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
 .icon {
-  font-family: "Batch";
-  font-size: 1.0em;
-  line-height: inherit;
-  display: inline-block;
-  font-style: normal;
-  font-weight: normal !important;
+  vertical-align: middle;
 }
 </style>

@@ -1,16 +1,26 @@
 // https://coolors.co/1a1a1d-d3d4d9-4b88a2-bb0a21-fff9fb
-@import '~@/assets/scss/fonts.scss';
 
 $page-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
 $editor-font: "Courier New", Courier, monospace;
 
 $mobile-breakpoint: 380px;
 
-$erie-black: #1a1a1d;
-$light-gray: #d3d4d9;
 $blue-munsell: #4b88a2;
 $firebrick: #bb0a21;
+
+$erie-black: #1A1A1D;
+$light-gray: #d3d4d9;
 $snow: #fff9fb;
+$tea-green: #C4D6B0;
+$celadon-blue: #477998;
+$tart-orange: #F64740;
+$crimson-ua: #A3333D;
+
+$normal-border: $celadon-blue;
+$text-base: $light-gray;
+$text-highlight: $tea-green;
+$text-ultralight: $snow;
+$action-color: $tart-orange;
 
 // Text sizes
 $ts-tiny: 0.7em;
@@ -19,6 +29,7 @@ $ts-sm: 0.85em;
 $ts-normal: 0.9em;
 $ts-med: 1.15em;
 $ts-lg: 1.4em;
+$ts-xl: 1.8em;
 
 // Padding values
 $padding: 0.5em;
@@ -33,12 +44,12 @@ $padding-xs: 0.125em;
 $line-height: 1.4em;
 
 // Text colors
-$txt-normal: $light-gray;
-$txt-faded: $light-gray;
-$txt-error: $light-gray;
-$txt-light: $light-gray;
-$txt-loud: $light-gray;
-$txt-mid: $light-gray;
+$txt-normal: $text-base;
+$txt-faded: $text-base;
+$txt-error: $text-base;
+$txt-light: $text-base;
+$txt-loud: $text-base;
+$txt-mid: $text-base;
 
 // Radii
 $border-radius: 5px;
@@ -46,34 +57,34 @@ $border-radius: 5px;
 // Specific control colors (Maybe move to component level?)
 $page-background: $erie-black;
 
-$editor-background: rgba(0, 0, 0, 0.1);
-$editor-border: $blue-munsell;
-$editor-outline: $blue-munsell;
+$editor-background: adjust-color($page-background, $lightness: -4%);
+$editor-border: $normal-border;
+$editor-outline: $normal-border;
 
-$dropdown-hover: $snow;
-$dropdown-background: $erie-black;
-$dropdown-border: $blue-munsell;
-$dropdown-separator: $light-gray;
+$dropdown-hover: adjust-color($page-background, $lightness: 0.25%);
+$dropdown-background: adjust-color($page-background, $lightness: -5%);
+$dropdown-border: adjust-color($normal-border, $lightness: -20%);
+$dropdown-separator: adjust-color($normal-border, $alpha: -0.92);
 
-$btn-action-txt: $light-gray;
-$btn-action: $firebrick;
-$btn-action-active: $firebrick;
-$btn-action-hover: $firebrick;
-$btn-action-border: $firebrick;
-$btn-action-hover-border: $firebrick;
+$btn-action-txt: $text-base;
+$btn-action: $action-color;
+$btn-action-active: $action-color;
+$btn-action-hover: $action-color;
+$btn-action-border: $action-color;
+$btn-action-hover-border: $action-color;
 
 $btn-light-txt: $snow;
-$btn-light: $blue-munsell;
-$btn-light-active: $blue-munsell;
-$btn-light-hover: $blue-munsell;
-$btn-light-border: $blue-munsell;
-$btn-light-hover-border: $blue-munsell;
+$btn-light: $normal-border;
+$btn-light-active: $normal-border;
+$btn-light-hover: $normal-border;
+$btn-light-border: $normal-border;
+$btn-light-hover-border: $normal-border;
 
 // Syntax colors
-$symbol: green;
-$function: yellow;
-$math: green;
-$gold: orange;
+$symbol: #35C0EF; 
+$function: #3BFAC7;
+$math: F57F9B;
+$gold: gold;
 $silver: silver;
 $copper: rgb(228, 183, 125);
 $item: rgb(205, 117, 185);
