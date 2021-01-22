@@ -7,7 +7,7 @@
       <input class="search" placeholder="Search" type="search" v-model="searchTerm">
     </p>
     <section class="functions">
-      <h3><Icon class="icon" name="function" />Functions</h3>
+      <h2><Icon class="icon" name="function" />Functions</h2>
       <section v-if="filteredFunctions.length > 0" class="sub-panel">
         <FunctionReference class="row function-row"
           v-for="(func, index) in filteredFunctions"
@@ -19,7 +19,7 @@
       </section>
     </section>
     <section class="symbols">
-      <h3><Icon class="icon" name="symbol" />Variables</h3>
+      <h2><Icon class="icon" name="symbol" />Variables</h2>
       <section v-if="filteredSpecials.length > 0 || filteredSymbols.length > 0" class="sub-panel">
         <SymbolReference class="row symbol-row"
           v-for="(symbol, index) in filteredSpecials"
@@ -113,8 +113,6 @@ export default {
   min-height: 120px;
   margin: $padding-sm;
   padding: $padding-med $padding;
-  border-radius: $border-radius;
-  border: 1px solid adjust-color($editor-border, $alpha: -0.8);
 }
 
 @media only screen and (max-width : $mobile-breakpoint) {

@@ -18,7 +18,10 @@ export default {
         symbol: 'code-download-outline',
         clipboard: 'clipboard-outline',
         chevronLeft: 'chevron-forward-outline',
+        book: 'book',
         bulb: 'bulb',
+        about: 'information-circle',
+        heart: 'heart',
       };
 
       return map[this.name];

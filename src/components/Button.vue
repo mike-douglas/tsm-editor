@@ -56,7 +56,6 @@ export default {
   border: 1px solid darkgray;
   border-radius: 0.25em;
   padding: $padding-normal $padding-normal;
-  background: grey url('~@/assets/noise.png');
   color: #fff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0);
   text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.15);
@@ -69,10 +68,6 @@ export default {
   box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.25);
   text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.35);
   cursor: pointer;
-}
-
-.button:active:hover {
-  background-image: url('~@/assets/noise_active.png');
 }
 
 .button .text {

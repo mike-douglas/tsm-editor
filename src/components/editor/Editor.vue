@@ -124,7 +124,7 @@ export default {
      * we need to update this component and the render layer.
      */
     onEditorScrollHeightChanged(newHeight) {
-      this.containerHeight = newHeight;
+      this.containerHeight = newHeight + 10;
     },
     /**
      * Handle navigation of the visible dropdown. Up/down scrolls through the list,
@@ -200,7 +200,7 @@ export default {
      */
     onEditorBlur() {
       setTimeout(() => {
-        // this.dismissDropdown();
+        this.dismissDropdown();
       }, 250);
     },
     /**

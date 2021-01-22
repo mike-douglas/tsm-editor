@@ -2,20 +2,33 @@
   <div id="app">
     <section id="editor" class="panel">
       <div class="hero">
-        <h1>TSM Price String Editor</h1>
+        <h1>TSM Custom String Editor</h1>
       </div>
       <p>
-        Paste your string below or just start typing to try it out!
+        Paste an existing custom string below, or just start typing to try it out!
       </p>
-      <h1>Editor</h1>
       <Editor ref="editor" v-model="priceString" :cleanUpSyntax="cleanUpSyntax" />
     </section>
-    <section id="reference" class="panel">
-      <h1>String Reference</h1>
-      <CommandReference />
-    </section>
+    <TabView :tabs="tabs" :defaultTab="defaultTab">
+      <template slot="tab-head-reference">
+        <Icon name="book" /> String Reference
+      </template>
+      <template slot="tab-panel-reference">
+        <section id="reference" class="panel">
+          <CommandReference />
+        </section>
+      </template>
+      <template slot="tab-head-about">
+        <Icon name="about" /> About
+      </template>
+      <template slot="tab-panel-about">
+        <section id="about" class="panel">
+          <About />
+        </section>
+      </template>
+    </TabView>
     <footer>
-      Made with ❤️ by trenchy
+      Made with <Icon name="heart" /> by trenchy
     </footer>
   </div>
 </template>
@@ -23,6 +36,9 @@
 <script>
 import Editor from '@/components/editor/Editor.vue';
 import CommandReference from '@/components/reference/CommandReference.vue';
+import TabView from '@/components/TabView.vue';
+import About from '@/components/About.vue';
+import Icon from '@/components/Icon.vue';
 
 import {
   UPDATE_PRICESTRING, GET_PRICESTRING, SAVE_PRICESTRING,
@@ -34,6 +50,15 @@ export default {
   components: {
     Editor,
     CommandReference,
+    TabView,
+    About,
+    Icon,
+  },
+  data() {
+    return {
+      defaultTab: 'reference',
+      tabs: ['reference', 'about'],
+    };
   },
   computed: {
     priceString: {
@@ -65,13 +90,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#reference {
-  margin-top: $padding-lg;
-}
 
 footer {
   font-size: $ts-sm;
   color: rgba(255, 255, 255, 0.2);
+  background-color: $panel-background-active;
+  padding: $padding-lg;
   text-align: center;
 }
 
@@ -121,16 +145,15 @@ body {
 }
 
 h1, h2, h3 {
-  // margin: 0 0 $padding 0;
   padding: 0;
 }
 
 h1 {
-  font-size: $ts-lg;
+  font-size: $ts-xl;
 }
 
 h2 {
-  font-size: $ts-med;
+  font-size: $ts-lg;
 }
 
 h3 {
