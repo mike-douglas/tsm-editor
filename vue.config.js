@@ -4,6 +4,8 @@ const packageJson = fs.readFileSync('./package.json');
 const version = JSON.parse(packageJson).version || 0;
 const webpack = require('webpack');
 const { BugsnagSourceMapUploaderPlugin } = require('webpack-bugsnag-plugins');
+const marked = require('marked');
+const renderer = new marked.Renderer();
 
 module.exports = {
   outputDir: 'docs/',
@@ -26,15 +28,33 @@ module.exports = {
       }),
     ];
 
+    const module = {
+      rules:  [{
+        test: /\.md$/,
+        use: [
+          {
+            loader: 'html-loader',
+          },
+          {
+            loader: 'markdown-loader',
+            options: {
+              pedantic: true,
+              renderer,
+            },
+          },
+        ],
+      }],
+    };
+
     if (process.env.NODE_ENV === 'production') {
       plugins.push(new BugsnagSourceMapUploaderPlugin({
         apiKey: '16d836736f8f6e23169eb3ed2393a37f',
         appVersion: `${version}`,
       }));
 
-      return { devtool: 'source-maps', plugins };
+      return { devtool: 'source-maps', plugins, module };
     }
 
-    return { plugins };
+    return { plugins, module };
   },
 };
