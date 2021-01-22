@@ -45,9 +45,4 @@
   max-width: 50em;
   padding: $padding-normal;
 }
-
-li {
-  line-height: $line-height;
-  margin-bottom: $padding-normal;
-}
 </style>

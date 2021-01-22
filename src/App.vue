@@ -23,15 +23,15 @@
       </template>
       <template slot="tab-panel-about">
         <section id="about" class="panel">
-          <About />
+          <MarkdownContent page="about" />
         </section>
       </template>
-      <template slot="tab-head-news">
-        News
+      <template slot="tab-head-updates">
+        Updates
       </template>
-      <template slot="tab-panel-news">
-        <section id="news" class="panel">
-          <MarkdownContent />
+      <template slot="tab-panel-updates">
+        <section id="updates" class="panel">
+          <MarkdownContent page="updates" />
         </section>
       </template>
     </TabView>
@@ -42,10 +42,9 @@
 </template>
 
 <script>
+import TabView from '@/components/TabView.vue';
 import Editor from '@/components/editor/Editor.vue';
 import CommandReference from '@/components/reference/CommandReference.vue';
-import TabView from '@/components/TabView.vue';
-import About from '@/components/About.vue';
 import MarkdownContent from '@/components/MarkdownContent.vue';
 import Icon from '@/components/Icon.vue';
 
@@ -60,14 +59,13 @@ export default {
     Editor,
     CommandReference,
     TabView,
-    About,
     Icon,
     MarkdownContent,
   },
   data() {
     return {
       defaultTab: 'reference',
-      tabs: ['reference', 'about', 'news'],
+      tabs: ['reference', 'about', 'updates'],
     };
   },
   computed: {
@@ -99,10 +97,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 footer {
   font-size: $ts-sm;
-  color: rgba(255, 255, 255, 0.2);
+  color: $txt-faded;
   background-color: $panel-background-active;
   padding: $padding-lg;
   text-align: center;
@@ -115,15 +112,6 @@ footer {
 .hero > * {
   margin: 0;
 }
-</style>
-
-<style lang="scss">
-body {
-  background: $page-background;
-  font-size: 115%;
-  padding: 0;
-  margin: 0;
-}
 
 #app {
   margin: 0;
@@ -134,6 +122,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: $txt-normal;
+}
+</style>
+
+<style lang="scss">
+body {
+  background: $page-background;
+  font-size: 115%;
+  padding: 0;
+  margin: 0;
 }
 
 h1, h2, h3 {
@@ -165,6 +162,11 @@ p {
 a {
   color: $txt-mid;
   font-weight: bold;
+}
+
+li {
+  line-height: $line-height;
+  margin-bottom: $padding-normal;
 }
 
 a:hover, a:active {
