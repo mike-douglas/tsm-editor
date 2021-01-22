@@ -96,6 +96,9 @@ $silver: silver;
 $copper: rgb(228, 183, 125);
 $item: rgb(205, 117, 185);
 
+$kw-price-source: orange;
+$kw-value-source: green;
+
 @mixin text-gradient($name, $deg, $top-color, $bottom-color) {
   #{$name} {
     background-color: #{$top-color};
