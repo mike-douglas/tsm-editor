@@ -159,6 +159,10 @@ p {
   line-height: $line-height;
 }
 
+code {
+  font-size: $ts-lg;
+}
+
 a {
   color: $txt-mid;
   font-weight: bold;

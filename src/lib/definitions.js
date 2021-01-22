@@ -253,7 +253,7 @@ export const functions = [
   new TSMFunction(
     'check',
     ['n', 'b', 'c'],
-    'If the first parameter is greater than 0 return the second parameter, otherwise return the third parameter',
+    'If the first parameter is greater than `0` return the second parameter, otherwise return the third parameter',
   ),
   new TSMFunction(
     'convert',

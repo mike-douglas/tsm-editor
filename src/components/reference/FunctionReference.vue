@@ -1,13 +1,13 @@
 <template>
   <div>
     <Syntax class="name" :code="`${item.name}(${item.args.join(', ')})`" />
-    <p class="definition">
-      {{ item.definition }}
-    </p>
+    <span class="definition" v-html="definition">
+    </span>
   </div>
 </template>
 
 <script>
+import marked from 'marked';
 import Syntax from '@/components/Syntax.vue';
 
 export default {
@@ -17,6 +17,11 @@ export default {
   },
   props: {
     item: Object,
+  },
+  computed: {
+    definition() {
+      return marked(this.item.definition);
+    },
   },
 };
 </script>
@@ -34,6 +39,5 @@ export default {
 .definition {
   font-size: $ts-normal;
   line-height: $line-height;
-  margin: $padding-sm 0 $padding-xl 0;
 }
 </style>
