@@ -8,6 +8,12 @@ fi
 CURRENT_VERSION=$(grep \"version\" package.json | awk -F'"' '{print $4}')
 
 read -p "What version (current is ${CURRENT_VERSION})? " NEXT_VERSION
+
+echo "Please write some release notes for v${NEXT_VERSION}..."
+
+echo -e "### v${NEXT_VERSION}\nDate: $(date +%Y-%m-%d)\n[Release](https://github.com/mike-douglas/tsm-editor/releases/tag/v${NEXT_VERSION})\n\nNOTES\n\n$(cat CHANGELOG.md)" > CHANGELOG.md
+${EDITOR} ./CHANGELOG.md
+
 echo "Building v${NEXT_VERSION}..."
 
 perl -pi -e "s/\"version\": \"${CURRENT_VERSION}\"/\"version\": \"${NEXT_VERSION}\"/" package.json && \

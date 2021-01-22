@@ -269,7 +269,7 @@ export default {
   left: 0em;
   bottom: 0em;
   right: 0em;
-  line-height: 1.4em;
+  line-height: 1.5em;
   word-wrap: break-word;
 }
 

@@ -36,9 +36,9 @@
 
 .tab-panel ul li {
   display: inline-block;
-  padding: $padding-sm $padding $padding;
-  margin: 0 $padding-sm 0 0;
-  min-width: 5em;
+  padding: $padding-sm $padding $padding-sm;
+  margin: 0 0 0 $padding-sm;
+  min-width: 6em;
   font-size: $ts-lg;
   font-weight: bold;
   border-top-left-radius: $border-radius * 2;
@@ -58,7 +58,7 @@
 );
 
 .tab-panel ul li:hover {
-  background-color: $panel-background-hover;
+  background-color: adjust-color($panel-background-active, $lightness: 10%);
 }
 
 .tab-panel ul li.active-tab, .tab-body {
