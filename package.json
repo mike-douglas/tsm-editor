@@ -14,6 +14,7 @@
     "@bugsnag/plugin-vue": "^6.5.0",
     "core-js": "^3.4.4",
     "json-url": "^2.5.0",
+    "marked": "^1.2.7",
     "vue": "^2.6.10",
     "vue-gtag": "^1.2.1",
     "vuex": "^3.1.2"

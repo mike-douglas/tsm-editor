@@ -54,7 +54,7 @@
 @include text-gradient('.tab-panel ul li.active-tab span',
   180deg,
   $txt-loud,
-  adjust-color($txt-loud, $lightness: -40%)
+  adjust-color($txt-loud, $lightness: -30%)
 );
 
 .tab-panel ul li:hover {
