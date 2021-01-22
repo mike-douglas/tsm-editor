@@ -38,7 +38,7 @@
   display: inline-block;
   padding: $padding-sm $padding $padding;
   margin: 0 $padding-sm 0 0;
-  min-width: 10em;
+  min-width: 5em;
   font-size: $ts-lg;
   font-weight: bold;
   border-top-left-radius: $border-radius * 2;
