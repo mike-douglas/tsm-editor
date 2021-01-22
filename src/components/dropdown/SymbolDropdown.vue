@@ -1,6 +1,6 @@
 <template>
   <li class="dropdown-row panel">
-    <Icon class="symbol" name="symbol" />
+    <Icon class="icon" name="symbol" />
     <Syntax class="name" :code="item.name" />
     <p class="definition">
       {{ item.definition }}
@@ -36,7 +36,6 @@ export default {
 
 .icon {
   float: right;
-  font-size: $ts-xs;
   opacity: 0.5;
 }
 
