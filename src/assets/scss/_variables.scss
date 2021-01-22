@@ -41,7 +41,7 @@ $padding-sm: 0.25em;
 $padding-xs: 0.125em;
 
 // Line heights
-$line-height: 1.4em;
+$line-height: 1.5em;
 
 // Text colors
 $txt-normal: $text-base;
@@ -60,6 +60,10 @@ $page-background: $erie-black;
 $editor-background: adjust-color($page-background, $lightness: -4%);
 $editor-border: $normal-border;
 $editor-outline: $normal-border;
+
+$panel-background: adjust-color($page-background, $lightness: -2%);
+$panel-background-active: adjust-color($page-background, $lightness: -4%);
+$panel-background-hover: adjust-color($page-background, $lightness: -6%);
 
 $dropdown-hover: adjust-color($page-background, $lightness: 0.25%);
 $dropdown-background: adjust-color($page-background, $lightness: -5%);
