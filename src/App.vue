@@ -11,7 +11,7 @@
     </section>
     <TabView :tabs="tabs" :defaultTab="defaultTab">
       <template slot="tab-head-reference">
-        <Icon name="book" /> String Reference
+        String Reference
       </template>
       <template slot="tab-panel-reference">
         <section id="reference" class="panel">
@@ -19,7 +19,7 @@
         </section>
       </template>
       <template slot="tab-head-about">
-        <Icon name="about" /> About
+        About
       </template>
       <template slot="tab-panel-about">
         <section id="about" class="panel">
@@ -106,23 +106,6 @@ footer {
 .hero > * {
   margin: 0;
 }
-
-.syntax-cleanup {
-  font-size: $ts-sm
-}
-
-.editor-status {
-  margin-bottom: $padding-sm;
-}
-
-.text {
-  vertical-align: middle;
-  font-weight: bold;
-}
-
-.right {
-  text-align: right;
-}
 </style>
 
 <style lang="scss">
@@ -154,6 +137,7 @@ h1 {
 
 h2 {
   font-size: $ts-lg;
+  color: $txt-mid;
 }
 
 h3 {
@@ -172,6 +156,10 @@ p {
 a {
   color: $txt-mid;
   font-weight: bold;
+}
+
+a:hover, a:active {
+  color: $txt-action;
 }
 
 @media only screen and (max-width : $mobile-breakpoint) {
