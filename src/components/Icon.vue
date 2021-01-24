@@ -1,5 +1,10 @@
 <template>
-  <ion-icon class="icon" :name="iconName" />
+  <span class="icon">
+    <img v-if="name === 'function'" src="@/assets/images/function.svg" />
+    <img v-if="name === 'symbol'" src="@/assets/images/symbol.svg" />
+    <img v-if="name === 'heart'" src="@/assets/images/heart.svg" />
+    <img v-if="name === 'clipboard'" src="@/assets/images/clipboard.svg" />
+  </span>
 </template>
 
 <script>
@@ -11,27 +16,18 @@ export default {
       default: 'nope',
     },
   },
-  computed: {
-    iconName() {
-      const map = {
-        function: 'code-working-outline',
-        symbol: 'code-download-outline',
-        clipboard: 'clipboard-outline',
-        chevronLeft: 'chevron-forward-outline',
-        book: 'book',
-        bulb: 'bulb',
-        about: 'information-circle',
-        heart: 'heart',
-      };
-
-      return map[this.name];
-    },
-  },
 };
 </script>
 
 <style scoped lang="scss">
 .icon {
   vertical-align: middle;
+  width: 1em;
+  height: 1em;
+}
+
+.icon img {
+  width: inherit;
+  height: inherit;
 }
 </style>

@@ -117,11 +117,14 @@ footer {
   margin: 0;
   padding: 0;
   width: 100%;
-  font-size: 1.0em;
   font-family: $page-font;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: $txt-normal;
+}
+
+#editor {
+  margin-bottom: $padding-lg;
 }
 </style>
 
@@ -131,6 +134,10 @@ body {
   font-size: 115%;
   padding: 0;
   margin: 0;
+}
+
+code {
+  font-family: $editor-font;
 }
 
 h1, h2, h3 {
@@ -157,10 +164,6 @@ h3 {
 
 p {
   line-height: $line-height;
-}
-
-code {
-  font-size: $ts-lg;
 }
 
 a {

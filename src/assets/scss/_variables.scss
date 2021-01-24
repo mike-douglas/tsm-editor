@@ -17,6 +17,7 @@ $tea-green: #C4D6B0;
 $celadon-blue: #477998;
 $tart-orange: #F64740;
 $crimson-ua: #A3333D;
+$purple: #b5179e;
 
 $normal-border: $celadon-blue;
 $text-base: $light-gray;
@@ -50,9 +51,9 @@ $txt-normal: $text-base;
 $txt-faded: adjust-color($text-base, $lightness: -40%);
 $txt-error: $text-base;
 $txt-light: $text-base;
-$txt-loud: $text-highlight;
+$txt-loud: $celadon-blue;
 $txt-mid: adjust-color($celadon-blue, $lightness: 20%);
-$txt-action: $tart-orange;
+$txt-action: $text-highlight;
 
 // Radii
 $border-radius: 5px;
@@ -73,19 +74,8 @@ $dropdown-background: adjust-color($page-background, $lightness: -5%);
 $dropdown-border: adjust-color($normal-border, $lightness: -20%);
 $dropdown-separator: adjust-color($normal-border, $alpha: -0.92);
 
-$btn-action-txt: $text-base;
-$btn-action: $action-color;
-$btn-action-active: $action-color;
-$btn-action-hover: $action-color;
-$btn-action-border: $action-color;
-$btn-action-hover-border: $action-color;
-
-$btn-light-txt: $snow;
-$btn-light: $normal-border;
-$btn-light-active: $normal-border;
-$btn-light-hover: $normal-border;
-$btn-light-border: $normal-border;
-$btn-light-hover-border: $normal-border;
+$button-background: adjust-color(purple, $lightness: 10%);
+$button-background-hover: adjust-color($button-background, $lightness: 10%);
 
 // Syntax colors
 $symbol: #35C0EF; 

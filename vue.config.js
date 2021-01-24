@@ -29,7 +29,7 @@ module.exports = {
     ];
 
     const module = {
-      rules:  [{
+      rules: [{
         test: /\.md$/,
         use: [
           {

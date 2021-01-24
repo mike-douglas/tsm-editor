@@ -18,7 +18,7 @@ export default {
     onClick: Function,
     type: {
       type: String,
-      default: 'action normal',
+      default: 'normal',
     },
   },
   methods: {
@@ -32,117 +32,53 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.xsmall {
-  font-size: $ts-xs;
-}
-
-.small {
-  font-size: $ts-sm;
-}
-
-.medium {
-  font-size: $ts-med;
-}
-
-.large {
-  font-size: $ts-lg;
-}
-
-.normal {
+button {
+  cursor: pointer;
   font-size: $ts-normal;
 }
 
-.button {
-  border: 1px solid darkgray;
-  border-radius: 0.25em;
-  padding: $padding-normal $padding-normal;
-  color: #fff;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0);
-  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.15);
+.normal {
+  border: $button-background;
+  background-image: linear-gradient(
+    $button-background,
+    adjust-color($button-background, $lightness: -5%)
+  );
+  background-color: $button-background;
+  color: adjust-color($button-background, $lightness: 65%);
+  border-radius: $border-radius * 3;
+  padding: $padding-med $padding-lg;
   outline: none;
+  font-weight: bold;
 }
 
-.button:hover {
-  border: 1px solid lightgray;
-  background-color: lightgray;
-  box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.25);
-  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.35);
-  cursor: pointer;
+.normal:hover {
+  background-image: linear-gradient(
+    $button-background-hover,
+    adjust-color($button-background-hover, $lightness: -5%)
+  );
+  background-color: $button-background-hover;
+  color: adjust-color($button-background, $lightness: 65%);
 }
 
-.button .text {
-  // display: inline-block;
+.normal .text {
   margin-left: $padding-sm;
   margin-right: $padding;
   vertical-align: middle;
 }
 
-.button .icon {
-  font-size: 2.0em;
-  vertical-align: middle;
-}
-
 .link {
-  background: none;
   border: 0;
-  color: $txt-light;
-  padding: 0;
-}
-
-.link .icon {
-  margin-left: auto;
-}
-
-.link .text {
-  text-decoration: none;
+  margin: auto;
+  padding: auto;
+  background-color: transparent;
+  outline: none;
+  font-weight: bold;
+  text-decoration: underline;
+  color: $txt-mid;
 }
 
 .link:hover {
-  padding: 0;
-  border: 0;
-  background: none;
-  box-shadow: none;
+  color: $txt-action;
 }
 
-.link:hover .text {
-  text-decoration: underline;
-}
-
-.action {
-  color: $btn-action-txt;
-  font-weight: bold;
-}
-
-.action {
-  border: 1px solid $btn-action-border;
-  background-color: $btn-action;
-}
-
-.action:hover {
-  border: 1px solid $btn-action-hover-border;
-  background-color: $btn-action-hover;
-}
-
-.action:hover:active {
-  background-color: $btn-action-active;
-}
-
-.light {
-  color: $btn-light-txt;
-  font-weight: bold;
-}
-
-.light {
-  border: 1px solid $btn-light-border;
-  background-color: $btn-light;
-}
-
-.light:hover {
-  border: 1px solid $btn-light-hover-border;
-  background-color: $btn-light-hover;
-}
-
-.light:hover:active {
-  background-color: $btn-light-active;
-}
 </style>
