@@ -11,16 +11,19 @@
       <EditorEvent class="editor-event" :shouldReformat="cleanUpSyntax" />
     </div>
     <div class="editor-status">
-      <Button type="xsmall link" icon="clipboard" :onClick="copyToClipboard">
-      Copy to Clipboard
+      <Button class="copy-button" type="link" :onClick="copyToClipboard">
+        Copy to Clipboard
       </Button>
+      <transition name="fade">
+        <Checkmark class="status-checkmark" v-if="showCheckmark" />
+      </transition>
       <Tooltip
         class="tooltip"
         position="bottom-left"
         text="Clean up your TSM string to make it more readable">
         <label class="syntax-cleanup">
           <input type="checkbox" v-model="cleanUpSyntax" />
-          <span class="text">Clean up Syntax</span>
+          <span class="cleanup-label">Clean up Syntax</span>
         </label>
       </Tooltip>
     </div>
@@ -34,6 +37,7 @@ import EditorEvent from '@/components/editor/EditorEvent.vue';
 import Dropdown from '@/components/dropdown/Dropdown.vue';
 import Button from '@/components/Button.vue';
 import Tooltip from '@/components/Tooltip.vue';
+import Checkmark from '@/components/Checkmark.vue';
 
 import keys from '@/lib/keys';
 import {
@@ -56,6 +60,7 @@ export default {
     Dropdown,
     Button,
     Tooltip,
+    Checkmark,
   },
   props: {
     value: String,
@@ -78,6 +83,8 @@ export default {
     keyPressCount: 0,
     // The last known caret TextRange
     currentCaretRange: null,
+    // Show the checkmark
+    showCheckmark: false,
   }),
   computed: {
     dropdownIsVisible() {
@@ -246,6 +253,13 @@ export default {
     copyToClipboard() {
       this.$gtag.event('editorEvent', { action: 'copyToClipboard' });
       EditorEventBus.$emit(events.SET_EDITOR_COPY_TO_CLIPBOARD);
+      this.showCheckmark = !this.showCheckmark;
+
+      this.$nextTick(() => {
+        setTimeout(() => {
+          this.showCheckmark = !this.showCheckmark;
+        }, 2000);
+      });
     },
   },
 };
@@ -297,20 +311,40 @@ export default {
   float: right;
 }
 
-.syntax-cleanup {
-  font-size: $ts-sm;
-}
-
 .syntax-cleanup span {
   margin-left: $padding-sm;
 }
 
-.text {
+.cleanup-label {
   vertical-align: middle;
   font-weight: bold;
+  font-size: $ts-normal;
 }
 
 .right {
   text-align: right;
+}
+
+.copy-button {
+  margin: $padding-normal auto;
+  font-size: $ts-normal;
+}
+
+.status-checkmark {
+  margin-left: $padding-normal;
+  width: $ts-lg;
+  height: $ts-lg;
+}
+
+.fade-leave-active {
+  transition: opacity .5s ease-out;
+}
+
+.fade-enter, .fade-leave-from {
+  opacity: 1;
+}
+
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

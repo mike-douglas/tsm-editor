@@ -3,11 +3,11 @@
     <p>
       Includes the functions and strings from TSM 4.0+.
     </p>
-    <p>
+    <p class="search-bar">
       <input class="search" placeholder="Search" type="search" v-model="searchTerm">
     </p>
     <section class="functions">
-      <h2><Icon class="icon" name="function" />Functions</h2>
+      <h2 class="function"><Icon class="icon" name="function" />Functions</h2>
       <section v-if="filteredFunctions.length > 0" class="sub-panel">
         <FunctionReference class="row function-row"
           v-for="(func, index) in filteredFunctions"
@@ -19,7 +19,7 @@
       </section>
     </section>
     <section class="symbols">
-      <h2><Icon class="icon" name="symbol" />Variables</h2>
+      <h2 class="variable"><Icon class="icon" name="symbol" />Variables</h2>
       <section v-if="filteredSpecials.length > 0 || filteredSymbols.length > 0" class="sub-panel">
         <SymbolReference class="row symbol-row"
           v-for="(symbol, index) in filteredSpecials"
@@ -77,9 +77,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.function {
+  color: $function;
+}
+
+.variable {
+    color: $symbol;
+}
+
 .icon {
-  font-size: $ts-xl;
+  font-size: $ts-lg;
   margin-right: $padding-sm;
+}
+
+.search-bar {
+  margin-bottom: $padding-xl;
 }
 
 .search {

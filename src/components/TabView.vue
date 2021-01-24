@@ -51,14 +51,12 @@
   color: $txt-faded;
 }
 
-@include text-gradient('.tab-panel ul li.active-tab span',
-  180deg,
-  $txt-loud,
-  adjust-color($txt-loud, $lightness: -30%)
-);
+.tab-panel ul li.active-tab span {
+  color: $txt-loud;
+}
 
 .tab-panel ul li:hover {
-  background-color: adjust-color($panel-background-active, $lightness: 10%);
+  background-color: adjust-color($panel-background-active, $lightness: 2%);
 }
 
 .tab-panel ul li.active-tab, .tab-body {

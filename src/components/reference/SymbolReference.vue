@@ -1,15 +1,16 @@
 <template>
   <div class="symbol">
     <Syntax class="name" :code="item.name" />
-    <p class="definition">
-      {{ item.definition }}
-    </p>
+    <span class="definition" v-html="definition">
+    </span>
   </div>
 </template>
 
 <script>
 import Syntax from '@/components/Syntax.vue';
 import { kwTags } from '@/lib/definitions';
+
+import marked from 'marked';
 
 export default {
   name: 'SymbolReference',
@@ -20,6 +21,9 @@ export default {
     item: Object,
   },
   computed: {
+    definition() {
+      return marked(this.item.definition);
+    },
     tags() {
       if (!this.item.tags) {
         return [];

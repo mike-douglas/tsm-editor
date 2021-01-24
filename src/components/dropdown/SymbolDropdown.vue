@@ -2,15 +2,16 @@
   <li class="dropdown-row panel">
     <Icon class="icon" name="symbol" />
     <Syntax class="name" :code="item.name" />
-    <p class="definition">
-      {{ item.definition }}
-    </p>
+    <span class="definition" v-html="definition">
+    </span>
   </li>
 </template>
 
 <script>
 import Icon from '@/components/Icon.vue';
 import Syntax from '@/components/Syntax.vue';
+
+import marked from 'marked';
 
 export default {
   name: 'SymbolDropdown',
@@ -20,6 +21,11 @@ export default {
   },
   props: {
     item: Object,
+  },
+  computed: {
+    definition() {
+      return marked(this.item.definition);
+    },
   },
 };
 </script>
