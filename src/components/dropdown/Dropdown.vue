@@ -17,7 +17,7 @@
         :class="(index + results.symbols.length) === value ? 'selected': ''" />
     </ul>
     <div class="hint">
-      <Icon name="bulb" /> Hit enter or tab to insert
+      <Icon name="info" /> Hit enter or tab to insert
     </div>
     <div class="debug-panel panel" v-show="debug">
       <div>Active Option: {{ selectedIndex }}</div>

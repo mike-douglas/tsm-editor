@@ -34,6 +34,7 @@ export default {
 .dropdown-row {
   cursor: pointer;
   border-bottom: 1px solid $dropdown-separator;
+  margin-bottom: 0;
 }
 
 .dropdown-row:hover {
@@ -51,7 +52,10 @@ export default {
 
 .definition {
   clear: both;
-  margin: $padding-sm 0 0 0;
   font-size: $ts-sm;
+}
+
+::v-deep .definition p {
+  margin: 0;
 }
 </style>
