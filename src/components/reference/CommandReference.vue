@@ -1,7 +1,7 @@
 <template>
   <div class="reference">
     <p>
-      Includes the functions and strings from TSM 4.0+.
+      Includes the functions and strings from TSM 4.10+.
     </p>
     <p class="search-bar">
       <input class="search" placeholder="Search" type="search" v-model="searchTerm">
