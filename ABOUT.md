@@ -16,9 +16,11 @@ This tool is an offline editor for Custom Strings, meaning that you don't need t
 
 ## Contributing
 
-This application is open source software, so anyone can contribute to it! If you are a software engineer who is interested in adding a feature or making this tool better for the goblin community, please head to the [GitHub page for this project][github]. I'd be totally psyched to work on this with some more people!
+This application is open source software, so anyone can contribute to it!
 
-If you're not a software engineer or just have some ideas on how to improve the tool, I'd love to hear from you too! Bugs and feature requests can be created by going to the [GitHub Issues][issue] part of the project here.
+If you are interested in adding a feature or making this tool better for the goblin community, please head to the [GitHub page for this project][github]. I'd be totally psyched to work on this with some more people!
+
+Bug reports and feature requests can be created by going to the [GitHub Issues][issue] part of the project here.
 
 [tsm]: https://tradeskillmaster.com
 [wow]: https://worldofwarcraft.com
