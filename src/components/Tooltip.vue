@@ -5,19 +5,6 @@
   </span>
 </template>
 
-<script>
-export default {
-  name: 'Tooltip',
-  props: {
-    text: String,
-    position: {
-      type: String,
-      default: 'bottom-right',
-    },
-  },
-};
-</script>
-
 <style lang="scss" scoped>
 .tooltip {
   position: relative;
@@ -84,3 +71,16 @@ export default {
 }
 
 </style>
+
+<script>
+export default {
+  name: 'Tooltip',
+  props: {
+    text: String,
+    position: {
+      type: String,
+      default: 'bottom-right',
+    },
+  },
+};
+</script>

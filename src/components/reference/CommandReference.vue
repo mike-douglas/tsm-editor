@@ -37,45 +37,6 @@
   </div>
 </template>
 
-<script>
-import { functions, symbols, specialFeatures } from '@/lib/definitions';
-
-import FunctionReference from '@/components/reference/FunctionReference.vue';
-import SymbolReference from '@/components/reference/SymbolReference.vue';
-import Icon from '@/components/Icon.vue';
-
-export default {
-  name: 'CommandReference',
-  components: {
-    FunctionReference,
-    SymbolReference,
-    Icon,
-  },
-  data() {
-    return {
-      searchTerm: '',
-    };
-  },
-  computed: {
-    filteredFunctions() {
-      return this.searchTerm.length >= 2
-        ? functions.filter(f => f.name.includes(this.searchTerm) === true, this)
-        : functions;
-    },
-    filteredSymbols() {
-      return this.searchTerm.length >= 2
-        ? symbols.filter(s => s.name.includes(this.searchTerm) === true, this)
-        : symbols;
-    },
-    filteredSpecials() {
-      return this.searchTerm.length >= 2
-        ? specialFeatures.filter(s => s.name.includes(this.searchTerm) === true, this)
-        : specialFeatures;
-    },
-  },
-};
-</script>
-
 <style lang="scss" scoped>
 .function {
   color: $function;
@@ -145,3 +106,42 @@ export default {
   }
 }
 </style>
+
+<script>
+import { functions, symbols, specialFeatures } from '@/lib/definitions';
+
+import FunctionReference from '@/components/reference/FunctionReference.vue';
+import SymbolReference from '@/components/reference/SymbolReference.vue';
+import Icon from '@/components/Icon.vue';
+
+export default {
+  name: 'CommandReference',
+  components: {
+    FunctionReference,
+    SymbolReference,
+    Icon,
+  },
+  data() {
+    return {
+      searchTerm: '',
+    };
+  },
+  computed: {
+    filteredFunctions() {
+      return this.searchTerm.length >= 2
+        ? functions.filter(f => f.name.includes(this.searchTerm) === true, this)
+        : functions;
+    },
+    filteredSymbols() {
+      return this.searchTerm.length >= 2
+        ? symbols.filter(s => s.name.includes(this.searchTerm) === true, this)
+        : symbols;
+    },
+    filteredSpecials() {
+      return this.searchTerm.length >= 2
+        ? specialFeatures.filter(s => s.name.includes(this.searchTerm) === true, this)
+        : specialFeatures;
+    },
+  },
+};
+</script>
