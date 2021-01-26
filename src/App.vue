@@ -1,40 +1,45 @@
 <template>
   <div id="app">
-    <section id="editor" class="panel">
+    <section ref="editor"
+    id="editor"
+    class="panel"
+    :class="{ 'fixed-editor' : panelScrollTop > 0 }">
       <div class="hero">
         <h1>TSM Custom String Editor</h1>
       </div>
       <p>
         Paste an existing custom string below, or just start typing to try it out!
       </p>
-      <Editor ref="editor" v-model="priceString" :cleanUpSyntax="cleanUpSyntax" />
+      <Editor v-model="priceString" :cleanUpSyntax="cleanUpSyntax" />
     </section>
-    <TabView :tabs="tabs" :defaultTab="defaultTab">
-      <template slot="tab-head-reference">
-        String Reference
-      </template>
-      <template slot="tab-panel-reference">
-        <section id="reference" class="panel">
-          <CommandReference />
-        </section>
-      </template>
-      <template slot="tab-head-about">
-        About
-      </template>
-      <template slot="tab-panel-about">
-        <section id="about" class="panel">
-          <MarkdownContent page="about" />
-        </section>
-      </template>
-      <template slot="tab-head-updates">
-        Updates
-      </template>
-      <template slot="tab-panel-updates">
-        <section id="updates" class="panel">
-          <MarkdownContent page="updates" />
-        </section>
-      </template>
-    </TabView>
+    <section id="panels" :style="{ 'margin-top': panelScrollTop + 'px' }">
+      <TabView :tabs="tabs" :defaultTab="defaultTab">
+        <template slot="tab-head-reference">
+          String Reference
+        </template>
+        <template slot="tab-panel-reference">
+          <section class="panel">
+            <CommandReference />
+          </section>
+        </template>
+        <template slot="tab-head-about">
+          About
+        </template>
+        <template slot="tab-panel-about">
+          <section class="panel">
+            <MarkdownContent page="about" />
+          </section>
+        </template>
+        <template slot="tab-head-updates">
+          Updates
+        </template>
+        <template slot="tab-panel-updates">
+          <section class="panel">
+            <MarkdownContent page="updates" />
+          </section>
+        </template>
+      </TabView>
+    </section>
     <footer>
       Made with <Icon name="heart" /> by trenchy
     </footer>
@@ -66,6 +71,7 @@ export default {
     return {
       defaultTab: 'reference',
       tabs: ['reference', 'about', 'updates'],
+      panelScrollTop: 0,
     };
   },
   computed: {
@@ -88,11 +94,26 @@ export default {
       },
     },
   },
+  methods: {
+    handleScroll() {
+      this.panelScrollTop = window.scrollY > 0 ? this.$refs.editor.clientHeight : 0;
+    },
+  },
   mounted() {
     this.$store.dispatch(GET_PRICESTRING).then((restoredString) => {
       this.$gtag.pageview({ page_path: window.location.pathname + window.location.hash });
       this.priceString = restoredString;
     });
+  },
+  created() {
+    if (window.screen.width > 380) {
+      window.addEventListener('scroll', this.handleScroll);
+    }
+  },
+  beforeDestroy() {
+    if (window.screen.width > 380) {
+      window.removeEventListener('scroll', this.handleScroll);
+    }
   },
 };
 </script>
@@ -126,6 +147,16 @@ footer {
 
 #editor {
   margin-bottom: $padding-lg;
+}
+
+.fixed-editor {
+  background-color: $page-background;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
 }
 </style>
 
