@@ -9,18 +9,6 @@
   </span>
 </template>
 
-<script>
-export default {
-  name: 'Icon',
-  props: {
-    name: {
-      type: String,
-      default: 'nope',
-    },
-  },
-};
-</script>
-
 <style scoped lang="scss">
 .icon {
   vertical-align: middle;
@@ -33,3 +21,15 @@ export default {
   height: inherit;
 }
 </style>
+
+<script>
+export default {
+  name: 'Icon',
+  props: {
+    name: {
+      type: String,
+      default: 'nope',
+    },
+  },
+};
+</script>

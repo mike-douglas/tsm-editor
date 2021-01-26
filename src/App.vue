@@ -46,78 +46,6 @@
   </div>
 </template>
 
-<script>
-import TabView from '@/components/TabView.vue';
-import Editor from '@/components/editor/Editor.vue';
-import CommandReference from '@/components/reference/CommandReference.vue';
-import MarkdownContent from '@/components/MarkdownContent.vue';
-import Icon from '@/components/Icon.vue';
-
-import {
-  UPDATE_PRICESTRING, GET_PRICESTRING, SAVE_PRICESTRING,
-  UPDATE_CLEANUPFLAG,
-} from '@/lib/store';
-
-export default {
-  name: 'app',
-  components: {
-    Editor,
-    CommandReference,
-    TabView,
-    Icon,
-    MarkdownContent,
-  },
-  data() {
-    return {
-      defaultTab: 'reference',
-      tabs: ['reference', 'about', 'updates'],
-      panelScrollTop: 0,
-    };
-  },
-  computed: {
-    priceString: {
-      get() {
-        return this.$store.getters.priceString;
-      },
-      set(newValue) {
-        this.$store.commit(UPDATE_PRICESTRING, newValue);
-        this.$store.dispatch(SAVE_PRICESTRING, newValue);
-      },
-    },
-    cleanUpSyntax: {
-      get() {
-        return this.$store.getters.cleanUpSyntax;
-      },
-      set(newValue) {
-        this.$store.commit(UPDATE_CLEANUPFLAG, newValue);
-        this.$gtag.event('editorEvent', { action: 'cleanupSyntax' });
-      },
-    },
-  },
-  methods: {
-    handleScroll() {
-      this.panelScrollTop = window.scrollY > 0 ? this.$refs.editor.clientHeight : 0;
-    },
-  },
-  mounted() {
-    this.$store.dispatch(GET_PRICESTRING).then((restoredString) => {
-      this.$gtag.pageview({ page_path: window.location.pathname + window.location.hash });
-      this.priceString = restoredString;
-    });
-  },
-  created() {
-    if (window.screen.width > 380) {
-      window.addEventListener('scroll', this.handleScroll);
-    }
-  },
-  beforeDestroy() {
-    if (window.screen.width > 380) {
-      window.removeEventListener('scroll', this.handleScroll);
-    }
-  },
-};
-</script>
-
 <style lang="scss" scoped>
 footer {
   font-size: $ts-sm;
@@ -226,3 +154,75 @@ a:hover, a:active {
   }
 }
 </style>
+
+<script>
+import TabView from '@/components/TabView.vue';
+import Editor from '@/components/editor/Editor.vue';
+import CommandReference from '@/components/reference/CommandReference.vue';
+import MarkdownContent from '@/components/MarkdownContent.vue';
+import Icon from '@/components/Icon.vue';
+
+import {
+  UPDATE_PRICESTRING, GET_PRICESTRING, SAVE_PRICESTRING,
+  UPDATE_CLEANUPFLAG,
+} from '@/lib/store';
+
+export default {
+  name: 'app',
+  components: {
+    Editor,
+    CommandReference,
+    TabView,
+    Icon,
+    MarkdownContent,
+  },
+  data() {
+    return {
+      defaultTab: 'reference',
+      tabs: ['reference', 'about', 'updates'],
+      panelScrollTop: 0,
+    };
+  },
+  computed: {
+    priceString: {
+      get() {
+        return this.$store.getters.priceString;
+      },
+      set(newValue) {
+        this.$store.commit(UPDATE_PRICESTRING, newValue);
+        this.$store.dispatch(SAVE_PRICESTRING, newValue);
+      },
+    },
+    cleanUpSyntax: {
+      get() {
+        return this.$store.getters.cleanUpSyntax;
+      },
+      set(newValue) {
+        this.$store.commit(UPDATE_CLEANUPFLAG, newValue);
+        this.$gtag.event('editorEvent', { action: 'cleanupSyntax' });
+      },
+    },
+  },
+  methods: {
+    handleScroll() {
+      this.panelScrollTop = window.scrollY > 0 ? this.$refs.editor.clientHeight : 0;
+    },
+  },
+  mounted() {
+    this.$store.dispatch(GET_PRICESTRING).then((restoredString) => {
+      this.$gtag.pageview({ page_path: window.location.pathname + window.location.hash });
+      this.priceString = restoredString;
+    });
+  },
+  created() {
+    if (window.screen.width > 380) {
+      window.addEventListener('scroll', this.handleScroll);
+    }
+  },
+  beforeDestroy() {
+    if (window.screen.width > 380) {
+      window.removeEventListener('scroll', this.handleScroll);
+    }
+  },
+};
+</script>

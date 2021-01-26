@@ -5,32 +5,6 @@
   </button>
 </template>
 
-<script>
-import Icon from '@/components/Icon.vue';
-
-export default {
-  name: 'Button',
-  components: {
-    Icon,
-  },
-  props: {
-    icon: String,
-    onClick: Function,
-    type: {
-      type: String,
-      default: 'normal',
-    },
-  },
-  methods: {
-    handleClick(event) {
-      if (this.onClick) {
-        this.onClick(event);
-      }
-    },
-  },
-};
-</script>
-
 <style lang="scss" scoped>
 button {
   cursor: pointer;
@@ -82,3 +56,29 @@ button {
 }
 
 </style>
+
+<script>
+import Icon from '@/components/Icon.vue';
+
+export default {
+  name: 'Button',
+  components: {
+    Icon,
+  },
+  props: {
+    icon: String,
+    onClick: Function,
+    type: {
+      type: String,
+      default: 'normal',
+    },
+  },
+  methods: {
+    handleClick(event) {
+      if (this.onClick) {
+        this.onClick(event);
+      }
+    },
+  },
+};
+</script>

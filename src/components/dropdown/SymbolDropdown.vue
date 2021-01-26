@@ -7,29 +7,6 @@
   </li>
 </template>
 
-<script>
-import Icon from '@/components/Icon.vue';
-import Syntax from '@/components/Syntax.vue';
-
-import marked from 'marked';
-
-export default {
-  name: 'SymbolDropdown',
-  components: {
-    Icon,
-    Syntax,
-  },
-  props: {
-    item: Object,
-  },
-  computed: {
-    definition() {
-      return marked(this.item.definition);
-    },
-  },
-};
-</script>
-
 <style lang="scss" scoped>
 .dropdown-row {
   cursor: pointer;
@@ -59,3 +36,26 @@ export default {
   margin: 0;
 }
 </style>
+
+<script>
+import Icon from '@/components/Icon.vue';
+import Syntax from '@/components/Syntax.vue';
+
+import marked from 'marked';
+
+export default {
+  name: 'SymbolDropdown',
+  components: {
+    Icon,
+    Syntax,
+  },
+  props: {
+    item: Object,
+  },
+  computed: {
+    definition() {
+      return marked(this.item.definition);
+    },
+  },
+};
+</script>

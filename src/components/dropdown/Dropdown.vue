@@ -26,6 +26,38 @@
   </div>
 </template>
 
+<style lang="scss" scoped>
+.dropdown {
+  padding: 0;
+  position: absolute;
+  background-color: $dropdown-background;
+  min-width: 20em;
+  max-width: 25em;
+  font-size: $ts-xs;
+  font-family: $page-font;
+  border: 2px solid $dropdown-border;
+  border-radius: $border-radius;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.dropdown ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.selected {
+  background-color: $dropdown-hover;
+}
+
+.hint {
+  font-size: $ts-tiny;
+  color: $txt-faded;
+  padding: $padding;
+  text-align: right;
+}
+</style>
+
 <script>
 import { Position } from '@/lib/position';
 
@@ -88,35 +120,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.dropdown {
-  padding: 0;
-  position: absolute;
-  background-color: $dropdown-background;
-  min-width: 20em;
-  max-width: 25em;
-  font-size: $ts-xs;
-  font-family: $page-font;
-  border: 2px solid $dropdown-border;
-  border-radius: $border-radius;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
-}
-
-.dropdown ul {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-}
-
-.selected {
-  background-color: $dropdown-hover;
-}
-
-.hint {
-  font-size: $ts-tiny;
-  color: $txt-faded;
-  padding: $padding;
-  text-align: right;
-}
-</style>

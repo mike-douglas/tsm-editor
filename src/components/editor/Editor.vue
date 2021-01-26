@@ -30,6 +30,90 @@
   </div>
 </template>
 
+<style lang="scss" scoped>
+.editor {
+  position: relative;
+  font-family: $editor-font;
+  font-size: $ts-med;
+  font-weight: bold;
+  border: 2px solid $editor-border;
+  background-color: $editor-background;
+  border-radius: $border-radius;
+}
+
+.editor-render, .editor-event {
+  position: absolute;
+  padding: $padding;
+  top: 0em;
+  left: 0em;
+  bottom: 0em;
+  right: 0em;
+  line-height: 1.5em;
+  word-wrap: break-word;
+}
+
+.editor-render {
+  z-index: 1;
+}
+
+.editor-event {
+  z-index: 2;
+  color: transparent;
+  caret-color: $txt-normal;
+  outline-color: $editor-outline;
+}
+
+.dropdown {
+  z-index: 3;
+}
+
+.editor-status {
+  padding-left: 0;
+  margin: $padding-med 0;
+}
+
+.tooltip {
+  float: right;
+}
+
+.syntax-cleanup span {
+  margin-left: $padding-sm;
+}
+
+.cleanup-label {
+  vertical-align: middle;
+  font-weight: bold;
+  font-size: $ts-normal;
+}
+
+.right {
+  text-align: right;
+}
+
+.copy-button {
+  margin: $padding-normal auto;
+  font-size: $ts-normal;
+}
+
+.status-checkmark {
+  margin-left: $padding-normal;
+  width: $ts-lg;
+  height: $ts-lg;
+}
+
+.fade-leave-active {
+  transition: opacity .5s ease-out;
+}
+
+.fade-enter, .fade-leave-from {
+  opacity: 1;
+}
+
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
+
 <script>
 import EditorEventBus, { events } from '@/components/editor/eventbus';
 import EditorRender from '@/components/editor/EditorRender.vue';
@@ -264,87 +348,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.editor {
-  position: relative;
-  font-family: $editor-font;
-  font-size: $ts-med;
-  font-weight: bold;
-  border: 2px solid $editor-border;
-  background-color: $editor-background;
-  border-radius: $border-radius;
-}
-
-.editor-render, .editor-event {
-  position: absolute;
-  padding: $padding;
-  top: 0em;
-  left: 0em;
-  bottom: 0em;
-  right: 0em;
-  line-height: 1.5em;
-  word-wrap: break-word;
-}
-
-.editor-render {
-  z-index: 1;
-}
-
-.editor-event {
-  z-index: 2;
-  color: transparent;
-  caret-color: $txt-normal;
-  outline-color: $editor-outline;
-}
-
-.dropdown {
-  z-index: 3;
-}
-
-.editor-status {
-  padding-left: 0;
-  margin: $padding-med 0;
-}
-
-.tooltip {
-  float: right;
-}
-
-.syntax-cleanup span {
-  margin-left: $padding-sm;
-}
-
-.cleanup-label {
-  vertical-align: middle;
-  font-weight: bold;
-  font-size: $ts-normal;
-}
-
-.right {
-  text-align: right;
-}
-
-.copy-button {
-  margin: $padding-normal auto;
-  font-size: $ts-normal;
-}
-
-.status-checkmark {
-  margin-left: $padding-normal;
-  width: $ts-lg;
-  height: $ts-lg;
-}
-
-.fade-leave-active {
-  transition: opacity .5s ease-out;
-}
-
-.fade-enter, .fade-leave-from {
-  opacity: 1;
-}
-
-.fade-leave-to {
-  opacity: 0;
-}
-</style>

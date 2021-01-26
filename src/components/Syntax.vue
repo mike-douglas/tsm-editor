@@ -2,22 +2,6 @@
   <span class="ide" v-html="stylizedContent"></span>
 </template>
 
-<script>
-import { stylizeString } from '@/lib/stylizer';
-
-export default {
-  name: 'Syntax',
-  props: {
-    code: String,
-  },
-  computed: {
-    stylizedContent() {
-      return stylizeString(this.code);
-    },
-  },
-};
-</script>
-
 <style lang="scss" scoped>
 .ide {
   font-family: $editor-font;
@@ -53,3 +37,19 @@ export default {
   color: $item;
 }
 </style>
+
+<script>
+import { stylizeString } from '@/lib/stylizer';
+
+export default {
+  name: 'Syntax',
+  props: {
+    code: String,
+  },
+  computed: {
+    stylizedContent() {
+      return stylizeString(this.code);
+    },
+  },
+};
+</script>
