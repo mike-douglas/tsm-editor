@@ -1,3 +1,9 @@
+### v1.5.3
+Date: 2021-06-22
+[Release](https://github.com/mike-douglas/tsm-editor/releases/tag/v1.5.3)
+
+* Updated some package dependencies
+
 ### v1.5.1
 Date: 2021-01-26
 [Release](https://github.com/mike-douglas/tsm-editor/releases/tag/v1.5.1)
