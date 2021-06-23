@@ -85,6 +85,7 @@ $gold: gold;
 $silver: silver;
 $copper: rgb(228, 183, 125);
 $item: rgb(205, 117, 185);
+$underlight: adjust-color($symbol, $alpha: -0.7);
 
 $kw-price-source: orange;
 $kw-value-source: green;

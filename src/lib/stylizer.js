@@ -70,7 +70,52 @@ function reformatter(string) {
   return result;
 }
 
-function stylizeString(string) {
+function findRangeOfParensEnclosingCaret(string, caret) {
+  let level = 1;
+  let startOffset = 0;
+
+  const leftCount = string.split('').map(v => (v === '(' ? 1 : 0)).reduce((p, c) => p + c, 0);
+  const rightCount = string.split('').map(v => (v === ')' ? 1 : 0)).reduce((p, c) => p + c, 0);
+
+  if (leftCount !== rightCount || leftCount === 0 || rightCount === 0) {
+    // Return a 0-range if the parens don't match in the string
+    return { startOffset: 0, endOffset: 0 };
+  }
+
+  for (let i = caret; i >= 0; i -= 1) {
+    if (string[i] === ')') {
+      level += 1;
+    } else if (string[i] === '(') {
+      level -= 1;
+    }
+
+    if (level === 0) {
+      startOffset = i + 1;
+      break;
+    }
+  }
+
+  level = 1;
+
+  let endOffset = startOffset;
+
+  for (let i = startOffset; i < string.length; i += 1) {
+    if (string[i] === '(') {
+      level += 1;
+    } else if (string[i] === ')') {
+      level -= 1;
+    }
+
+    if (level === 0) {
+      endOffset = i + 1;
+      break;
+    }
+  }
+
+  return { startOffset, endOffset };
+}
+
+function stylizeString(string, caret) {
   if (string.length === 0) {
     return '';
   }
@@ -107,19 +152,27 @@ function stylizeString(string) {
   };
 
   const span = token => `<span class="token ${classes[token.type](token)}">${token.value}</span>`;
+  const underlight = token => `<span class="token underlight ${classes[token.type](token)}">${token.value}</span>`;
 
   const lexer = new Lexer(string);
+  const parenRange = findRangeOfParensEnclosingCaret(string, caret);
 
   let token = lexer.getNextToken();
   let result = '';
 
   while (token.type !== Token.EOF) {
+    const p = lexer.currentPosition;
     const nextToken = lexer.getNextToken();
     if (token.type === Token.WHITESPACE) {
       result += token.value;
     } else if (token.type !== Token.DENOM) {
       if (nextToken.type === Token.DENOM) {
         result += `<span class="token ${classes[nextToken.type](nextToken)}">${span(token)}${nextToken.value}</span>`;
+      } else if ((token.type === Token.LPAR
+          && p === parenRange.startOffset)
+          || (token.type === Token.RPAR
+          && p === parenRange.endOffset)) {
+        result += underlight(token);
       } else {
         result += span(token);
       }
@@ -130,4 +183,4 @@ function stylizeString(string) {
   return result;
 }
 
-export { stylizeString, reformatter };
+export { stylizeString, reformatter, findRangeOfParensEnclosingCaret };

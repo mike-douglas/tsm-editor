@@ -36,6 +36,10 @@
 ::v-deep .item {
   color: $item;
 }
+
+::v-deep .underlight {
+  background-color: $underlight;
+}
 </style>
 
 <script>
@@ -45,10 +49,11 @@ export default {
   name: 'Syntax',
   props: {
     code: String,
+    caret: Number,
   },
   computed: {
     stylizedContent() {
-      return stylizeString(this.code);
+      return stylizeString(this.code, this.caret);
     },
   },
 };

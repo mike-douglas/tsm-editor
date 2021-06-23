@@ -14,4 +14,8 @@ export function isControlKey(key) {
   return Object.values(keys).filter(k => k !== keys.LEFT && k !== keys.RIGHT).includes(key);
 }
 
+export function isDirectionalKey(key) {
+  return key === keys.LEFT || key === keys.RIGHT;
+}
+
 export default keys;

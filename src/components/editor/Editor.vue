@@ -269,6 +269,10 @@ export default {
      * set of functions and variables.
      */
     onEditorCaretPositionChange({ range, position }) {
+      if (this.value === undefined) {
+        return;
+      }
+
       this.currentCaretRange = range;
 
       const searchString = this.value.substr(0, range.startOffset);
