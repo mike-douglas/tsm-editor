@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Syntax :code="content" />
+    <Syntax :code="content" :caret="caretPosition" />
   </div>
 </template>
 
@@ -19,10 +19,14 @@ export default {
   },
   data: () => ({
     content: '',
+    caretPosition: 0,
   }),
   mounted() {
     EditorEventBus.$on(events.EDITOR_INPUT, (newInput) => {
       this.content = newInput;
+    });
+    EditorEventBus.$on(events.EDITOR_CARET_CHANGED, ({ range }) => {
+      this.caretPosition = range.startOffset;
     });
   },
 };

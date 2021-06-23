@@ -12,7 +12,7 @@
 <script>
 import EditorEventBus, { events } from '@/components/editor/eventbus';
 import { getCaretPosition, getCurrentCaretRange, setCaretRange } from '@/lib/position';
-import { isControlKey } from '@/lib/keys';
+import { isControlKey, isDirectionalKey } from '@/lib/keys';
 import { reformatter } from '@/lib/stylizer';
 
 /**
@@ -89,6 +89,15 @@ export default {
         isControlKey: isControl,
       });
 
+      if (isDirectionalKey(event.keyCode)) {
+        this.$nextTick(() => {
+          EditorEventBus.$emit(events.EDITOR_CARET_CHANGED, {
+            position: getCaretPosition(),
+            range: getCurrentCaretRange(),
+          });
+        });
+      }
+
       if (isControl) {
         event.preventDefault();
         event.stopPropagation();
@@ -137,6 +146,13 @@ export default {
     },
     onClick(event) {
       EditorEventBus.$emit(events.EDITOR_CLICK, event);
+
+      this.$nextTick(() => {
+        EditorEventBus.$emit(events.EDITOR_CARET_CHANGED, {
+          position: getCaretPosition(),
+          range: getCurrentCaretRange(),
+        });
+      });
 
       return false;
     },

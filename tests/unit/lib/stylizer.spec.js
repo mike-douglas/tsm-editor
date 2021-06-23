@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import { reformatter, stylizeString } from '@/lib/stylizer.js';
+import { reformatter, stylizeString, findRangeOfParensEnclosingCaret } from '@/lib/stylizer.js';
 import { symbols, functions } from '@/lib/definitions.js';
 
 describe('stylizeString', () => {
@@ -49,6 +49,12 @@ describe('stylizeString', () => {
   it('correctly tags numeric strings', () => {
     expect(stylizeString('1234231')).toMatch('<span class="token numeric">1234231</span>');
   });
+
+  it('correctly tags enclosing parenthesis given a caret', () => {
+    expect(stylizeString(`max(10,20)`, 5)).toEqual('<span class="token function">max</span><span class="token underlight parens lparen">(</span><span class="token numeric">10</span><span class="token punc">,</span><span class="token numeric">20</span><span class="token underlight parens rparen">)</span>');
+    expect(stylizeString(`min ()`, 1)).toEqual('<span class="token function">min</span> <span class="token parens lparen">(</span><span class="token parens rparen">)</span>');
+  });
+
 });
 
 describe('reformatter', () => {
@@ -75,5 +81,25 @@ describe('reformatter', () => {
 
   it('does not add a space between a value and %', () => {
     expect(reformatter('200% DBMarket')).toEqual('200% DBMarket');
+  });
+});
+
+describe('findRangeOfParensEnclosingCaret', () => {
+  it('handles strings of just empty parens', () => {
+    expect(findRangeOfParensEnclosingCaret('()', 10)).toEqual({ startOffset: 0, endOffset: 0 });
+  });
+
+  it('handles strings of 0 length', () => {
+    expect(findRangeOfParensEnclosingCaret('', 10)).toEqual({ startOffset: 0, endOffset: 0 });
+  });
+
+  it('handles strings with mismatching parens', () => {
+    expect(findRangeOfParensEnclosingCaret('((((', 2)).toEqual({ startOffset: 0, endOffset: 0 });
+    expect(findRangeOfParensEnclosingCaret('(((())', 2)).toEqual({ startOffset: 0, endOffset: 0 });
+  });
+
+  it('handles strings with matching parens', () => {
+    expect(findRangeOfParensEnclosingCaret('a(b(c)b)a', 3)).toEqual({ startOffset: 4, endOffset: 6 });
+    expect(findRangeOfParensEnclosingCaret('a(b(c)b)a', 2)).toEqual({ startOffset: 2, endOffset: 8 });
   });
 });
