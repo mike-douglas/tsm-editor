@@ -1,3 +1,9 @@
+### v1.6.0
+Date: 2021-06-23
+[Release](https://github.com/mike-douglas/tsm-editor/releases/tag/v1.6.0)
+
+* Added parenthesis matching feature that highlights the beginning and end parenthesis enclosing where your cursor is
+
 ### v1.5.3
 Date: 2021-06-22
 [Release](https://github.com/mike-douglas/tsm-editor/releases/tag/v1.5.3)
