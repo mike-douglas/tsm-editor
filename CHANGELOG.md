@@ -1,3 +1,9 @@
+### v1.6.1
+Date: 2021-07-06
+[Release](https://github.com/mike-douglas/tsm-editor/releases/tag/v1.6.1)
+
+* Removed `DBRegionMinBuyoutAvg` source string. TSM 4.11 no longer supports this.
+
 ### v1.6.0
 Date: 2021-06-23
 [Release](https://github.com/mike-douglas/tsm-editor/releases/tag/v1.6.0)
