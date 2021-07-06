@@ -162,11 +162,6 @@ export const symbols = [
     [kwTags.PRICE_SOURCE, kwTags.TSM_AUCTION, kwTags.TSM_AUCTION_REGION],
   ),
   new TSMKeyword(
-    'DBRegionMinBuyoutAvg',
-    'The average of `DBMinBuyout` for the item calculated across all realms in your region',
-    [kwTags.PRICE_SOURCE, kwTags.TSM_AUCTION, kwTags.TSM_AUCTION_REGION],
-  ),
-  new TSMKeyword(
     'DBRegionSaleAvg',
     'The average sale and purchase price for the item in your region',
     [kwTags.PRICE_SOURCE, kwTags.TSM_AUCTION, kwTags.TSM_AUCTION_REGION],
